@@ -24,9 +24,11 @@ void CGameStateInit::OnInit()
 	//
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
 	//
-	// 開始載入資料
+	load_background();
 	//
-	Sleep(1000);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+
+	ShowInitProgress(60, "Initializing");	// 一開始的loading進度為0%
+	Sleep(200);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
@@ -48,4 +50,10 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CGameStateInit::OnShow()
 {
+	background.ShowBitmap();
+}
+
+void CGameStateInit::load_background() {
+	background.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/intromenu/sprites/DefineSprite_389_IntroMenu/intro_use.bmp" });
+	background.SetAnimation(0, 0);
 }
