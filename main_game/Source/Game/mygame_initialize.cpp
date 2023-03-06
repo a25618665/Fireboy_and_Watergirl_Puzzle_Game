@@ -51,9 +51,14 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 void CGameStateInit::OnShow()
 {
 	background.ShowBitmap();
+	button_of_play.ShowBitmap();
 }
 
 void CGameStateInit::load_background() {
+	//載入底圖及設定高度
 	background.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/intromenu/sprites/DefineSprite_389_IntroMenu/intro_use.bmp" });
 	background.SetAnimation(0, 0);
+	//載入play圖片(去背)及設定高度
+	button_of_play.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/button_of_play/buttons/DefineButton2_52_StartBtn/4.bmp" }, RGB(255, 255, 255));
+	button_of_play.SetTopLeft(275, 235);
 }

@@ -67,6 +67,8 @@ namespace game_framework {
 	private:
 		CMovingBitmap logo;				// csie的logo
 		CMovingBitmap background;       // menu的背景圖片
+		CMovingBitmap button_of_play;   //menu 的play button
+		CMovingBitmap button_of_ins;     // menu 的 instruction 
 		void          load_background(); //載入背景
 	};
 
