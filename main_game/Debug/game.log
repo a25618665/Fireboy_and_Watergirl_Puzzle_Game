@@ -1,3 +1,3 @@
 ﻿cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
   mygame_initialize.cpp
-  game.vcxproj -> C:\Users\asus\Desktop\wokspace\framewprk_practice\LeistungsstarkesGameFramework\.\Debug\game.exe
+  game.vcxproj -> C:\Users\asus\Desktop\wokspace\framewprk_practice\main_game\.\Debug\game.exe
