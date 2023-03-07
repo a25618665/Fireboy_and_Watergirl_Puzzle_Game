@@ -65,11 +65,12 @@ namespace game_framework {
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		CMovingBitmap logo;				// csie的logo
+		//CMovingBitmap logo;				// csie的logo
 		CMovingBitmap background;       // menu的背景圖片
 		CMovingBitmap button_of_play;   //menu 的play button
-		CMovingBitmap button_of_ins;     // menu 的 instruction 
+		CMovingBitmap button_of_ins;     // menu 的 instruction
 		void          load_background(); //載入背景
+		//void          load_sound();      //載入音樂
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

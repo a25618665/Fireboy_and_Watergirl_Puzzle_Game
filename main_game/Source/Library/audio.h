@@ -80,6 +80,7 @@ namespace game_framework {
 
 class CAudio {
 public:
+	 //CAudio();
 	~CAudio();
 	void           Close();						// 關閉Direct Sound介面
 	static CAudio* Instance();					// 取得CAudio的Instance

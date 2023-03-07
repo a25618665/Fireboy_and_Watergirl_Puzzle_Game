@@ -18,20 +18,22 @@ CGameStateInit::CGameStateInit(CGame *g) : CGameState(g)
 
 void CGameStateInit::OnInit()
 {
+	
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
 	//
-	load_background();
-	//
-
+	load_background(); //設定背景
+	CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/5.mp3");
+	//CAudio::Instance()->Load(2, "../ireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.mp3");
 	ShowInitProgress(60, "Initializing");	// 一開始的loading進度為0%
 	Sleep(200);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
+	//CAudio::Instance()->Play(2, TRUE);//撥放背景音樂
 }
 
 void CGameStateInit::OnBeginState()
@@ -50,15 +52,26 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CGameStateInit::OnShow()
 {
-	background.ShowBitmap();
-	button_of_play.ShowBitmap();
+	
+	background.ShowBitmap();//載入圖片
+	button_of_play.ShowBitmap();//載入PLAY圖片
 }
 
 void CGameStateInit::load_background() {
-	//載入底圖及設定高度
+	//指定底圖及設定高度
 	background.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/intromenu/sprites/DefineSprite_389_IntroMenu/intro_use.bmp" });
 	background.SetAnimation(0, 0);
-	//載入play圖片(去背)及設定高度
+	//指定play圖片(去背)及設定高度
 	button_of_play.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/button_of_play/buttons/DefineButton2_52_StartBtn/4.bmp" }, RGB(255, 255, 255));
 	button_of_play.SetTopLeft(275, 235);
 }
+
+//void CGameStateInit::load_sound() {
+	//指定背景音樂
+    // CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.wav");
+
+
+
+
+
+//}
