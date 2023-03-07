@@ -40,6 +40,12 @@ void CGameStateInit::OnBeginState()
 {
 }
 
+
+
+
+void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
+
+}
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 
@@ -59,19 +65,36 @@ void CGameStateInit::OnShow()
 
 void CGameStateInit::load_background() {
 	//指定底圖及設定高度
-	background.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/intromenu/sprites/DefineSprite_389_IntroMenu/intro_use.bmp" });
-	background.SetAnimation(0, 0);
+	background.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/intromenu/intro_use_word_removed.bmp" });
+	background.SetTopLeft(0, 0);
 	//指定play圖片(去背)及設定高度
 	button_of_play.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/button_of_play/buttons/DefineButton2_52_StartBtn/4.bmp" }, RGB(255, 255, 255));
 	button_of_play.SetTopLeft(275, 235);
+	phase = 0;
 }
 
 //void CGameStateInit::load_sound() {
 	//指定背景音樂
     // CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.wav");
-
-
-
-
-
 //}
+void CGameStateInit::load_levelmenu() {
+	level_map.LoadBitmapByString({ "../fireboy_icesister_resource/level_map/background/images/499.bmp" });
+	level_map.SetTopLeft(0, 0);
+	phase = 1;
+
+
+
+
+
+}
+void CGameStateInit::load_instruction() {
+	phase = 2;//教學為第二階段
+	instruction_manual.LoadBitmapByString({"../fireboy_icesister_resource/instruction_manual_in_manu/corner_of _backguormd/123.bmp" });
+	instruction_manual.SetTopLeft(0, 0);
+	instruction_manual.LoadBitmapByString({ "../fireboy_icesister_resource/instruction_manual_in_manu/frame_of_ins\119.bmp", "../fireboy_icesister_resource/instruction_manual_in_manu/frame_of_ins\122.bmp" });
+	instruction_manual.SetTopLeft(0, 0);
+	instruction_manual.LoadBitmapByString({});
+	instruction_manual.SetTopLeft(0, 0);
+
+}
+
