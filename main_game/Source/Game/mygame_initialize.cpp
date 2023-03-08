@@ -24,8 +24,8 @@ void CGameStateInit::OnInit()
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
-	//
 	load_background(); //設定背景
+
 	//CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/5.mp3");
 	//CAudio::Instance()->Load(2, "../ireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.mp3");
 	ShowInitProgress(60, "Initializing");	// 一開始的loading進度為0%
@@ -53,19 +53,25 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
+	if ((point.x > 0) && (point.y > 0)) {
+		
+		background.SetFrameIndexOfBitmap(1);
+
+}
 	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 
 void CGameStateInit::OnShow()
 {
+	if (phase == 0)
+		background.ShowBitmap();//載入圖片
+	//button_of_play.ShowBitmap();//載入PLAY圖片
 	
-	background.ShowBitmap();//載入圖片
-	button_of_play.ShowBitmap();//載入PLAY圖片
 }
 
 void CGameStateInit::load_background() {
 	//指定底圖及設定高度
-	background.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/intromenu/intro_use_word_removed.bmp" });
+	background.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/intromenu/intro_use_word_removed.bmp","../fireboy_icesister_resource/level_map/background/images/499.bmp" });
 	background.SetTopLeft(0, 0);
 	//指定play圖片(去背)及設定高度
 	button_of_play.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/button_of_play/buttons/DefineButton2_52_StartBtn/4.bmp" }, RGB(255, 255, 255));
@@ -77,18 +83,8 @@ void CGameStateInit::load_background() {
 	//指定背景音樂
     // CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.wav");
 //}
-void CGameStateInit::load_levelmenu() {
-	level_map.LoadBitmapByString({ "../fireboy_icesister_resource/level_map/background/images/499.bmp" });
-	level_map.SetTopLeft(0, 0);
-	phase = 1;
 
-
-
-
-
-}
 void CGameStateInit::load_instruction() {
-	phase = 2;//教學為第二階段
 	instruction_manual.LoadBitmapByString({"../fireboy_icesister_resource/instruction_manual_in_manu/corner_of _backguormd/123.bmp" });
 	instruction_manual.SetTopLeft(0, 0);
 	instruction_manual.LoadBitmapByString({ "../fireboy_icesister_resource/instruction_manual_in_manu/frame_of_ins\119.bmp", "../fireboy_icesister_resource/instruction_manual_in_manu/frame_of_ins\122.bmp" });

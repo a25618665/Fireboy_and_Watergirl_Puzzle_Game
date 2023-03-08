@@ -73,7 +73,6 @@ namespace game_framework {
 		CMovingBitmap button_of_play;   //menu 的play button
 		CMovingBitmap button_of_ins;     // menu 的 instruction
 		void          load_background(); //載入背景
-		void          load_levelmenu();
 		void          load_instruction();
 		int           phase;               //在menu的第幾個畫面
 		//void          load_sound();      //載入音樂
