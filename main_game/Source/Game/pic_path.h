@@ -1,0 +1,7 @@
+#define MENU_BG							"Resources/game_menu/background.bmp"
+#define INS							    "Resources/game_menu/ins/ins.bmp"
+#define BUTTON_PLAY						"Resources/game_menu/button/play.bmp"
+#define BUTTON_PLAY_CLICKED				"Resources/game_menu/button/play_clicked.bmp"
+#define BUTTON_INS						"Resources/game_menu/button/instructions.bmp"
+#define BUTTON_INS_CLICKED				"Resources/game_menu/button/instructions_clicked.bmp"
+#define BUTTON_OK_CLICKED				"Resources/game_menu/button/ok_clicked.bmp"
