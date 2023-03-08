@@ -25,7 +25,7 @@ void CGameStateInit::OnInit()
 	//
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
 	load_background(); //設定背景
-
+	load_diamond();
 	//CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/5.mp3");
 	//CAudio::Instance()->Load(2, "../ireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.mp3");
 	ShowInitProgress(60, "Initializing");	// 一開始的loading進度為0%
@@ -48,16 +48,30 @@ void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 }
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
+	if (phase == 1) {
 
+
+		start_in_levelmap.ShowBitmap();
+	}
+
+	
 }
+
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	if ((point.x > 0) && (point.y > 0)) {
-		
+	if ((point.x > 0) && (point.y > 0&&phase ==0 )) {
+		//start_in_levelmap.LoadBitmapByString({ "C:/Users/asus/Desktop/wokspace/framewprk_practice/fireboy_icesister_resource/level_map/diamond/shapes/568.bmp" });
+		//start_in_levelmap.SetTopLeft(150,150);
 		background.SetFrameIndexOfBitmap(1);
-
-}
+		//start_in_levelmap.ShowBitmap();
+	}
+	//if ((325>=point.x >=295 ) && (470>=point.y >=435) && phase == 0&& subphase == 1) {
+		//background.SetFrameIndexOfBitmap(0);
+	    
+	
+	
+	//}
 	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 
@@ -93,4 +107,21 @@ void CGameStateInit::load_instruction() {
 	instruction_manual.SetTopLeft(0, 0);
 
 }
+
+
+
+
+void  CGameStateInit::load_diamond() {
+	start_in_levelmap.LoadBitmapByString({ "C:/Users/asus/Desktop/wokspace/backup/OOPL2023s/material/game-framework-practice/Resources/giraffe.bmp" });
+	start_in_levelmap.SetTopLeft(295,435);
+	//subphase = 1;
+
+
+
+
+
+}
+
+
+
 
