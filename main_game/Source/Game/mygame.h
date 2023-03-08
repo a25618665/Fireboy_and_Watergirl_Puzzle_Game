@@ -39,6 +39,7 @@
 */
 
 
+#include "diamond.h" 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -74,7 +75,10 @@ namespace game_framework {
 		CMovingBitmap button_of_ins;     // menu 的 instruction
 		void          load_background(); //載入背景
 		void          load_instruction();
-		int           phase;               //在menu的第幾個畫面
+		int           phase;     //在menu的第幾個畫面 0:首頁 1: 關卡頁面 2: 教學頁面
+		diamond       start_in_levelmap;   //關卡選擇第一關  
+		int           subphase;
+		void          load_diamond();
 		//void          load_sound();      //載入音樂
 	};
 
