@@ -48,11 +48,7 @@ void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 }
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	if (phase == 1) {
-
-
-		start_in_levelmap.ShowBitmap();
-	}
+	
 
 	
 }
@@ -61,13 +57,10 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if ((point.x > 0) && (point.y > 0&&phase ==0 )) {
-		//start_in_levelmap.LoadBitmapByString({ "C:/Users/asus/Desktop/wokspace/framewprk_practice/fireboy_icesister_resource/level_map/diamond/shapes/568.bmp" });
-		//start_in_levelmap.SetTopLeft(150,150);
 		background.SetFrameIndexOfBitmap(1);
-		//start_in_levelmap.ShowBitmap();
+		start_in_levelmap.ShowBitmap();
 	}
-	//if ((325>=point.x >=295 ) && (470>=point.y >=435) && phase == 0&& subphase == 1) {
-		//background.SetFrameIndexOfBitmap(0);
+
 	    
 	
 	
