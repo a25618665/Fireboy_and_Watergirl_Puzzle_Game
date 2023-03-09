@@ -64,21 +64,25 @@ namespace game_framework {
 		void OnKeyDown(UINT, UINT, UINT)   ;
 		void OnKeyUp(UINT, UINT, UINT); 				// 處理鍵盤Up的動作
 		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
+		void OnLButtonUp(UINT nFlags, CPoint point);
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		//CMovingBitmap logo;				// csie的logo
 		CMovingBitmap background;       // menu的背景圖片
-		CMovingBitmap level_map;
-		CMovingBitmap instruction_manual;
-		CMovingBitmap button_of_play;   //menu 的play button
-		CMovingBitmap button_of_ins;     // menu 的 instruction
-		void          load_background(); //載入背景
-		void          load_instruction();
-		int           phase;     //在menu的第幾個畫面 0:首頁 1: 關卡頁面 2: 教學頁面
-		diamond       start_in_levelmap;   //關卡選擇第一關  
-		int           subphase;
-		void          load_diamond();
+		CMovingBitmap ins;              // 教學的背景圖片
+		//CMovingBitmap level_map;
+		//CMovingBitmap instruction_manual;
+		CMovingBitmap button_play;   //menu 的play button
+		CMovingBitmap button_ins;     // menu 的 instruction
+		CMovingBitmap button_ok_clicked;     // ins 的 ok按下的圖片
+		void load_background(); //載入背景
+		//void          load_instruction();
+		int phase = 0;     //在menu的第幾個畫面 0:首頁 1:教學頁面
+		int button_flag = 0;  //左鍵按下哪個按鈕 1:play 2:instructions 3:OK
+		//diamond       start_in_levelmap;   //關卡選擇第一關  
+		//int           subphase;
+		//void          load_diamond();
 		//void          load_sound();      //載入音樂
 	};
 
