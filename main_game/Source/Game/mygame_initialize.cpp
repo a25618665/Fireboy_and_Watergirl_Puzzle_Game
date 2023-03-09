@@ -6,6 +6,7 @@
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
 #include "mygame.h"
+#include "pic_path.h"
 
 using namespace game_framework;
 /////////////////////////////////////////////////////////////////////////////
@@ -18,14 +19,12 @@ CGameStateInit::CGameStateInit(CGame *g) : CGameState(g)
 
 void CGameStateInit::OnInit()
 {
-	
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
 	load_background(); //設定背景
-	load_diamond();
 	//CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/5.mp3");
 	//CAudio::Instance()->Load(2, "../ireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.mp3");
 	ShowInitProgress(60, "Initializing");	// 一開始的loading進度為0%
@@ -40,22 +39,24 @@ void CGameStateInit::OnBeginState()
 {
 }
 
-
-
-
 void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 
 }
+
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
+<<<<<<< HEAD
 	
 
 	
+=======
+
+>>>>>>> eb896a25f392a06db40e5ca2cc29106955e6b1c6
 }
-
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
+<<<<<<< HEAD
 	if ((point.x > 0) && (point.y > 0&&phase ==0 )) {
 		background.SetFrameIndexOfBitmap(1);
 		start_in_levelmap.ShowBitmap();
@@ -66,55 +67,79 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 	
 	//}
 	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+=======
+	//左鍵按下時滑鼠的座標
+	int x = point.x;
+	int y = point.y;
+	
+	if (phase == 0) {
+		if (x >= 272 && x <= 372 && y >= 238 && y <= 273) {   //判斷是否為play按鈕
+			button_flag = 1;
+			button_play.SetFrameIndexOfBitmap(1);
+		}
+		else if (x >= 201 && x <= 441 && y >= 322 && y <= 353) {   //判斷是否為instructions按鈕
+			button_flag = 2;
+			button_ins.SetFrameIndexOfBitmap(1);
+		}
+	}
+	else if (phase == 1) {
+		if (x >= 299 && x <= 348 && y >= 383 && y <= 410) {   //判斷是否為ok按鈕
+			button_flag = 3;
+		}
+	}
+}
+
+void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	if (button_flag == 1) {   //判斷是否為play按鈕
+		button_flag = 0;
+		button_play.SetFrameIndexOfBitmap(0);
+		//GotoGameState(GAME_STATE_RUN);
+	}
+	else if (button_flag == 2) {   //判斷是否為instructions按鈕
+		button_flag = 0;
+		button_ins.SetFrameIndexOfBitmap(0);
+		phase = 1;
+	}
+	else if (button_flag == 3) {   //判斷是否為ok按鈕
+		button_flag = 0;
+		phase = 0;
+	}
+>>>>>>> eb896a25f392a06db40e5ca2cc29106955e6b1c6
 }
 
 void CGameStateInit::OnShow()
 {
-	if (phase == 0)
+	if (phase == 0) {
 		background.ShowBitmap();//載入圖片
-	//button_of_play.ShowBitmap();//載入PLAY圖片
-	
+		button_play.ShowBitmap();
+		button_ins.ShowBitmap();
+	}
+	else if (phase == 1) {
+		ins.ShowBitmap();
+		if (button_flag == 3)
+			button_ok_clicked.ShowBitmap();
+	}
 }
 
 void CGameStateInit::load_background() {
-	//指定底圖及設定高度
-	background.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/intromenu/intro_use_word_removed.bmp","../fireboy_icesister_resource/level_map/background/images/499.bmp" });
+	background.LoadBitmapByString({ MENU_BG });
 	background.SetTopLeft(0, 0);
-	//指定play圖片(去背)及設定高度
-	button_of_play.LoadBitmapByString({ "../fireboy_icesister_resource/game_menu/button_of_play/buttons/DefineButton2_52_StartBtn/4.bmp" }, RGB(255, 255, 255));
-	button_of_play.SetTopLeft(275, 235);
-	phase = 0;
+
+	ins.LoadBitmapByString({ INS });
+	ins.SetTopLeft(0, 0);
+
+	button_play.LoadBitmapByString({ BUTTON_PLAY, BUTTON_PLAY_CLICKED });
+	button_play.SetTopLeft(272, 238);
+	
+	button_ins.LoadBitmapByString({ BUTTON_INS, BUTTON_INS_CLICKED });
+	button_ins.SetTopLeft(201, 322);
+
+	button_ok_clicked.LoadBitmapByString({ BUTTON_OK_CLICKED });
+	button_ok_clicked.SetTopLeft(299, 383);
 }
 
 //void CGameStateInit::load_sound() {
 	//指定背景音樂
     // CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.wav");
 //}
-
-void CGameStateInit::load_instruction() {
-	instruction_manual.LoadBitmapByString({"../fireboy_icesister_resource/instruction_manual_in_manu/corner_of _backguormd/123.bmp" });
-	instruction_manual.SetTopLeft(0, 0);
-	instruction_manual.LoadBitmapByString({ "../fireboy_icesister_resource/instruction_manual_in_manu/frame_of_ins\119.bmp", "../fireboy_icesister_resource/instruction_manual_in_manu/frame_of_ins\122.bmp" });
-	instruction_manual.SetTopLeft(0, 0);
-	instruction_manual.LoadBitmapByString({});
-	instruction_manual.SetTopLeft(0, 0);
-
-}
-
-
-
-
-void  CGameStateInit::load_diamond() {
-	start_in_levelmap.LoadBitmapByString({ "C:/Users/asus/Desktop/wokspace/backup/OOPL2023s/material/game-framework-practice/Resources/giraffe.bmp" });
-	start_in_levelmap.SetTopLeft(295,435);
-	//subphase = 1;
-
-
-
-
-
-}
-
-
-
-
