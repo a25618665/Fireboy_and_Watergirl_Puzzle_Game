@@ -39,7 +39,7 @@
 */
 
 
-#include "diamond.h" 
+
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -71,8 +71,6 @@ namespace game_framework {
 		//CMovingBitmap logo;				// csie的logo
 		CMovingBitmap background;       // menu的背景圖片
 		CMovingBitmap ins;              // 教學的背景圖片
-		//CMovingBitmap level_map;
-		//CMovingBitmap instruction_manual;
 		CMovingBitmap button_play;   //menu 的play button
 		CMovingBitmap button_ins;     // menu 的 instruction
 		CMovingBitmap button_ok_clicked;     // ins 的 ok按下的圖片
@@ -107,6 +105,13 @@ namespace game_framework {
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
+	private: 
+		void           load_background();
+		CMovingBitmap  level_map;
+		int            phase_run;
+		CMovingBitmap       d_1;
+		CMovingBitmap level_map2;
+
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

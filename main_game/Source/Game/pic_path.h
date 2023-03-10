@@ -5,3 +5,6 @@
 #define BUTTON_INS						"Resources/game_menu/button/instructions.bmp"
 #define BUTTON_INS_CLICKED				"Resources/game_menu/button/instructions_clicked.bmp"
 #define BUTTON_OK_CLICKED				"Resources/game_menu/button/ok_clicked.bmp"
+#define level_background                "Resources/game_run/level_map/background/images/499.bmp"
+#define diamond_atstart                 "Resources/game_run/level_map/diamond/shapes/570.bmp"
+#define level_background2               "Resources/game_run/level_map/background/sprites/DefineSprite_502/1.bmp"           
