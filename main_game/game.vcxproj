@@ -234,7 +234,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="RES\GAME.RC2" />
-    <None Include="Source\Game\diamond.c++" />
+    <None Include="Source\Game\diamond.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\game.cpp" />
@@ -263,6 +263,7 @@
     <ClInclude Include="Source\Game\config.h" />
     <ClInclude Include="Source\Game\diamond.h" />
     <ClInclude Include="Source\Game\mygame.h" />
+    <ClInclude Include="Source\Game\pic_path.h" />
     <ClInclude Include="Source\Library\audio.h" />
     <ClInclude Include="Source\Library\gamecore.h" />
     <ClInclude Include="Source\Library\gameutil.h" />

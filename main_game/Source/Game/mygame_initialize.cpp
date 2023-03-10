@@ -8,6 +8,8 @@
 #include "mygame.h"
 #include "pic_path.h"
 
+
+
 using namespace game_framework;
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲開頭畫面物件
@@ -45,29 +47,14 @@ void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-<<<<<<< HEAD
-	
 
-	
-=======
 
->>>>>>> eb896a25f392a06db40e5ca2cc29106955e6b1c6
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-<<<<<<< HEAD
-	if ((point.x > 0) && (point.y > 0&&phase ==0 )) {
-		background.SetFrameIndexOfBitmap(1);
-		start_in_levelmap.ShowBitmap();
-	}
 
-	    
-	
-	
-	//}
-	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
-=======
+
 	//左鍵按下時滑鼠的座標
 	int x = point.x;
 	int y = point.y;
@@ -76,6 +63,7 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 		if (x >= 272 && x <= 372 && y >= 238 && y <= 273) {   //判斷是否為play按鈕
 			button_flag = 1;
 			button_play.SetFrameIndexOfBitmap(1);
+			//GotoGameState(GAME_STATE_RUN);
 		}
 		else if (x >= 201 && x <= 441 && y >= 322 && y <= 353) {   //判斷是否為instructions按鈕
 			button_flag = 2;
@@ -94,7 +82,7 @@ void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 	if (button_flag == 1) {   //判斷是否為play按鈕
 		button_flag = 0;
 		button_play.SetFrameIndexOfBitmap(0);
-		//GotoGameState(GAME_STATE_RUN);
+		GotoGameState(GAME_STATE_RUN);
 	}
 	else if (button_flag == 2) {   //判斷是否為instructions按鈕
 		button_flag = 0;
@@ -105,7 +93,6 @@ void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 		button_flag = 0;
 		phase = 0;
 	}
->>>>>>> eb896a25f392a06db40e5ca2cc29106955e6b1c6
 }
 
 void CGameStateInit::OnShow()

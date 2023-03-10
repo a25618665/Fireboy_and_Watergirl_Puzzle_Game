@@ -1,7 +1,9 @@
-                   
+
+
 namespace game_framework {
-	class diamond:public CMovingBitmap {
-	
+	class diamond : public CMovingBitmap {
+	public:
+		diamond();
 
 
 
@@ -11,14 +13,14 @@ namespace game_framework {
 
 
 
-   };
 
-
-
-
-
-
-
-
-
+	};
 }
+
+
+
+
+
+
+
+

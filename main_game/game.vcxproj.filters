@@ -19,7 +19,7 @@
     <None Include="RES\GAME.RC2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Source\Game\diamond.c++">
+    <None Include="Source\Game\diamond.cpp">
       <Filter>MyGame</Filter>
     </None>
   </ItemGroup>
@@ -93,6 +93,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\diamond.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\pic_path.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
