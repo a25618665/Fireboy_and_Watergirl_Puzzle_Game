@@ -47,10 +47,22 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
+	//左鍵按下時滑鼠的座標
+	int x = point.x;
+	int y = point.y;
+
+	if (x >= 302 && x <= 326 && y >= 440 && y <= 468) {
+		diamond_flag = 1;
+		d_1.SetFrameIndexOfBitmap(1);
+	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
+	if (diamond_flag == 1) {   
+		diamond_flag = 0;
+		d_1.SetFrameIndexOfBitmap(0);
+	}
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -68,10 +80,7 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 void CGameStateRun::OnShow()
 {
 	if (phase_run == 0) {
-		
-		
 		level_map.ShowBitmap();
-		level_map2.ShowBitmap();
 		d_1.ShowBitmap();
     }
 }
@@ -79,11 +88,9 @@ void CGameStateRun::OnShow()
 
 void CGameStateRun::load_background() {
 	phase_run = 0;
-	level_map.LoadBitmapByString({ level_background });
+	level_map.LoadBitmapByString({ LEVEL_BG });
 	level_map.SetTopLeft(0, 0);
-	level_map2.LoadBitmapByString({ level_background2 }, RGB(0,0,0));
-	level_map2.SetTopLeft(14, 6);
     
-	d_1.LoadBitmapByString({ diamond_atstart },RGB(0, 0, 0));
-    d_1.SetTopLeft(290,430);
+	d_1.LoadBitmapByString({ DIAMOND, DIAMOND_CLICKED },RGB(255, 204, 0));
+    d_1.SetTopLeft(302,440);
 }
