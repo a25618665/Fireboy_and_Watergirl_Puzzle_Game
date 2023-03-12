@@ -109,8 +109,8 @@ namespace game_framework {
 		void           load_background();
 		CMovingBitmap  level_map;
 		int            phase_run;
+		int            diamond_flag = 0;
 		CMovingBitmap       d_1;
-		CMovingBitmap level_map2;
 
 	};
 

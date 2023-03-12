@@ -53,8 +53,6 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-
-
 	//左鍵按下時滑鼠的座標
 	int x = point.x;
 	int y = point.y;
