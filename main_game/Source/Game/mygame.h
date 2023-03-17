@@ -37,7 +37,7 @@
  *      2. Replace the demonstration of animation as a new bouncing ball.
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
-
+#include "person.h"
 
 
 namespace game_framework {
@@ -55,6 +55,7 @@ namespace game_framework {
 	// 這個class為遊戲的遊戲開頭畫面物件
 	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
+
 
 	class CGameStateInit : public CGameState {
 	public:
@@ -108,10 +109,13 @@ namespace game_framework {
 	private: 
 		void           load_background();
 		CMovingBitmap  level_map;
-		int            phase_run;
+		int            level;//0為遊戲關卡選擇1為第一關依此類推
+		int            sub_phase;//遊戲現在在哪個狀態 0:正在玩1:死亡2:破關
 		int            diamond_flag = 0;
 		CMovingBitmap       d_1;
-
+		Person girl;
+		Person boy;
+		CMovingBitmap eachlevel_background;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -130,5 +134,7 @@ namespace game_framework {
 	private:
 		int counter;	// 倒數之計數器
 	};
+
+	
 
 }

@@ -19,9 +19,6 @@
     <None Include="RES\GAME.RC2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Source\Game\diamond.cpp">
-      <Filter>MyGame</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Library\audio.cpp">
@@ -55,6 +52,9 @@
       <Filter>MyGame</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\mygame_run.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\person.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +92,7 @@
     <ClInclude Include="Source\Game\config.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\diamond.h">
+    <ClInclude Include="Source\Game\person.h">
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\pic_path.h">

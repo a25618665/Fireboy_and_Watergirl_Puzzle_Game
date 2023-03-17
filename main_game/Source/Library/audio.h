@@ -61,7 +61,7 @@
  *   2010-03-23 V4.6
  *      1. Rewrite CAudio with MCI commands to eliminate dependency with DirectMusic.
 */
-
+#pragma once
 #include <list>
 #include <vector>
 #include <map>
@@ -80,7 +80,6 @@ namespace game_framework {
 
 class CAudio {
 public:
-	 //CAudio();
 	~CAudio();
 	void           Close();						// 關閉Direct Sound介面
 	static CAudio* Instance();					// 取得CAudio的Instance
