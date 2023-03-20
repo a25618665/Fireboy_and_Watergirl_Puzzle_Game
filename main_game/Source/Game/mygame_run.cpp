@@ -41,19 +41,23 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char VK_A = 0x41;
 	const char VK_D = 0x44;
 	
-	if (nChar == VK_D) {
+	//girl
+	if (nChar == VK_D)
 		girl.setMovingRight(true);
-	}
-	else if (nChar == VK_A) {
+	else if (nChar == VK_A)
 		girl.setMovingLeft(true);
-	}
-	
-	if (nChar == VK_RIGHT) {     //向右鍵
+
+	if (nChar == VK_W)
+		girl.jump();
+
+	//boy
+	if (nChar == VK_RIGHT)     //向右鍵
 		boy.setMovingRight(true);
-	}
-	else if (nChar == VK_LEFT) {  //向左鍵
+	else if (nChar == VK_LEFT)  //向左鍵
 		boy.setMovingLeft(true);
-	}
+
+	if (nChar == VK_UP)
+		boy.jump();
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
