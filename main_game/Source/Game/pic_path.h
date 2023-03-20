@@ -26,3 +26,4 @@
 #define GIRL_LEFT_2                     "Resources/game_run/water_right/sprites/DefineSprite_839_FireBoyAndWaterGirl_fla.water_running_283/L4.bmp"    
 #define GIRL_LEFT_3                     "Resources/game_run/water_right/sprites/DefineSprite_839_FireBoyAndWaterGirl_fla.water_running_283/L1.bmp"
 #define TEMP_BG                       "Resources/test.bmp"
+#define LEVEL1_BAC                    "Resources/game_run/level_map/level_1.bmp" 
