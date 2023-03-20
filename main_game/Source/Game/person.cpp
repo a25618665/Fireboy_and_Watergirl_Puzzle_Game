@@ -22,6 +22,8 @@ void Person::init(string type)
 
 	x = 0;
 	y = 0;
+	jump_iterator = 0;
+	is_jumping = false;
 	is_moving_left = false;
 	is_moving_right = false;
 	loadImg();
@@ -82,15 +84,35 @@ int Person::getY()
 	return y;
 }
 
+void Person::jump()
+{
+	if (!is_jumping)
+	{
+		is_jumping = true;
+		jump_iterator = 0;
+	}	
+}
+
 void Person::OnMove()
 {
-	if (is_moving_left) {
+	if (is_moving_left) 
+	{
 		x -= 5;
 	}
-	else if (is_moving_right) {
+	else if (is_moving_right) 
+	{
 		x += 5;
 	}
+	
+	if (is_jumping)
+	{
+		y -= jump_velocity[jump_iterator];
+		jump_iterator++;
+		if (jump_iterator > 32)
+			is_jumping = false;
+	}
 }
+
 void Person::OnShow()
 {
 	if (is_moving_left) {
