@@ -143,7 +143,7 @@ void CGameStateRun::load_background() {
 	d_1.LoadBitmapByString({ DIAMOND, DIAMOND_CLICKED },RGB(255, 204, 0));
     d_1.SetTopLeft(302,440);
 
-	eachlevel_background.LoadBitmapByString({ LEVEL1_BAC });
+	eachlevel_background.LoadBitmapByString({ LEVEL1_BAC });//第一張為第一關第二張為第二關
 	eachlevel_background.SetTopLeft(0, 0);
 }
 
