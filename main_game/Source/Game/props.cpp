@@ -27,9 +27,13 @@ void water::load() {
 
 	}
 	else {
-		for (int i = 0; i++; i < (sizeof(water_animation) / sizeof(CMovingBitmap))) {
+		for (int i = 0; i < 4; i++) {
 			water_animation[i].LoadBitmapByString({ GREEN_WATER_1 ,GREEN_WATER_2 }, RGB(0, 0, 0));
-
+			if (i % 2 == 0) {
+				water_animation[i].SetFrameIndexOfBitmap(1);
+			}
+			water_animation[i].SetAnimation(200,FALSE);
+			
 
 
 		}
@@ -61,12 +65,15 @@ void water::set_water_type(int type_flag){
 
 }
 
-void water::type_is(){
+int water::type_is(){
 	return water_type;
 
 }
-bool is_touched();
-int get_x();
-int get_y();
+/*bool water::is_touched( int math  ){
 
+	if (math>water_animation[0].GetLeft) && (math< water_animation[3].GetLeft) 
+		) {
+		return true;
+
+	else {return false;}}      */
 

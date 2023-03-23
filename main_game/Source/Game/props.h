@@ -16,10 +16,8 @@ namespace game_framework {
 		void set_xy(int x,int y );//設置最左邊第一張動畫位置
 		void set_water_type( int type_flag) ;
 		int  water_type;//0 : blue 1:red 2:green 
-		void type_is();
-		bool is_touched();
-		int get_x();
-		int get_y();
+		int type_is();
+		bool is_touched(CMovingBitmap target);
 
 };
 
