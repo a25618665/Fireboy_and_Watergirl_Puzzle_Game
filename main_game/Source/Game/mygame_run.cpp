@@ -15,10 +15,12 @@ using namespace game_framework;
 
 CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 {
+	LEVEL1GREENWATER = new water;
 }
 
 CGameStateRun::~CGameStateRun()
 {
+	delete [] LEVEL1GREENWATER;
 }
 
 void CGameStateRun::OnBeginState()
@@ -27,12 +29,17 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
-	load_background();
-	boy.init("boy");
-	boy.setXY(60, 400);
+	
+		load_background();
+		boy.init("boy");
+		boy.setXY(60, 400);
 
-	girl.init("girl");
-	girl.setXY(36, 400);
+		girl.init("girl");
+		girl.setXY(36, 400);
+		LEVEL1GREENWATER->set_water_type(2);
+		LEVEL1GREENWATER->load();
+		LEVEL1GREENWATER->set_xy(393, 365);
+	
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -132,6 +139,9 @@ void CGameStateRun::OnShow()
 		eachlevel_background.ShowBitmap();
 		boy.OnShow();
 		girl.OnShow();
+		for (int i = 0; i < 4; i++) {
+			LEVEL1GREENWATER->water_animation[i].ShowBitmap();
+		}
 	}
 }
 
