@@ -1,13 +1,5 @@
 ﻿
-namespace game_framework {
-    class gadget{
-	public:
-		bool is_touched();
-		int get_x();
-		int get_y();
-
-
-    };
+/*namespace game_framework {
     class water  {
 	public:
 		water();
@@ -17,8 +9,8 @@ namespace game_framework {
 		void set_water_type( int type_flag) ;
 		int  water_type;//0 : blue 1:red 2:green 
 		int type_is();
-		bool is_touched(CMovingBitmap target);
+		//bool is_touched();
 
-};
+     };
 
-}
+}*/

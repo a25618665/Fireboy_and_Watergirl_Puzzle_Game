@@ -38,7 +38,7 @@
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
 #include "person.h"
-#include "props.h"
+//#include "props.h"
 
 
 namespace game_framework {
@@ -117,7 +117,7 @@ namespace game_framework {
 		Person girl;
 		Person boy;
 		CMovingBitmap eachlevel_background;
-		water *LEVEL1GREENWATER;
+		
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

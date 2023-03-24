@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../Core/Resource.h"
+/*#include "../Core/Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
 #include "../Library/audio.h"
@@ -29,9 +29,8 @@ void water::load() {
 	else {
 		for (int i = 0; i < 4; i++) {
 			water_animation[i].LoadBitmapByString({ GREEN_WATER_1 ,GREEN_WATER_2 }, RGB(0, 0, 0));
-			if (i % 2 == 0) {
-				water_animation[i].SetFrameIndexOfBitmap(1);
-			}
+			//if (i % 2 == 0) {
+				//water_animation[i].SetFrameIndexOfBitmap(1);}
 			water_animation[i].SetAnimation(200,FALSE);
 			
 
@@ -49,9 +48,9 @@ void water::load() {
 void water::set_xy(int x, int y) {
 	
 	water_animation[0].SetTopLeft(x, y);
-	water_animation[1].SetTopLeft(x +   (water_animation[0].GetWidth()), y);
-	water_animation[2].SetTopLeft(x + 2*(water_animation[0].GetWidth()), y);
-	water_animation[3].SetTopLeft(x + 3*(water_animation[0].GetWidth()), y);
+	water_animation[1].SetTopLeft(x +   (water_animation[0].GetWidth())-15, y);
+	water_animation[2].SetTopLeft(x + 2*(water_animation[0].GetWidth())-15, y);
+	water_animation[3].SetTopLeft(x + 3*(water_animation[0].GetWidth())-15, y);
 
 
 	}
@@ -69,7 +68,7 @@ int water::type_is(){
 	return water_type;
 
 }
-/*bool water::is_touched( int math  ){
+bool water::is_touched( int math  ){
 
 	if (math>water_animation[0].GetLeft) && (math< water_animation[3].GetLeft) 
 		) {
