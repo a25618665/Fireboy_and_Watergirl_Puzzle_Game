@@ -1,7 +1,6 @@
 ﻿cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
   props.cpp
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\props.cpp(74): error C3867: 'game_framework::CMovingBitmap::GetLeft': 非標準語法; 請使用 '&' 建立成員的指標
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\props.cpp(74): error C2296: '>': 不合法，左運算元具有類型 'int (__thiscall game_framework::CMovingBitmap::* )(void)'
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\props.cpp(74): error C2297: '>': 不合法，右運算元具有類型 'int (__thiscall game_framework::CMovingBitmap::* )(void)'
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\props.cpp(74): error C2296: '<': 不合法，左運算元具有類型 'int (__thiscall game_framework::CMovingBitmap::* )(void)'
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\props.cpp(74): error C2297: '<': 不合法，右運算元具有類型 'int (__thiscall game_framework::CMovingBitmap::* )(void)'
+cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
+  gameutil.cpp
+game.obj : warning LNK4075: 忽略 '/EDITANDCONTINUE'，由於 '/SAFESEH' 規格
+  game.vcxproj -> C:\Users\asus\Desktop\wokspace\FireBoy__WaterGirl_ForestTemple\main_game\.\Debug\game.exe
