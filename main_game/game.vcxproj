@@ -247,7 +247,6 @@
     <ClCompile Include="Source\Game\mygame_over.cpp" />
     <ClCompile Include="Source\Game\mygame_run.cpp" />
     <ClCompile Include="Source\Game\person.cpp" />
-    <ClCompile Include="Source\Game\props.cpp" />
     <ClCompile Include="Source\Library\audio.cpp" />
     <ClCompile Include="Source\Library\gamecore.cpp" />
     <ClCompile Include="Source\Library\gameutil.cpp">
@@ -265,7 +264,6 @@
     <ClInclude Include="Source\Game\mygame.h" />
     <ClInclude Include="Source\Game\person.h" />
     <ClInclude Include="Source\Game\pic_path.h" />
-    <ClInclude Include="Source\Game\props.h" />
     <ClInclude Include="Source\Library\audio.h" />
     <ClInclude Include="Source\Library\gamecore.h" />
     <ClInclude Include="Source\Library\gameutil.h" />
