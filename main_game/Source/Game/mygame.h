@@ -38,7 +38,6 @@
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
 #include "person.h"
-//#include "props.h"
 
 
 namespace game_framework {
@@ -114,10 +113,10 @@ namespace game_framework {
 		int            sub_phase;//遊戲現在在哪個狀態 0:正在玩1:死亡2:破關
 		int            diamond_flag = 0;
 		CMovingBitmap       d_1;
-		Person girl;
+		//Person girl;
 		Person boy;
 		CMovingBitmap eachlevel_background;
-		
+		int map[640][480];
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
