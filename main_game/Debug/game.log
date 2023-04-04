@@ -1,6 +1,3 @@
 ﻿cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
-  props.cpp
-cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
-  gameutil.cpp
-game.obj : warning LNK4075: 忽略 '/EDITANDCONTINUE'，由於 '/SAFESEH' 規格
-  game.vcxproj -> C:\Users\asus\Desktop\wokspace\FireBoy__WaterGirl_ForestTemple\main_game\.\Debug\game.exe
+  person.cpp
+  game.vcxproj -> D:\學\大三\下\C++\109820020\123\.\Debug\game.exe
