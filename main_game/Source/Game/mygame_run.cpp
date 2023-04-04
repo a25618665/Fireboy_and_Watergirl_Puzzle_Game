@@ -7,6 +7,7 @@
 #include "../Library/gamecore.h"
 #include "mygame.h"
 #include "pic_path.h"
+#include <fstream>
 using namespace game_framework;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -15,12 +16,10 @@ using namespace game_framework;
 
 CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 {
-	
 }
 
 CGameStateRun::~CGameStateRun()
 {
-	
 }
 
 void CGameStateRun::OnBeginState()
@@ -29,15 +28,27 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
-	
-		load_background();
-		boy.init("boy");
-		boy.setXY(60, 400);
+	load_background();
+	boy.init("boy");
+	boy.setXY(27, 406);
 
-		girl.init("girl");
-		girl.setXY(36, 400);
-		
+	//girl.init("girl");
+	//girl.setXY(27, 406);
+
 	
+
+	//load map
+	ifstream ifs("test_map.map");
+
+	for (int i = 0; i < 640; i++) {
+		for (int j = 0; j < 480; j++) {
+			ifs >> map[i][j];
+		}
+	}
+	ifs.close();
+
+	boy.setMap(&map);
+	//girl.setMap(&map);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -47,13 +58,13 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char VK_D = 0x44;
 	
 	//girl
-	if (nChar == VK_D)
+	/*if (nChar == VK_D)
 		girl.setMovingRight(true);
 	else if (nChar == VK_A)
 		girl.setMovingLeft(true);
 
 	if (nChar == VK_W)
-		girl.jump();
+		girl.jump();*/
 
 	//boy
 	if (nChar == VK_RIGHT)     //向右鍵
@@ -71,12 +82,12 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char VK_A = 0x41;
 	const char VK_D = 0x44;
 	
-	if (nChar == VK_D) {
+	/*if (nChar == VK_D) {
 		girl.setMovingRight(false);
 	}
 	else if (nChar == VK_A) {
 		girl.setMovingLeft(false);
-	}
+	}*/
 
 	if (nChar == VK_RIGHT) {     //向右鍵
 		boy.setMovingRight(false);
@@ -123,7 +134,7 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
 	boy.OnMove();
-	girl.OnMove();
+	//girl.OnMove();
 }
 
 void CGameStateRun::OnShow()
@@ -136,7 +147,7 @@ void CGameStateRun::OnShow()
 		//eachlevel_background.SetFrameIndexOfBitmap(level-1);
 		eachlevel_background.ShowBitmap();
 		boy.OnShow();
-		girl.OnShow();
+		//girl.OnShow();
 	}
 }
 
@@ -148,7 +159,7 @@ void CGameStateRun::load_background() {
 	d_1.LoadBitmapByString({ DIAMOND, DIAMOND_CLICKED },RGB(255, 204, 0));
     d_1.SetTopLeft(302,440);
 
-	eachlevel_background.LoadBitmapByString({ LEVEL1_BAC });//第一張為第一關第二張為第二關
+	eachlevel_background.LoadBitmapByString({ TEMP_BG });
 	eachlevel_background.SetTopLeft(0, 0);
 }
 

@@ -22,9 +22,8 @@ void Person::init(string type)
 
 	x = 0;
 	y = 0;
-	velocity = 0;
+	jump_iterator = 0;
 	is_jumping = false;
-	is_on_the_ground = true;
 	is_moving_left = false;
 	is_moving_right = false;
 	loadImg();
@@ -80,7 +79,6 @@ int Person::getX()
 {
 	return x;
 }
-
 int Person::getY()
 {
 	return y;
@@ -88,142 +86,93 @@ int Person::getY()
 
 void Person::jump()
 {
-	if (is_on_the_ground)
+	if (!is_jumping)
 	{
 		is_jumping = true;
-		velocity = 10;
-		is_on_the_ground = false;
+		jump_iterator = 0;
 	}	
 }
 
-void Person::setMap(int(*m)[640][480])
+void Person::setMap(int (*m)[480][640])
 {
 	ptr_map = m;
 }
 
 void Person::OnMove()
 {
-	if (is_moving_left)
+	if (is_moving_left) 
 	{
-		int i, j;
-		int d1 = 6;
-		for (j = 0; j < 3; j++) {
-			for (i = 0; i < 6; i++) {
-				if ((*ptr_map)[x + l_check_point[j][0] - i][y + l_check_point[j][1]])
-					break;
-			}
-			d1 = i < d1 ? i : d1;
-		}
-
-		x -= d1;
-
-		for (j = 4; j > 2; j--) {
-			for (i = 0; i < 6; i++) {
-				if ((*ptr_map)[x + l_check_point[j][0] - i][y + l_check_point[j][1]])
-					y -= 1;
+		int i;
+		for (i = 0; i < 6; i++) {
+			if ((*ptr_map)[y + 39][x + 6 - i])
 				break;
-			}
 		}
+		x -= i;
 	}
-	else if (is_moving_right)
+	else if (is_moving_right) 
 	{
-		int i, j;
-		int d1 = 6;
-		for (j = 0; j < 3; j++) {
-			for (i = 0; i < 6; i++) {
-				if ((*ptr_map)[x + r_check_point[j][0] + i][y + r_check_point[j][1]])
-					break;
-			}
-			d1 = i < d1 ? i : d1;
+		int i;
+		for (i = 0; i < 6; i++) {
+			if ((*ptr_map)[y + 39][x + 18 + i])
+				break;
 		}
-
-		x += d1;
-
-		for(j = 4; j > 2; j--) {
-			for (i = 0; i < 6; i++) {
-				if ((*ptr_map)[x + r_check_point[j][0] + i][y + r_check_point[j][1]])
-					y -= 1;
-					break;
-			}
-		}
+		x += i;
 	}
-
+	
 	if (is_jumping)
 	{
-		if (velocity > 0)
+		/*bool is_falling = true;
+		if (jump_iterator < 11)
+			is_falling = false;
+
+		int disdance = jump_velocity[jump_iterator];
+		y -= disdance;
+		jump_iterator++;
+		if (jump_iterator > 21)
+			is_jumping = false;
+
+		
+		檢查頂部是否會碰到
+		if (!is_falling)
 		{
 			int i;
-			for (i = 0; i < velocity; i++) {
-				if ((*ptr_map)[x + 7][y + 11 - i] || (*ptr_map)[x + 17][y + 11 - i])
+			for (i = 0; i < disdance; i++) {
+				if ((*ptr_map)[y + 11 - i][x + 7] || (*ptr_map)[y + 11 - i][x + 17])
 					break;
 			}
 
-			if (i == velocity)
+			if (i == disdance)
 			{
 				y -= i;
-				velocity -= 1;
+				jump_iterator++;
 			}
 			else
 			{
 				y -= i;
-				velocity = -velocity;
+				jump_iterator = 21 - jump_iterator;
 			}
 		}
 		else
 		{
 			int i;
-			for (i = 0; i > velocity; i--) {
-				if ((*ptr_map)[x + 7][y + 40 - i] || (*ptr_map)[x + 17][y + 40 - i])
+			for (i = 0; i < disdance; i++) {
+				if ((*ptr_map)[y + 40 - i][x + 7] || (*ptr_map)[y + 40 - i][x + 17])
 					break;
 			}
 
-			if (i == velocity)
+			if (i == disdance)
 			{
 				y -= i;
-				velocity -= 1;
+				jump_iterator++;
+				if (jump_iterator > 21)
+					is_jumping = false;
 			}
 			else
 			{
 				y -= i;
 				is_jumping = false;
-				is_on_the_ground = true;
 			}
-		}
-	}
-	else
-	{
-		if ((*ptr_map)[x + 7][y + 40 + 1] && !(*ptr_map)[x + 12][y + 40 + 1] && !(*ptr_map)[x + 17][y + 40 + 1])
-		{
-			y -= -1;
-			velocity = -2;
-			is_jumping = true;
-
-			int i;
-			for (i = 1; i < 5; i++) {
-				if (!(*ptr_map)[x + 7 + i][y + 40 + 1])
-					break;
-			}
-			x += i;
-		}
-		else if (!(*ptr_map)[x + 7][y + 40 + 1] && !(*ptr_map)[x + 12][y + 40 + 1] && (*ptr_map)[x + 17][y + 40 + 1])
-		{
-			y -= -1;
-			velocity = -2;
-			is_jumping = true;
-
-			int i;
-			for (i = 1; i < 5; i++) {
-				if (!(*ptr_map)[x + 17 - i][y + 40 + 1])
-					break;
-			}
-			x -= i;
-		}
-		else if (!(*ptr_map)[x + 7][y + 40 + 1] && !(*ptr_map)[x + 12][y + 40 + 1] && !(*ptr_map)[x + 17][y + 40 + 1])
-		{
-			y -= -1;
-			velocity = -2;
-			is_jumping = true;
-		}
+		}*/
 	}
 }
 

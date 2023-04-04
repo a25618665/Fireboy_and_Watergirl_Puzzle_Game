@@ -29,8 +29,8 @@ void CGameStateInit::OnInit()
 	load_background(); //設定背景
 	//CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/5.mp3");
 	//CAudio::Instance()->Load(2, "../ireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.mp3");
-	ShowInitProgress(60, "Initializing");	// 一開始的loading進度為0%
-	Sleep(200);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	ShowInitProgress(20, "Initializing");	// 一開始的loading進度為0%
+	//Sleep(100);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
