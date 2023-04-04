@@ -16,10 +16,15 @@ using namespace game_framework;
 
 CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 {
-}
+	level1_red = new Diamond[4];
+	level1_blue = new Diamond[4];
+
+}   
 
 CGameStateRun::~CGameStateRun()
 {
+	delete level1_red;
+	delete level1_blue;
 }
 
 void CGameStateRun::OnBeginState()
@@ -29,6 +34,7 @@ void CGameStateRun::OnBeginState()
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	load_background();
+	load_level1();
 	boy.init("boy");
 	boy.setXY(27, 406);
 
@@ -147,12 +153,8 @@ void CGameStateRun::OnShow()
 		//eachlevel_background.SetFrameIndexOfBitmap(level-1);
 		eachlevel_background.ShowBitmap();
 		boy.OnShow();
-<<<<<<< HEAD
-		girl.OnShow();
+		level1_onshow();
 
-=======
-		//girl.OnShow();
->>>>>>> b4ccec2c0ff427b0abc04e633533fc8d747a83f6
 	}
 }
 
@@ -166,6 +168,7 @@ void CGameStateRun::load_background() {
 
 	eachlevel_background.LoadBitmapByString({ TEMP_BG });
 	eachlevel_background.SetTopLeft(0, 0);
+	
 }
 
 //void CGameStateRun::load_char() {
@@ -199,3 +202,40 @@ void CGameStateRun::load_background() {
 //
 //
 //}
+void CGameStateRun::load_level1() {
+
+	for (int i = 0; i < 4; i++) {
+		level1_red[i].DiamondPic.LoadBitmapByString({RED_1,RED_2}, RGB(0, 0, 0));
+		level1_red[i].DiamondPic.SetAnimation(400, FALSE);
+		level1_blue[i].DiamondPic.LoadBitmapByString({ BLUE_1,BLUE_2 }, RGB(0, 0, 0));
+		level1_blue[i].DiamondPic.SetAnimation(400, FALSE);
+	    
+
+	}
+	level1_red[0].init(339, 425);
+	level1_red[1].init(131,215);
+	level1_red[2].init(176,40);
+	level1_red[3].init(301,75);
+	level1_blue[0].init(465, 423);
+	level1_blue[1].init(356, 224);
+	level1_blue[2].init(40, 75);
+	level1_blue[3].init(374, 65);
+
+
+
+
+}
+void CGameStateRun::level1_onshow() {
+
+
+
+	for (int i = 0; i < 4; i++) {
+		
+		level1_red[i].OnShow();
+		level1_blue[i].OnShow();
+		
+	}
+
+
+
+}

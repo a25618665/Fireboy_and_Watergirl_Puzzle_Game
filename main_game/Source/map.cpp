@@ -1,4 +1,4 @@
-//#include "stdafx.h"
+#include "stdafx.h"
 //#include "../Core/Resource.h"
 //#include <mmsystem.h>
 //#include <ddraw.h>
@@ -12,4 +12,3 @@
 //Map::Map()
 //{
 //}
-//

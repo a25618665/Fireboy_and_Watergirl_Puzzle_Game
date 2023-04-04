@@ -38,6 +38,7 @@
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
 #include "person.h"
+#include "diamond.h"
 
 
 namespace game_framework {
@@ -107,6 +108,8 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private: 
+		void           load_level1(); 
+		void           level1_onshow();
 		void           load_background();
 		CMovingBitmap  level_map;
 		int            level;//0為遊戲關卡選擇1為第一關依此類推
@@ -117,6 +120,8 @@ namespace game_framework {
 		Person boy;
 		CMovingBitmap eachlevel_background;
 		int map[640][480];
+		Diamond  *level1_red;
+		Diamond  *level1_blue;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

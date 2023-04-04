@@ -1,3 +1,4 @@
-﻿cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
-  person.cpp
-  game.vcxproj -> D:\學\大三\下\C++\109820020\123\.\Debug\game.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(944,5): warning MSB8027: 兩個或多個名稱為 'person.cpp' 的檔案會產生輸出到相同位置。這可能導致錯誤的組建結果。涉及的檔案是 Source\Game\person.cpp, Source\person.cpp。
+cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
+  mygame_run.cpp
+  game.vcxproj -> C:\Users\asus\Desktop\wokspace\FireBoy__WaterGirl_ForestTemple\main_game\.\Debug\game.exe
