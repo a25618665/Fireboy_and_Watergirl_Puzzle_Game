@@ -137,6 +137,7 @@ void CGameStateRun::OnShow()
 		eachlevel_background.ShowBitmap();
 		boy.OnShow();
 		girl.OnShow();
+
 	}
 }
 
