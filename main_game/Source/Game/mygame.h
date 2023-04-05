@@ -39,6 +39,7 @@
 */
 #include "person.h"
 #include "diamond.h"
+#include "button.h"
 
 
 namespace game_framework {
@@ -122,6 +123,8 @@ namespace game_framework {
 		int map[640][480];
 		Diamond  *level1_red;
 		Diamond  *level1_blue;
+		Button   *level1_purple_button;
+
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
