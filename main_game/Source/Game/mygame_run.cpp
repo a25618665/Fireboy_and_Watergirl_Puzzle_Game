@@ -19,6 +19,8 @@ CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 	level1_red = new Diamond[4];
 	level1_blue = new Diamond[4];
 	level1_purple_button = new Button[2];
+	level1_platform = new PlatForm[2];
+	level1_door = new Door[2];
 }   
 
 CGameStateRun::~CGameStateRun()
@@ -26,6 +28,9 @@ CGameStateRun::~CGameStateRun()
 	delete level1_red;
 	delete level1_blue;
 	delete level1_purple_button;
+	delete level1_door;
+	delete level1_platform;
+
 }
 
 void CGameStateRun::OnBeginState()
@@ -216,8 +221,18 @@ void CGameStateRun::load_level1() {
 	for (int i = 0; i < 2; i++) {
 		level1_purple_button[i].buttonPic.LoadBitmapByString({ PURPLE_BUTTON }, RGB(0, 0, 0));
 	}
+	//platform init 
+	level1_platform[0].init(24,244,2);
+	level1_platform[1].init(562,198,1);
+	//door init 
+	level1_door[0].init(511,51,0);
+	level1_door[1].init(563,51,1);
+
+	//button init 
 	level1_purple_button[0].init(165,229);
 	level1_purple_button[1].init(478,165);
+
+	//diamond init 
 	level1_red[0].init(339, 425);
 	level1_red[1].init(131,215);
 	level1_red[2].init(176,40);
@@ -235,16 +250,19 @@ void CGameStateRun::level1_onshow() {
 
 
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++) {//顯示所有寶石
 		
 		level1_red[i].OnShow();
 		level1_blue[i].OnShow();
 		
 	}
-	for ( int i = 0; i < 2; i++) {
+	for ( int i = 0; i < 2; i++) {//顯示所有按鈕
 		level1_purple_button[i].OnShow();
 
 	}
+	for (int i = 0; i < 2; i++) {//顯示所有升降平台
+		level1_platform[i].OnShow();
 
+	}
 
 }
