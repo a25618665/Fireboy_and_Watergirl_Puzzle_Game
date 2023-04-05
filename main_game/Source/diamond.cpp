@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "Resource.h"
+﻿#include "stdafx.h"
+#include "../Core/Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
 #include "../Library/audio.h"
@@ -15,17 +15,17 @@ namespace game_framework {
 	{
 		x = coordinateX;
 		y = coordinateY;
-		isTouch = false;
+		
 	}
 	void Diamond::OnShow()
 	{
 		DiamondPic.SetTopLeft(x, y);
-		if (isTouch == false) DiamondPic.ShowBitmap();
+		DiamondPic.ShowBitmap();
 	}
-	void Diamond::Touch()
+	/*bool Diamond::isTouch()
 	{
-		isTouch = true;
-	}
+		
+	}*/
 	int Diamond::GetX()
 	{
 		return x;
