@@ -40,6 +40,8 @@
 #include "person.h"
 #include "diamond.h"
 #include "button.h"
+#include "platform.h"
+#include "door.h"
 
 
 namespace game_framework {
@@ -124,7 +126,8 @@ namespace game_framework {
 		Diamond  *level1_red;
 		Diamond  *level1_blue;
 		Button   *level1_purple_button;
-
+		PlatForm *level1_platform;
+		Door     *level1_door;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

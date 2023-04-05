@@ -33,4 +33,6 @@
 #define RED_2                           "Resources/game_run/diamond/red/red_2.bmp"
 #define BLUE_1                          "Resources/game_run/diamond/blue/blue1.bmp"
 #define BLUE_2                          "Resources/game_run/diamond/blue/blue2.bmp"
-#define PURPLE_BUTTON                   "Resources/game_run/button/button_purple.bmp"  
+#define PURPLE_BUTTON                   "Resources/game_run/button/button_purple.bmp"
+#define PURPLE_PLAT                     "Resources/game_run/platform/platform_purple.bmp"
+#define YELLOW_PLAT                     "Resources/game_run/platform/platform_yellow.bmp"
