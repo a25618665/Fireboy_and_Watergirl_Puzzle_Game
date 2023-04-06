@@ -3,6 +3,7 @@ namespace game_framework {
 	public:
 		Diamond();
 		int color;
+		void OnMove(const CRect & person_body);
 		void OnShow();
 		void Touch();
 		void init(int x, int y);
@@ -12,5 +13,7 @@ namespace game_framework {
 		bool isTouch();
 	private:
 		int x, y;
+		CRect body;
+		bool is_showing;
 	};
 }

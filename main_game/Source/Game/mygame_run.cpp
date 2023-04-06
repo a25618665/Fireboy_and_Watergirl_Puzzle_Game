@@ -42,25 +42,16 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	load_background();
 	load_level1();
 	boy.init("boy");
-	boy.setXY(27, 406);
+	boy.setXY(35, 416);
 
 	//girl.init("girl");
 	//girl.setXY(27, 406);
 
 	
 
-	//load map
-	ifstream ifs("test_map.map");
-
-	for (int i = 0; i < 640; i++) {
-		for (int j = 0; j < 480; j++) {
-			ifs >> map[i][j];
-		}
-	}
-	ifs.close();
-
+	
+	LoadMap(1);
 	boy.setMap(&map);
-	//girl.setMap(&map);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -146,6 +137,12 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
 	boy.OnMove();
+
+	CRect boy_body = boy.GetBody();
+	for (int i = 0; i < 4; i++) {
+		level1_red[i].OnMove(boy_body);
+	}
+	
 	//girl.OnMove();
 }
 
@@ -265,4 +262,17 @@ void CGameStateRun::level1_onshow() {
 
 	}
 
+}
+
+void CGameStateRun::LoadMap(int level)
+{
+	ifstream ifs( MAP_TEMPLATE );
+
+	for (int i = 0; i < 640; i++) {
+		for (int j = 0; j < 480; j++) {
+			ifs >> map[i][j];
+		}
+	}
+
+	ifs.close();
 }

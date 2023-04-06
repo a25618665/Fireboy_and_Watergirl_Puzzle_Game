@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "../Core/Resource.h"
+#include "../../Core/Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
-#include "../Library/audio.h"
-#include "../Library/gameutil.h"
-#include "../Library/gamecore.h"
-#include "pic_path.h"
+#include "../../Library/audio.h"
+#include "../../Library/gameutil.h"
+#include "../../Library/gamecore.h"
+#include "../pic_path.h"
 #include "person.h"
 using namespace game_framework;
 
@@ -28,6 +28,11 @@ void Person::init(string type)
 	is_moving_left = false;
 	is_moving_right = false;
 	loadImg();
+
+	body_offset.left = 7;
+	body_offset.top = 11;
+	body_offset.right = 17;
+	body_offset.bottom = 39;
 }
 
 void Person::loadImg()
@@ -84,6 +89,16 @@ int Person::getX()
 int Person::getY()
 {
 	return y;
+}
+
+CRect Person::GetBody()
+{
+	CRect c;
+	c.left = x + body_offset.left;
+	c.top = y + body_offset.top;
+	c.right = x + body_offset.right;
+	c.bottom = y + body_offset.bottom;
+	return c;
 }
 
 void Person::jump()

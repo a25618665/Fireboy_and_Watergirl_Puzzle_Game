@@ -37,11 +37,11 @@
  *      2. Replace the demonstration of animation as a new bouncing ball.
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
-#include "person.h"
-#include "diamond.h"
-#include "button.h"
-#include "platform.h"
-#include "door.h"
+#include "GameObject/person.h"
+#include "GameObject/diamond.h"
+#include "GameObject/button.h"
+#include "GameObject/platform.h"
+#include "GameObject/door.h"
 
 
 namespace game_framework {
@@ -114,6 +114,8 @@ namespace game_framework {
 		void           load_level1(); 
 		void           level1_onshow();
 		void           load_background();
+		void LoadMap(int level);
+
 		CMovingBitmap  level_map;
 		int            level;//0為遊戲關卡選擇1為第一關依此類推
 		int            sub_phase;//遊戲現在在哪個狀態 0:正在玩1:死亡2:破關

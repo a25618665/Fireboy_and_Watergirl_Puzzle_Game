@@ -11,6 +11,7 @@ namespace game_framework {
 		void setMovingRight(bool flag);
 		int getX();
 		int getY();
+		CRect GetBody();
 		void jump();
 		void setMap(int (*ptr_map)[640][480]);
 		void OnMove();
@@ -29,5 +30,6 @@ namespace game_framework {
 		int (*ptr_map)[640][480];
 		const int r_check_point[5][2] = { {18, 12}, {18, 25}, {18, 37}, {18, 38}, {18, 39} };
 		const int l_check_point[5][2] = { {6, 12}, {6, 25}, {6, 37}, {6, 38}, {6, 39} };
+		CRect body_offset;
 	};
 }

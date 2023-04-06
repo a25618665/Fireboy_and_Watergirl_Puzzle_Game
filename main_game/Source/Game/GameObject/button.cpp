@@ -1,12 +1,12 @@
 ﻿#include "stdafx.h"
-#include "../Core/Resource.h"
+#include "../../Core/Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
-#include "../Library/audio.h"
-#include "../Library/gameutil.h"
-#include "../Library/gamecore.h"
-#include "../Game/button.h"
-#include "pic_path.h"
+#include "../../Library/audio.h"
+#include "../../Library/gameutil.h"
+#include "../../Library/gamecore.h"
+#include "button.h"
+#include "../pic_path.h"
 
 namespace game_framework {
 	Button::Button()
