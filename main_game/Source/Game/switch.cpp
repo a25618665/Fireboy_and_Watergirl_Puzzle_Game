@@ -66,8 +66,8 @@ namespace game_framework {
 			is_right = false;
 
 		}
-		else if (person_body.top < body.top && person_body.bottom > body.bottom &&
-			person_body.right > body.left + 5 && person_body.right > body.left){
+		else if (person_body.top < body.top && person_body.bottom < body.bottom &&
+			person_body.right > body.left  && person_body.right < body.left+20){
 			
 
 			is_right = true;
