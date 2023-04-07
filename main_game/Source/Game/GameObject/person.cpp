@@ -167,79 +167,162 @@ void Person::OnMove()
 
 	if (is_jumping)
 	{
-		if (velocity > 0)
+		if (is_boy)
 		{
-			int i;
-			for (i = 0; i < velocity; i++) {
-				if ((*map)[x + 7][y + 11 - i] || (*map)[x + 17][y + 11 - i])
-					break;
-			}
-
-			if (i == velocity)
+			if (velocity > 0)
 			{
-				y -= i;
-				velocity -= 1;
+				int i;
+				for (i = 0; i < velocity; i++) {
+					if ((*map)[x + 7][y + 11 - i] || (*map)[x + 17][y + 11 - i])
+						break;
+				}
+
+				if (i == velocity)
+				{
+					y -= i;
+					velocity -= 1;
+				}
+				else
+				{
+					y -= i;
+					velocity = -velocity;
+				}
 			}
 			else
 			{
-				y -= i;
-				velocity = -velocity;
+				int i;
+				for (i = 0; i > velocity; i--) {
+					if ((*map)[x + 7][y + 40 - i] || (*map)[x + 17][y + 40 - i])
+						break;
+				}
+
+				if (i == velocity)
+				{
+					y -= i;
+					velocity -= 1;
+				}
+				else
+				{
+					y -= i;
+					is_jumping = false;
+					is_on_the_ground = true;
+				}
 			}
 		}
-		else
+		else //girl
 		{
-			int i;
-			for (i = 0; i > velocity; i--) {
-				if ((*map)[x + 7][y + 40 - i] || (*map)[x + 17][y + 40 - i])
-					break;
-			}
-
-			if (i == velocity)
+			if (velocity > 0)
 			{
-				y -= i;
-				velocity -= 1;
+				int i;
+				for (i = 0; i < velocity; i++) {
+					if ((*map)[x + 6][y + 6 - i] || (*map)[x + 16][y + 6 - i])
+						break;
+				}
+
+				if (i == velocity)
+				{
+					y -= i;
+					velocity -= 1;
+				}
+				else
+				{
+					y -= i;
+					velocity = -velocity;
+				}
 			}
 			else
 			{
-				y -= i;
-				is_jumping = false;
-				is_on_the_ground = true;
+				int i;
+				for (i = 0; i > velocity; i--) {
+					if ((*map)[x + 6][y + 35 - i] || (*map)[x + 16][y + 35 - i])
+						break;
+				}
+
+				if (i == velocity)
+				{
+					y -= i;
+					velocity -= 1;
+				}
+				else
+				{
+					y -= i;
+					is_jumping = false;
+					is_on_the_ground = true;
+				}
 			}
 		}
 	}
 	else
 	{
-		if ((*map)[x + 7][y + 40 + 1] && !(*map)[x + 12][y + 40 + 1] && !(*map)[x + 17][y + 40 + 1])
+		if (is_boy)
 		{
-			y -= -1;
-			velocity = -2;
-			is_jumping = true;
+			if ((*map)[x + 7][y + 40 + 1] && !(*map)[x + 12][y + 40 + 1] && !(*map)[x + 17][y + 40 + 1])
+			{
+				y -= -1;
+				velocity = -2;
+				is_jumping = true;
 
-			int i;
-			for (i = 1; i < 5; i++) {
-				if (!(*map)[x + 7 + i][y + 40 + 1])
-					break;
+				int i;
+				for (i = 1; i < 5; i++) {
+					if (!(*map)[x + 7 + i][y + 40 + 1])
+						break;
+				}
+				x += i;
 			}
-			x += i;
-		}
-		else if (!(*map)[x + 7][y + 40 + 1] && !(*map)[x + 12][y + 40 + 1] && (*map)[x + 17][y + 40 + 1])
-		{
-			y -= -1;
-			velocity = -2;
-			is_jumping = true;
+			else if (!(*map)[x + 7][y + 40 + 1] && !(*map)[x + 12][y + 40 + 1] && (*map)[x + 17][y + 40 + 1])
+			{
+				y -= -1;
+				velocity = -2;
+				is_jumping = true;
 
-			int i;
-			for (i = 1; i < 5; i++) {
-				if (!(*map)[x + 17 - i][y + 40 + 1])
-					break;
+				int i;
+				for (i = 1; i < 5; i++) {
+					if (!(*map)[x + 17 - i][y + 40 + 1])
+						break;
+				}
+				x -= i;
 			}
-			x -= i;
+			else if (!(*map)[x + 7][y + 40 + 1] && !(*map)[x + 12][y + 40 + 1] && !(*map)[x + 17][y + 40 + 1])
+			{
+				y -= -1;
+				velocity = -2;
+				is_jumping = true;
+			}
 		}
-		else if (!(*map)[x + 7][y + 40 + 1] && !(*map)[x + 12][y + 40 + 1] && !(*map)[x + 17][y + 40 + 1])
+		else //girl
 		{
-			y -= -1;
-			velocity = -2;
-			is_jumping = true;
+			if ((*map)[x + 6][y + 35 + 1] && !(*map)[x + 11][y + 35 + 1] && !(*map)[x + 16][y + 35 + 1])
+			{
+				y -= -1;
+				velocity = -2;
+				is_jumping = true;
+
+				int i;
+				for (i = 1; i < 5; i++) {
+					if (!(*map)[x + 6 + i][y + 35 + 1])
+						break;
+				}
+				x += i;
+			}
+			else if (!(*map)[x + 6][y + 35 + 1] && !(*map)[x + 11][y + 35 + 1] && (*map)[x + 16][y + 35 + 1])
+			{
+				y -= -1;
+				velocity = -2;
+				is_jumping = true;
+
+				int i;
+				for (i = 1; i < 5; i++) {
+					if (!(*map)[x + 16 - i][y + 35 + 1])
+						break;
+				}
+				x -= i;
+			}
+			else if (!(*map)[x + 6][y + 35 + 1] && !(*map)[x + 11][y + 35 + 1] && !(*map)[x + 16][y + 35 + 1])
+			{
+				y -= -1;
+				velocity = -2;
+				is_jumping = true;
+			}
 		}
 	}
 }
