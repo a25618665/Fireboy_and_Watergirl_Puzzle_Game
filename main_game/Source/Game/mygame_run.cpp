@@ -41,17 +41,17 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	load_background();
 	load_level1();
-	boy.init("boy");
-	boy.setXY(35, 416);
-
-	//girl.init("girl");
-	//girl.setXY(27, 406);
+	boy.Init("boy");
+	boy.SetXY(35, 416);
+	girl.Init("girl");
+	girl.SetXY(37, 356);
 
 	
 
 	
 	LoadMap(1);
-	boy.setMap(&map);
+	boy.SetMap(&map);
+	girl.SetMap(&map);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -61,22 +61,22 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char VK_D = 0x44;
 	
 	//girl
-	/*if (nChar == VK_D)
-		girl.setMovingRight(true);
+	if (nChar == VK_D)
+		girl.SetMovingRight(true);
 	else if (nChar == VK_A)
-		girl.setMovingLeft(true);
+		girl.SetMovingLeft(true);
 
 	if (nChar == VK_W)
-		girl.jump();*/
+		girl.Jump();
 
 	//boy
 	if (nChar == VK_RIGHT)     //向右鍵
-		boy.setMovingRight(true);
+		boy.SetMovingRight(true);
 	else if (nChar == VK_LEFT)  //向左鍵
-		boy.setMovingLeft(true);
+		boy.SetMovingLeft(true);
 
 	if (nChar == VK_UP)
-		boy.jump();
+		boy.Jump();
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -85,18 +85,18 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char VK_A = 0x41;
 	const char VK_D = 0x44;
 	
-	/*if (nChar == VK_D) {
-		girl.setMovingRight(false);
+	if (nChar == VK_D) {
+		girl.SetMovingRight(false);
 	}
 	else if (nChar == VK_A) {
-		girl.setMovingLeft(false);
-	}*/
+		girl.SetMovingLeft(false);
+	}
 
 	if (nChar == VK_RIGHT) {     //向右鍵
-		boy.setMovingRight(false);
+		boy.SetMovingRight(false);
 	}
 	else if (nChar == VK_LEFT) {  //向左鍵
-		boy.setMovingLeft(false);
+		boy.SetMovingLeft(false);
 	}
 }
 
@@ -115,7 +115,7 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	if (diamond_flag == 1) {   
+	if (diamond_flag == 1) {
 		diamond_flag = 0;
 		d_1.SetFrameIndexOfBitmap(0);
 		level = 1;
@@ -137,10 +137,13 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
 	boy.OnMove();
+	girl.OnMove();
 
 	CRect boy_body = boy.GetBody();
+	CRect girl_body = girl.GetBody();
 	for (int i = 0; i < 4; i++) {
 		level1_red[i].OnMove(boy_body);
+		level1_blue[i].OnMove(girl_body);
 	}
 	
 	//girl.OnMove();
@@ -156,6 +159,7 @@ void CGameStateRun::OnShow()
 		//eachlevel_background.SetFrameIndexOfBitmap(level-1);
 		eachlevel_background.ShowBitmap();
 		boy.OnShow();
+		girl.OnShow();
 		level1_onshow();
 
 	}
@@ -171,7 +175,6 @@ void CGameStateRun::load_background() {
 
 	eachlevel_background.LoadBitmapByString({ TEMP_BG });
 	eachlevel_background.SetTopLeft(0, 0);
-	
 }
 
 //void CGameStateRun::load_char() {
