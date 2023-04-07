@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "../Core/Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
@@ -22,16 +22,14 @@ namespace game_framework {
 		y = coordinateY;
 		body.left = x;
 		body.top = y;
-		body.right = x + right.GetWidth;
-		body.bottom = y + right.GetHeight;
 		color = COLOR;
 		moving_status = 0;
-		is_right = true; //πw≥]¨∞¶V•k
+		is_right = true; //È†êË®≠ÁÇ∫ÂêëÂè≥
 		switch (color) {
 
-		case 1:
-			right.LoadBitmap(, RGB(0, 0, 0));
-			left.LoadBitmap(, RGB(0, 0, 0));
+		case 0:
+			right.LoadBitmap( SWITCH_RIGHT, RGB(0, 0, 0));
+			left.LoadBitmap(SWITCH_LEFT, RGB(0, 0, 0));
 			break;
 		case 2:
 			//right.LoadBitmap(, RGB(0, 0, 0));
@@ -39,19 +37,23 @@ namespace game_framework {
 			break;
 
 		}
+		body.right = x + right.GetWidth();
+		body.bottom = y + right.GetHeight();
 
 
 
 	}
 	void Switch::OnShow()
 	{
+		right.SetTopLeft(x, y);
+		left.SetTopLeft(x, y);
 		if (is_right) {
-			right.SetTopLeft(x, y);
+			
 			right.ShowBitmap();
 
 		}
 		else  {
-			left.SetTopLeft(x, y);
+			
 			left.ShowBitmap();
 		}
 	}
@@ -59,8 +61,17 @@ namespace game_framework {
 	void Switch::OnMove(const CRect & person_body) {
 
 
-		if (person_body.top < body.bottom && person_body.bottom > body.top &&
-			person_body.left < body.right && person_body.right > body.left) {
+		if (person_body.top < body.top && person_body.bottom < body.bottom &&
+			person_body.left > body.right-20 && person_body.left < body.right) {
+			is_right = false;
+
+		}
+		else if (person_body.top < body.top && person_body.bottom > body.bottom &&
+			person_body.right > body.left + 5 && person_body.right > body.left){
+			
+
+			is_right = true;
+
 
 		}
 
@@ -70,7 +81,7 @@ namespace game_framework {
 
 
 
-	int Switch::GetY()
+	/*int Switch::GetY()
 		{
 			return x;
 		}
@@ -78,7 +89,7 @@ namespace game_framework {
 		{
 			return y;
 		}
-
+		*/
 		
 
 
@@ -100,4 +111,4 @@ namespace game_framework {
 
 
 
-}*/
+}

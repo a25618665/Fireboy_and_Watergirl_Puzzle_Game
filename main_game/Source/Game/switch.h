@@ -10,41 +10,13 @@ namespace game_framework {
 		int GetX();
 		int GetY();
 		bool is_right;
-		int x, y ,color;
+		int x, y ,color;/// color 0: yellow 
 		int moving_status; //1:left 0:right 
 		CMovingBitmap right;
 		CMovingBitmap left;
 		CRect body;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	}
+	};
 
 
 

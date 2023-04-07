@@ -42,6 +42,7 @@
 #include "GameObject/button.h"
 #include "GameObject/platform.h"
 #include "GameObject/door.h"
+#include "switch.h"
 
 
 namespace game_framework {
@@ -130,6 +131,7 @@ namespace game_framework {
 		Button   *level1_purple_button;
 		PlatForm *level1_platform;
 		Door     *level1_door;
+		Switch   *level1_switch;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
