@@ -37,3 +37,5 @@
 #define PURPLE_BUTTON                   "Resources/game_run/button/button_purple.bmp"
 #define PURPLE_PLAT                     "Resources/game_run/platform/platform_purple.bmp"
 #define YELLOW_PLAT                     "Resources/game_run/platform/platform_yellow.bmp"
+#define SWITCH_RIGHT                    "Resources/game_run/switch/switch_right.bmp"
+#define SWITCH_LEFT                     "Resources/game_run/switch/switch.left.bmp"

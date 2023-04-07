@@ -21,6 +21,7 @@ CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 	level1_purple_button = new Button[2];
 	level1_platform = new PlatForm[2];
 	level1_door = new Door[2];
+	level1_switch = new Switch[1];
 }   
 
 CGameStateRun::~CGameStateRun()
@@ -30,7 +31,7 @@ CGameStateRun::~CGameStateRun()
 	delete level1_purple_button;
 	delete level1_door;
 	delete level1_platform;
-
+	delete level1_switch;
 }
 
 void CGameStateRun::OnBeginState()
@@ -145,6 +146,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		level1_red[i].OnMove(boy_body);
 		level1_blue[i].OnMove(girl_body);
 	}
+	level1_switch[0].OnMove(boy_body);
 	
 	//girl.OnMove();
 }
@@ -223,25 +225,26 @@ void CGameStateRun::load_level1() {
 	}
 	//platform init 
 	level1_platform[0].init(24,244,2);
-	level1_platform[1].init(562,198,1);
+	level1_platform[1].init(555,198,1);
 	//door init 
-	level1_door[0].init(511,51,0);
-	level1_door[1].init(563,51,1);
+	level1_door[0].init(511,5,0);
+	level1_door[1].init(563,5,1);
 
 	//button init 
-	level1_purple_button[0].init(165,229);
-	level1_purple_button[1].init(478,165);
+	level1_purple_button[0].init(165,235);
+	level1_purple_button[1].init(478,175);
 
 	//diamond init 
-	level1_red[0].init(339, 425);
-	level1_red[1].init(131,215);
-	level1_red[2].init(176,40);
-	level1_red[3].init(301,75);
-	level1_blue[0].init(465, 423);
-	level1_blue[1].init(356, 224);
-	level1_blue[2].init(40, 75);
-	level1_blue[3].init(374, 65);
-
+	level1_red[0].init(333, 423);
+	level1_red[1].init(129,213);
+	level1_red[2].init(174,38);
+	level1_red[3].init(299,73);
+	level1_blue[0].init(463, 421);
+	level1_blue[1].init(354, 222);
+	level1_blue[2].init(38, 73);
+	level1_blue[3].init(372, 63);
+	// switch init 
+	level1_switch[0].init(163,302,0);
 
 
 
@@ -264,6 +267,11 @@ void CGameStateRun::level1_onshow() {
 		level1_platform[i].OnShow();
 
 	}
+	level1_door[0].OnShow();
+	level1_door[1].OnShow();//顯示door
+
+
+	level1_switch[0].OnShow();//顯示switch
 
 }
 
