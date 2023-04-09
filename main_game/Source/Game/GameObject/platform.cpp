@@ -7,6 +7,7 @@
 #include "../../Library/gamecore.h"
 #include "platform.h"
 #include  "../pic_path.h"
+#include "switch.h"
 
 
 
@@ -14,12 +15,12 @@ namespace game_framework {
 	PlatForm::PlatForm()
 	{
 	}
-	void PlatForm::init(int X, int Y, int  COLOR)
+	void PlatForm::init(int X, int Y,int Y_END, int  COLOR)
 	{
 		x = X;
 		y = Y;
+		y_end = Y_END;
 		color = COLOR;
-			x_start = X;
 		y_start = Y;
 		switch (color) {
 
@@ -49,14 +50,27 @@ namespace game_framework {
 	{
 		return color;
 	}
-	int PlatForm::GetStart_x()
-	{
-		return x_start;
-	}
+	
 	int PlatForm::GetStart_y()
 	{
 		return y_start;
 	}
+	void PlatForm::OnMove(const  Switch  &switch_add) {
+		if (switch_add.is_right == true && y<=y_start) {
+
+			y = y + 2;
+
+
+
+
+		}
+		else if (switch_add.is_right == false && y >= y_end) {
+			y = y - 2;
+		}
+
+
+	}
 }
+
 
 

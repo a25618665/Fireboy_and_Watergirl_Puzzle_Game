@@ -42,7 +42,7 @@
 #include "GameObject/button.h"
 #include "GameObject/platform.h"
 #include "GameObject/door.h"
-#include "switch.h"
+#include "GameObject/switch.h"
 
 
 namespace game_framework {

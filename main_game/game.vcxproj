@@ -248,10 +248,10 @@
     <ClCompile Include="Source\Game\GameObject\door.cpp" />
     <ClCompile Include="Source\Game\GameObject\person.cpp" />
     <ClCompile Include="Source\Game\GameObject\platform.cpp" />
+    <ClCompile Include="Source\Game\GameObject\switch.cpp" />
     <ClCompile Include="Source\Game\mygame_initialize.cpp" />
     <ClCompile Include="Source\Game\mygame_over.cpp" />
     <ClCompile Include="Source\Game\mygame_run.cpp" />
-    <ClCompile Include="Source\Game\switch.cpp" />
     <ClCompile Include="Source\Library\audio.cpp" />
     <ClCompile Include="Source\Library\gamecore.cpp" />
     <ClCompile Include="Source\Library\gameutil.cpp">
@@ -271,9 +271,9 @@
     <ClInclude Include="Source\Game\GameObject\door.h" />
     <ClInclude Include="Source\Game\GameObject\person.h" />
     <ClInclude Include="Source\Game\GameObject\platform.h" />
+    <ClInclude Include="Source\Game\GameObject\switch.h" />
     <ClInclude Include="Source\Game\mygame.h" />
     <ClInclude Include="Source\Game\pic_path.h" />
-    <ClInclude Include="Source\Game\switch.h" />
     <ClInclude Include="Source\Library\audio.h" />
     <ClInclude Include="Source\Library\gamecore.h" />
     <ClInclude Include="Source\Library\gameutil.h" />
