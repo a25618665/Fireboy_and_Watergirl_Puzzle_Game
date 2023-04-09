@@ -1,3 +1,8 @@
 ﻿cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
+<<<<<<< HEAD
   mygame_run.cpp
   game.vcxproj -> C:\Users\asus\Desktop\wokspace\FireBoy__WaterGirl_ForestTemple\main_game\.\Debug\game.exe
+=======
+  person.cpp
+  game.vcxproj -> D:\學\大三\下\C++\109820020\FireBoy__WaterGirl_ForestTemple\main_game\.\Debug\game.exe
+>>>>>>> 0c36778750392cdb241570eef479175061b85b2b

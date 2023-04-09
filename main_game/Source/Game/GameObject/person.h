@@ -1,35 +1,42 @@
 #pragma once
-#include<string>
+
 namespace game_framework {
 	class Person {
 	public:
 		Person();
-		void init(string type);
-		void loadImg();
-		void setXY(int X, int Y);
-		void setMovingLeft(bool flag);
-		void setMovingRight(bool flag);
-		int getX();
-		int getY();
+		~Person();
+		void Init(string type);
+		void SetXY(int x, int y);
+		void SetMovingLeft(bool flag);
+		void SetMovingRight(bool flag);
+		void SetMap(int(*m)[640][480]);
+		int GetX();
+		int GetY();
 		CRect GetBody();
-		void jump();
-		void setMap(int (*ptr_map)[640][480]);
+		void Jump();
 		void OnMove();
 		void OnShow();
+	private:
+		void LoadImg();
 
 		bool is_boy;   //True: boy, False: girl
-		int x, y;
-		int velocity;
 		bool is_jumping;
 		bool is_on_the_ground;
 		bool is_moving_left;
 		bool is_moving_right;
+		int x;
+		int y;
+		int velocity;
+		int(*map)[640][480];
+		int img_left_offset[2];
+		int img_right_offset[2];
+		CRect body_offset;
 		CMovingBitmap img_stop;
 		CMovingBitmap img_left;
 		CMovingBitmap img_right;
-		int (*ptr_map)[640][480];
-		const int r_check_point[5][2] = { {18, 12}, {18, 25}, {18, 37}, {18, 38}, {18, 39} };
-		const int l_check_point[5][2] = { {6, 12}, {6, 25}, {6, 37}, {6, 38}, {6, 39} };
-		CRect body_offset;
+
+		//
+		int (*r_check_point)[2];
+		int (*l_check_point)[2];
 	};
 }

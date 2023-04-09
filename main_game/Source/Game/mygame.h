@@ -124,6 +124,7 @@ namespace game_framework {
 		CMovingBitmap       d_1;
 		//Person girl;
 		Person boy;
+		Person girl;
 		CMovingBitmap eachlevel_background;
 		int map[640][480];
 		Diamond  *level1_red;
