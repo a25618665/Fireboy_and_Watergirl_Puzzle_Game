@@ -70,6 +70,14 @@ namespace game_framework {
 
 
 	}
+	void PlatForm::OnMove(const Button &button) {
+
+		if (button.Is_Click == true&&y>=y_end) {
+
+			y = y - 2;
+		}
+
+	}
 }
 
 

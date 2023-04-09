@@ -145,6 +145,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	level1_switch[0].OnMove(boy_body);
 	level1_platform[0].OnMove(level1_switch[0]);
+	level1_platform[1].OnMove(level1_purple_button[0]);
+	level1_platform[1].OnMove(level1_purple_button[1]);
+
 	//girl.OnMove();
 }
 
@@ -222,7 +225,7 @@ void CGameStateRun::load_level1() {
 	}
 	//platform init 
 	level1_platform[0].init(24,320,245,2);
-	level1_platform[1].init(555,198,123,1);
+	level1_platform[1].init(555,255,185,1);
 	//door init 
 	level1_door[0].init(511,5,0);
 	level1_door[1].init(563,5,1);

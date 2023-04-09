@@ -16,12 +16,17 @@ namespace game_framework {
 	{
 		x = coordinateX;
 		y = coordinateY;
+		body.left = x;
+		body.top = y;
+		Is_Click = false;
 	
 	}
 	void Button::OnShow()
 	{
-		buttonPic.SetTopLeft(x, y);
-		buttonPic.ShowBitmap();
+		if (Is_Click == false) {
+			buttonPic.SetTopLeft(x, y);
+			buttonPic.ShowBitmap();
+		}
 	}
 	void Button::LoadBitmap(int color)//1:purple2:yellow3:green
 	{
@@ -39,6 +44,8 @@ namespace game_framework {
 		default:
 			break;
 		}
+		body.right = x + buttonPic.GetWidth();
+		body.bottom = y + buttonPic.GetHeight();
 	}
 	
 	int Button::GetX()
@@ -52,5 +59,21 @@ namespace game_framework {
 	int Button::GetColor()
 	{
 		return colorindex;
+	}
+	void Button::OnMove(const  CRect & person_body) {
+		if (person_body.bottom > body.top && person_body.bottom < body.bottom &&
+			person_body.left > body.left && person_body.right < body.right) {
+			Is_Click = true;
+
+		}
+		else  {
+
+
+			Is_Click = false;
+
+
+		}
+
+
 	}
 }
