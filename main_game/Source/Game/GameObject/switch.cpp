@@ -6,7 +6,7 @@
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
 #include "switch.h"
-#include  "pic_path.h"
+#include  "../pic_path.h"
 
 
 

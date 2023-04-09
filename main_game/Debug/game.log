@@ -1,3 +1,7 @@
 ﻿cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
-  switch.cpp
+  platform.cpp
+cl : 命令列 warning D9028: 最少重建失敗，還原成一般建置
+cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
+  正在略過... (未偵測到相關變更)
+  gameutil.cpp
   game.vcxproj -> C:\Users\asus\Desktop\wokspace\FireBoy__WaterGirl_ForestTemple\main_game\.\Debug\game.exe

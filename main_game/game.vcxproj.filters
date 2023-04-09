@@ -69,7 +69,7 @@
     <ClCompile Include="Source\Game\GameObject\platform.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\switch.cpp">
+    <ClCompile Include="Source\Game\GameObject\switch.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,7 +125,7 @@
     <ClInclude Include="Source\Game\GameObject\platform.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\switch.h">
+    <ClInclude Include="Source\Game\GameObject\switch.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
