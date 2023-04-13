@@ -96,7 +96,7 @@ void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 void CGameStateInit::OnShow()
 {
 	if (phase == 0) {
-		background.ShowBitmap();//載入圖片
+		background.ShowBitmap();
 		button_play.ShowBitmap();
 		button_ins.ShowBitmap();
 	}
