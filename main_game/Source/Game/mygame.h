@@ -43,6 +43,8 @@
 #include "GameObject/platform.h"
 #include "GameObject/door.h"
 #include "GameObject/switch.h"
+#include <vector>
+using namespace std;
 
 
 namespace game_framework {
@@ -74,7 +76,6 @@ namespace game_framework {
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		//CMovingBitmap logo;				// csie的logo
 		CMovingBitmap background;       // menu的背景圖片
 		CMovingBitmap ins;              // 教學的背景圖片
 		CMovingBitmap button_play;   //menu 的play button
@@ -112,23 +113,23 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private: 
-		void           load_level1(); 
-		void           level1_onshow();
-		void           load_background();
+		void LoadSelectPage();
+		void LoadLevel1(); 
+		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
+		void Level1OnShow();
 		void LoadMap(int level);
 
-		CMovingBitmap  level_map;
-		int            level;//0為遊戲關卡選擇1為第一關依此類推
-		int            sub_phase;//遊戲現在在哪個狀態 0:正在玩1:死亡2:破關
-		int            diamond_flag = 0;
+		CMovingBitmap select_page_bg;
+		int level; //0為遊戲關卡選擇1為第一關依此類推
+		int sub_phase; //遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關
+		int diamond_flag; //當選擇頁面鑽石被按下時是1，放開時是0
 		CMovingBitmap       d_1;
-		//Person girl;
 		Person boy;
 		Person girl;
-		CMovingBitmap eachlevel_background;
+		CMovingBitmap level1_bg;
 		int map[640][480];
-		Diamond  *level1_red;
-		Diamond  *level1_blue;
+		vector<Diamond> level1_red_diamond;
+		vector<Diamond> level1_blue_diamond;
 		Button   *level1_purple_button;
 		PlatForm *level1_platform;
 		Door     *level1_door;
