@@ -43,8 +43,9 @@
 #include "GameObject/platform.h"
 #include "GameObject/door.h"
 #include "GameObject/switch.h"
+#include "GameObject/selectpagediamond.h"
 #include <vector>
-using namespace std;
+#include <array>
 
 
 namespace game_framework {
@@ -76,19 +77,15 @@ namespace game_framework {
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		CMovingBitmap background;       // menu的背景圖片
-		CMovingBitmap ins;              // 教學的背景圖片
-		CMovingBitmap button_play;   //menu 的play button
-		CMovingBitmap button_ins;     // menu 的 instruction
-		CMovingBitmap button_ok_clicked;     // ins 的 ok按下的圖片
-		void load_background(); //載入背景
-		//void          load_instruction();
-		int phase = 0;     //在menu的第幾個畫面 0:首頁 1:教學頁面
-		int button_flag = 0;  //左鍵按下哪個按鈕 1:play 2:instructions 3:OK
-		//diamond       start_in_levelmap;   //關卡選擇第一關  
-		//int           subphase;
-		//void          load_diamond();
-		//void          load_sound();      //載入音樂
+		void LoadBackground();							// 載入背景
+
+		CMovingBitmap background;						// menu的背景圖片
+		CMovingBitmap ins;								// 教學的背景圖片
+		CMovingBitmap button_play;						// menu 的play button
+		CMovingBitmap button_ins;						// menu 的 instruction
+		CMovingBitmap button_ok_clicked;				// ins 的 ok按下的圖片
+		int phase = 0;									// 在menu的第幾個畫面 0:首頁 1:教學頁面
+		int button_flag = 0;							// 滑鼠按下哪個按鈕 1:play 2:instructions 3:OK
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -119,17 +116,18 @@ namespace game_framework {
 		void Level1OnShow();
 		void LoadMap(int level);
 
+		int level;                                      // 0為遊戲關卡選擇1為第一關依此類推
+		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關
+		int button_down;                                // 紀錄在select page哪關正在被按下
 		CMovingBitmap select_page_bg;
-		int level; //0為遊戲關卡選擇1為第一關依此類推
-		int sub_phase; //遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關
-		int diamond_flag; //當選擇頁面鑽石被按下時是1，放開時是0
-		CMovingBitmap       d_1;
+		SelectPageDiamond select_page_diamond[2];
 		Person boy;
 		Person girl;
 		CMovingBitmap level1_bg;
-		int map[640][480];
+		array<array<array<int, 480>, 640>, 1> map; //每關的地圖陣列
 		vector<Diamond> level1_red_diamond;
 		vector<Diamond> level1_blue_diamond;
+
 		Button   *level1_purple_button;
 		PlatForm *level1_platform;
 		Door     *level1_door;
@@ -150,9 +148,5 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		int counter;	// 倒數之計數器
 	};
-
-	
-
 }

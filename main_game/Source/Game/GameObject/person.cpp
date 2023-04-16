@@ -83,7 +83,7 @@ void Person::SetMovingRight(bool flag)
 	is_moving_right = flag;
 }
 
-void Person::SetMap(int(*m)[640][480])
+void Person::SetMap(array<array<int, 480>, 640> *m)
 {
 	map = m;
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 
 namespace game_framework {
 	class Person {
@@ -9,7 +10,7 @@ namespace game_framework {
 		void SetXY(int x, int y);
 		void SetMovingLeft(bool flag);
 		void SetMovingRight(bool flag);
-		void SetMap(int(*m)[640][480]);
+		void SetMap(array<array<int, 480>, 640> *m);
 		int GetX();
 		int GetY();
 		CRect GetBody();
@@ -24,10 +25,10 @@ namespace game_framework {
 		bool is_on_the_ground;
 		bool is_moving_left;
 		bool is_moving_right;
-		int x;
+		int x; 
 		int y;
 		int velocity;
-		int(*map)[640][480];
+		array<array<int, 480>, 640> *map;
 		int img_left_offset[2];
 		int img_right_offset[2];
 		CRect body_offset;

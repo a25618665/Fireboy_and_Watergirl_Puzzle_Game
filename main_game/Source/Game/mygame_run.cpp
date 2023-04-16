@@ -48,12 +48,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	//..
 	LoadMap(1);
-	boy.SetMap(&map);
-	girl.SetMap(&map);
 
-	diamond_flag = 0;
 	level = 0;
 	sub_phase = 0;
+	button_down = 0;
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -80,6 +78,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 	if (nChar == VK_UP)
 		boy.Jump();
+
+	if (nChar == 0x50)   // debug: 按下p鍵回到select page
+		level = 0;
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -109,19 +110,22 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 	int x = point.x;
 	int y = point.y;
 
-	if (x >= 302 && x <= 326 && y >= 440 && y <= 468) {
-		diamond_flag = 1;
-		d_1.SetFrameIndexOfBitmap(1);
-		
+	if (level == 0)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			button_down = select_page_diamond[i].OnButtonDown(x, y);
+			if (button_down != 0)
+				break;
+		}
 	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	if (diamond_flag == 1) {
-		diamond_flag = 0;
-		d_1.SetFrameIndexOfBitmap(0);
-		level = 1;
+	if (level == 0 && button_down != 0) {
+		select_page_diamond[button_down - 1].OnButtonUp();
+		level = button_down;
 	}
 }
 
@@ -156,11 +160,11 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 		switch (level)
 		{
-			case 1:
-				Level1OnMove(boy_body, girl_body);
-				break;
-			default:
-				break;
+		case 1:
+			Level1OnMove(boy_body, girl_body);
+			break;
+		default:
+			break;
 		}
 	}
 }
@@ -171,7 +175,9 @@ void CGameStateRun::OnShow()
 	{
 		case 0:
 			select_page_bg.ShowBitmap();
-			d_1.ShowBitmap();
+			for (int i = 0; i < 2; i++)
+				select_page_diamond[i].OnShow();
+
 			break;
 		case 1:
 			switch (sub_phase)
@@ -185,17 +191,17 @@ void CGameStateRun::OnShow()
 				break;
 			}
 			break;
-		/*case 2:
+		case 2:
 			switch (sub_phase)
 			{
-				case 0:
-					break;
-				case 1:
-					break;
-				case 2:
-					break;
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
 			}
-			break;*/
+			break;
 	}
 }
 
@@ -204,13 +210,16 @@ void CGameStateRun::LoadSelectPage()
 	select_page_bg.LoadBitmapByString({ SELECT_PAGE_BG });
 	select_page_bg.SetTopLeft(0, 0);
     
-	d_1.LoadBitmapByString({ DIAMOND, DIAMOND_CLICKED },RGB(255, 204, 0));
-    d_1.SetTopLeft(302,440);
+	select_page_diamond[0].Init(1, 302, 440, "blue");
+	select_page_diamond[1].Init(2, 322, 386, "blue");
 }
 
 void CGameStateRun::LoadLevel1()
 {
 	//..
+	boy.SetMap(&map[0]);
+	girl.SetMap(&map[0]);
+
 	level1_bg.LoadBitmapByString({ LEVEL_1_BG });
 	level1_bg.SetTopLeft(0, 0);
 
@@ -283,11 +292,12 @@ void CGameStateRun::Level1OnShow()
 
 void CGameStateRun::LoadMap(int level)
 {
+	//..
 	ifstream ifs( MAP_TEMPLATE );
 
 	for (int i = 0; i < 640; i++) {
 		for (int j = 0; j < 480; j++) {
-			ifs >> map[i][j];
+			ifs >> map[0][i][j];
 		}
 	}
 
