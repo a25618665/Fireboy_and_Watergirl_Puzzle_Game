@@ -72,6 +72,9 @@
     <ClCompile Include="Source\Game\GameObject\platform.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\GameObject\selectpagediamond.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -126,6 +129,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\GameObject\switch.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameObject\selectpagediamond.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

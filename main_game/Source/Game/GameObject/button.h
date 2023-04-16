@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 namespace game_framework {
 	class Button {
 	public:
