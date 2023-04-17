@@ -16,7 +16,7 @@ namespace game_framework {
 	Switch::Switch() {
 
 	}
-	void Switch::init(int coordinateX, int coordinateY, int COLOR)
+	void Switch::Init(int coordinateX, int coordinateY, int COLOR)
 	{
 		x = coordinateX;
 		y = coordinateY;

@@ -10,7 +10,6 @@
 #include "switch.h"
 
 
-
 namespace game_framework {
 	PlatForm::PlatForm()
 	{

@@ -7,6 +7,8 @@
 #include "../../Library/gamecore.h"
 #include "../pic_path.h"
 #include "diamond.h"
+
+
 using namespace game_framework;
 
 Diamond::Diamond(string color)
@@ -39,11 +41,14 @@ void Diamond::Init(int x, int y)
 
 void Diamond::OnMove(const CRect& person_body)
 {
-	CRect rect;
-	bool is_overlap = rect.IntersectRect(person_body, body);
+	if (is_showing)		// 還未被吃掉才判斷是否overlap
+	{
+		CRect rect;
+		bool is_overlap = rect.IntersectRect(person_body, body);
 
-	if (is_overlap)
-		is_showing = false;
+		if (is_overlap)
+			is_showing = false;
+	}
 }
 
 void Diamond::OnShow()
