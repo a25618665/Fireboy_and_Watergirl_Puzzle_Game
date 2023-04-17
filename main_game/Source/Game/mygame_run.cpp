@@ -8,6 +8,8 @@
 #include "mygame.h"
 #include "pic_path.h"
 #include <fstream>
+
+
 using namespace game_framework;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -251,7 +253,7 @@ void CGameStateRun::LoadLevel1()
 	level1_blue_diamond[3].Init(372, 63);
 
 	// switch init 
-	level1_switch[0].init(163,302,0);
+	level1_switch[0].Init(156,308,0);
 }
 
 void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)

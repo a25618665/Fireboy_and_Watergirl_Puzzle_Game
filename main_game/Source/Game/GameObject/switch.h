@@ -4,7 +4,7 @@ namespace game_framework {
 	class Switch {
 	public:
 		Switch();
-		void init(int x, int y, int color);
+		void Init(int x, int y, int color);
 		void OnShow();
 		void OnMove(const CRect & person_body);
 		
