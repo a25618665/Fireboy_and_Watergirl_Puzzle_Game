@@ -5,21 +5,22 @@ namespace game_framework {
 	class Switch {
 	public:
 		Switch();
-		void Init(int x, int y, string defult_direction, array<array<int, 480>, 640> *map);
+		void Init(int x, int y, char defult_direction, array<array<int, 480>, 640> *map);	// defult_direction: 'R', 'L'
+		bool IsTriggered();
 		void OnMove(const CRect & boy_body, const CRect & girl_body);
 		void OnShow();
-		bool is_right;//...................................
 	private:
-		void Right2Left(); 
-		void Left2Right();
+		void Right2Left();				// 把搖桿向右時在地圖上的區域轉成0，向左時在地圖上的的區域轉成1
+		void Left2Right();				// 把搖桿向左時在地圖上的的區域轉成0，向右時在地圖上的的區域轉成1
 
-		
-		int x, y;			// color; color 0: yellow 
+		bool is_right, is_triggered;
+		int x, y;
 		array<array<int, 480>, 640> *ptr_map;
 		CMovingBitmap img_right; 
 		CMovingBitmap img_left;
-		CRect body_right; 
-		CRect body_left;
+		CRect body_right;				// 判斷是否觸發的區域
+		CRect body_left;				// 判斷是否觸發的區域
+		// 1為搖桿向左或向右的區域
 		bool right_obstacle_aria[16][18] = { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 											 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
 											 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
