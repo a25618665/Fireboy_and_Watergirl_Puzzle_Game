@@ -43,8 +43,8 @@ void Diamond::OnMove(const CRect& person_body)
 {
 	if (is_showing)		// 還未被吃掉才判斷是否overlap
 	{
-		CRect rect;
-		bool is_overlap = rect.IntersectRect(person_body, body);
+		CRect temp_rect;
+		bool is_overlap = temp_rect.IntersectRect(person_body, body);
 
 		if (is_overlap)
 			is_showing = false;

@@ -7,6 +7,8 @@
 #include "../../Library/gamecore.h"
 #include "../pic_path.h"
 #include "person.h"
+
+
 using namespace game_framework;
 
 Person::Person()
