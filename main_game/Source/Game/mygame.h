@@ -127,11 +127,12 @@ namespace game_framework {
 		array<array<array<int, 480>, 640>, 1> map; //每關的地圖陣列
 		vector<Diamond> level1_red_diamond;
 		vector<Diamond> level1_blue_diamond;
+		vector<Switch>  level1_switch;
 
 		Button   *level1_purple_button;
 		PlatForm *level1_platform;
 		Door     *level1_door;
-		Switch   *level1_switch;
+		
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

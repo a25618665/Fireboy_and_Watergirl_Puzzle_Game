@@ -22,7 +22,6 @@ CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 	level1_purple_button = new Button[2];
 	level1_platform = new PlatForm[2];
 	level1_door = new Door[2];
-	level1_switch = new Switch[1];
 }   
 
 CGameStateRun::~CGameStateRun()
@@ -31,7 +30,6 @@ CGameStateRun::~CGameStateRun()
 	delete level1_purple_button;
 	delete level1_door;
 	delete level1_platform;
-	delete level1_switch;
 }
 
 void CGameStateRun::OnBeginState()
@@ -40,20 +38,18 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
-	LoadSelectPage();
-	LoadLevel1();
-
 	boy.Init("boy");
 	boy.SetXY(35, 416);
 	girl.Init("girl");
 	girl.SetXY(37, 356);
 
-	//..
-	LoadMap(1);
-
 	level = 0;
 	sub_phase = 0;
 	button_down = 0;
+
+	LoadSelectPage();
+	LoadMap(1);
+	LoadLevel1();
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -253,12 +249,13 @@ void CGameStateRun::LoadLevel1()
 	level1_blue_diamond[3].Init(372, 63);
 
 	// switch init 
-	level1_switch[0].Init(156,308,0);
+	level1_switch.assign(1, Switch());
+	level1_switch[0].Init(156, 308, "right", &map[0]);
 }
 
 void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 {
-	level1_switch[0].OnMove(boy_body);
+	level1_switch[0].OnMove(boy_body, girl_body);
 	level1_platform[0].OnMove(level1_switch[0]);
 	level1_platform[1].OnMove(level1_purple_button[0]);
 	level1_platform[1].OnMove(level1_purple_button[1]);
