@@ -120,7 +120,7 @@ namespace game_framework {
 		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關
 		int button_down;                                // 紀錄在select page哪關正在被按下
 		CMovingBitmap select_page_bg;
-		SelectPageDiamond select_page_diamond[2];
+		array<SelectPageDiamond, 2> select_page_diamond;
 		Person boy;
 		Person girl;
 		CMovingBitmap level1_bg;

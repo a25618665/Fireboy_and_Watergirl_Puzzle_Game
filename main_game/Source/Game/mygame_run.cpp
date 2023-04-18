@@ -208,6 +208,7 @@ void CGameStateRun::LoadSelectPage()
 	select_page_bg.LoadBitmapByString({ SELECT_PAGE_BG });
 	select_page_bg.SetTopLeft(0, 0);
     
+	select_page_diamond.fill( SelectPageDiamond() );
 	select_page_diamond[0].Init(1, 302, 440, "blue");
 	select_page_diamond[1].Init(2, 322, 386, "blue");
 }
@@ -227,6 +228,11 @@ void CGameStateRun::LoadLevel1()
 	for (int i = 0; i < 2; i++) {
 		level1_purple_button[i].buttonPic.LoadBitmapByString({ PURPLE_BUTTON }, RGB(0, 0, 0));
 	}
+
+	// switch init 
+	level1_switch.assign(1, Switch());
+	level1_switch[0].Init(156, 308, "right", &map[0]);
+
 	//platform init 
 	level1_platform[0].init(24,320,245,2);
 	level1_platform[1].init(555,255,185,1);
@@ -248,9 +254,7 @@ void CGameStateRun::LoadLevel1()
 	level1_blue_diamond[2].Init(38, 73);
 	level1_blue_diamond[3].Init(372, 63);
 
-	// switch init 
-	level1_switch.assign(1, Switch());
-	level1_switch[0].Init(156, 308, "right", &map[0]);
+	
 }
 
 void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)

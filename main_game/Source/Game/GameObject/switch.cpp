@@ -19,6 +19,7 @@ void Switch::Init(int x, int y, string defult_direction, array<array<int, 480>, 
 {
 	this->x = x;
 	this->y = y;
+	ptr_map = map;
 
 	body_right.left = x + 35;
 	body_right.top = y + 5;
@@ -55,7 +56,7 @@ void Switch::Init(int x, int y, string defult_direction, array<array<int, 480>, 
 		}
 	}
 
-	ptr_map = map;
+	
 
 	/*switch (color) {
 
