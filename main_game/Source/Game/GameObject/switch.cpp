@@ -15,10 +15,11 @@ Switch::Switch()
 {
 }
 
-void Switch::Init(int x, int y, string defult_direction, array<array<int, 480>, 640> *map)
+void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 640> *map)
 {
 	this->x = x;
 	this->y = y;
+	is_triggered = false;
 	ptr_map = map;
 
 	body_right.left = x + 35;
@@ -31,9 +32,11 @@ void Switch::Init(int x, int y, string defult_direction, array<array<int, 480>, 
 	body_left.right = x + 4;
 	body_left.bottom = y + 8; 
 	
-	if (defult_direction == "right")
+	switch (defult_direction)
 	{
+	case 'R':
 		is_right = true;
+		// 地圖上一開始搖桿沒有標成障礙物，所以在此要把搖桿向右時在地圖上的區域標成1
 		for (int i = 0; i < 16; i++)
 		{
 			for (int j = 0; j < 18; j++)
@@ -42,10 +45,10 @@ void Switch::Init(int x, int y, string defult_direction, array<array<int, 480>, 
 					(*ptr_map)[x + 19 + i][y + 2 + j] = 1;
 			}
 		}
-	}
-	else
-	{
+		break;
+	case 'L':
 		is_right = false;
+		// 地圖上一開始搖桿沒有標成障礙物，所以在此要把搖桿向左時在地圖上的區域標成1
 		for (int i = 0; i < 16; i++)
 		{
 			for (int j = 0; j < 18; j++)
@@ -54,10 +57,9 @@ void Switch::Init(int x, int y, string defult_direction, array<array<int, 480>, 
 					(*ptr_map)[x + 5 + i][y + 4 + j] = 1;
 			}
 		}
+		break;
 	}
-
 	
-
 	/*switch (color) {
 
 	case 0:*/
@@ -72,6 +74,11 @@ void Switch::Init(int x, int y, string defult_direction, array<array<int, 480>, 
 	//	break;
 
 	//}
+}
+
+bool Switch::IsTriggered()
+{
+	return is_triggered;
 }
 
 void Switch::OnMove(const CRect & boy_body, const CRect & girl_body)
@@ -124,6 +131,7 @@ void Switch::Right2Left()
 		}
 	}
 	is_right = false;
+	is_triggered = !is_triggered;
 }
 
 void Switch::Left2Right()
@@ -146,4 +154,5 @@ void Switch::Left2Right()
 		}
 	}
 	is_right = true;
+	is_triggered = !is_triggered;
 }

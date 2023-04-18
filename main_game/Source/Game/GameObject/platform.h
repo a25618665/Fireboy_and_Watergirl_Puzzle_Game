@@ -1,23 +1,27 @@
 #pragma once
 #include "switch.h"
 #include "button.h"
+
 namespace game_framework {
-	class PlatForm {
+	class Platform {
 	public:
-		PlatForm();
+		Platform();														// ********
+		void Init(int x, int y, int end, char direction, char color);	// 從這開始direction: 'U', 'D', 'L', 'R', color: 'Y', 'P'
+		void Bind(Switch *ptr_switch);									// ********
+		void Bind(Button *ptr_button);
+		void OnMove();
 		void OnShow();
-		void OnMove(const  Switch  &switch_add);
-		void OnMove(const Button &button );
-		void init(int x, int y ,int Y_END , int  color );//1:purple2:yellow3:green
-		int GetX();
+		/*int GetX();
 		int GetY();
 		int GetColor();
-		int GetStart_y();
-		CMovingBitmap Pic;
-		int x, y, color;    
-		 int y_start  ;
-		 int  y_end ;
-		bool isDown, isUp;
+		int GetStart_y();*/
+	private:
+		int x, y, end;
+		char direction; //*************************************************colorconst
+		bool isDown, isUp;//***********************************************
+		CMovingBitmap img;
+		Switch *ptr_switch;
+		Button *ptr_button;
+		CRect body;
 	};
 }
-

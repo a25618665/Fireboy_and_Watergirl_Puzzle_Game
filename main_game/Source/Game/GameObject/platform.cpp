@@ -5,79 +5,89 @@
 #include "../../Library/audio.h"
 #include "../../Library/gameutil.h"
 #include "../../Library/gamecore.h"
-#include "platform.h"
 #include  "../pic_path.h"
-#include "switch.h"
+#include "platform.h"
 
 
-namespace game_framework {
-	PlatForm::PlatForm()
+using namespace game_framework;
+
+Platform::Platform()
+{
+}
+
+void Platform::Init(int x, int y, int end, char direction, char color)
+{
+	this->x = x;
+	this->y = y;
+	this->end = end;
+	this->direction = direction;
+	ptr_switch = nullptr;
+	ptr_button = nullptr;
+
+	body.left = x + 2;
+	body.top = y + 3;
+	body.right = x + 57;
+	body.bottom = y + 13;
+
+	switch (color)
 	{
+	case 'Y':
+		img.LoadBitmap(YELLOW_PLAT, RGB(0, 0, 0));
+		break;
+	case 'P':
+		img.LoadBitmap(PURPLE_PLAT, RGB(0, 0, 0));
+		break;
 	}
-	void PlatForm::init(int X, int Y,int Y_END, int  COLOR)
+	img.SetTopLeft(x, y);
+}
+
+void Platform::Bind(Switch *ptr_switch)
+{
+	this->ptr_switch = ptr_switch;
+}
+
+void Platform::Bind(Button *ptr_button)
+{
+	this->ptr_button = ptr_button;
+}
+
+void Platform::OnMove()
+{
+	if (ptr_switch)			// 當platform是bind switch時
 	{
-		x = X;
-		y = Y;
-		y_end = Y_END;
-		color = COLOR;
-		y_start = Y;
-		switch (color) {
 
-		case 1:
-			Pic.LoadBitmap(PURPLE_PLAT, RGB(0, 0, 0));
-			break;
-		case 2:
-			Pic.LoadBitmap(YELLOW_PLAT, RGB(0, 0, 0));
-			break;
+		y = y + 2;
 
-		}
+
+
+
 	}
-	void PlatForm::OnShow()
+
+	if (switch_add.is_right == false && y >= y_end) // 當platform是bind button時
 	{
-		Pic.SetTopLeft(x, y);
-		Pic.ShowBitmap();
-	}
-	int PlatForm::GetX()
-	{
-		return x;
-	}
-	int PlatForm::GetY()
-	{
-		return y;
-	}
-	int PlatForm::GetColor()
-	{
-		return color;
-	}
-	
-	int PlatForm::GetStart_y()
-	{
-		return y_start;
-	}
-	void PlatForm::OnMove(const  Switch  &switch_add) {
-		if (switch_add.is_right == true && y<=y_start) {
-
-			y = y + 2;
-
-
-
-
-		}
-		else if (switch_add.is_right == false && y >= y_end) {
-			y = y - 2;
-		}
-
-
-	}
-	void PlatForm::OnMove(const Button &button) {
-
-		if (button.Is_Click == true&&y>=y_end) {
-
-			y = y - 2;
-		}
-
+		y = y - 2;
 	}
 }
 
+void Platform::OnShow()
+{
+	img.ShowBitmap();
+}
 
+/*int PlatForm::GetX()
+{
+	return x;
+}
+int PlatForm::GetY()
+{
+	return y;
+}
+int PlatForm::GetColor()
+{
+	return color;
+}
 
+int PlatForm::GetStart_y()
+{
+	return y_start;
+}*/
