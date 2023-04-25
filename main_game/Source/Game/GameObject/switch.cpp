@@ -36,7 +36,7 @@ void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 64
 	{
 	case 'R':
 		is_right = true;
-		// �a�ϤW�@�}�l�n��S���Ц���ê���A�ҥH�b���n��n��V�k�ɦb�a�ϤW���ϰ�Ц�1
+		// 地圖上一開始搖桿沒有標成障礙物，所以在此要把搖桿向右時在地圖上的區域標成1
 		for (int i = 0; i < 16; i++)
 		{
 			for (int j = 0; j < 18; j++)
@@ -48,7 +48,7 @@ void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 64
 		break;
 	case 'L':
 		is_right = false;
-		// �a�ϤW�@�}�l�n��S���Ц���ê���A�ҥH�b���n��n��V���ɦb�a�ϤW���ϰ�Ц�1
+		// 地圖上一開始搖桿沒有標成障礙物，所以在此要把搖桿向左時在地圖上的區域標成1
 		for (int i = 0; i < 16; i++)
 		{
 			for (int j = 0; j < 18; j++)

@@ -20,7 +20,6 @@ CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 {
 	
 	level1_purple_button = new Button[2];
-	level1_platform = new PlatForm[2];
 	level1_door = new Door[2];
 }   
 
@@ -29,7 +28,6 @@ CGameStateRun::~CGameStateRun()
 	
 	delete level1_purple_button;
 	delete level1_door;
-	delete level1_platform;
 }
 
 void CGameStateRun::OnBeginState()
@@ -231,11 +229,13 @@ void CGameStateRun::LoadLevel1()
 
 	// switch init 
 	level1_switch.assign(1, Switch());
-	level1_switch[0].Init(156, 308, "right", &map[0]);
+	level1_switch[0].Init(156, 308, 'R', &map[0]);
 
 	//platform init 
-	level1_platform[0].init(24,320,245,2);
-	level1_platform[1].init(555,255,185,1);
+	level1_platform.assign(1, Platform());
+	level1_platform[0].Init(26, 248, 296, 'D', 'Y', &map[0]);
+	level1_platform[0].Bind(&level1_switch[0]);
+	//level1_platform[1].init(555,255,185,1);
 	//door init 
 	level1_door[0].init(511,5,0);
 	level1_door[1].init(563,5,1);
@@ -260,9 +260,8 @@ void CGameStateRun::LoadLevel1()
 void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 {
 	level1_switch[0].OnMove(boy_body, girl_body);
-	level1_platform[0].OnMove(level1_switch[0]);
-	level1_platform[1].OnMove(level1_purple_button[0]);
-	level1_platform[1].OnMove(level1_purple_button[1]);
+	level1_platform[0].OnMove();
+	//level1_platform[1].OnMove(level1_purple_button[0]);
 }
 
 void CGameStateRun::Level1OnShow()
@@ -282,7 +281,7 @@ void CGameStateRun::Level1OnShow()
 		level1_purple_button[i].OnShow();
 
 	}
-	for (int i = 0; i < 2; i++) {//顯示所有升降平台
+	for (int i = 0; i < 1; i++) {//顯示所有升降平台
 		level1_platform[i].OnShow();
 
 	}
