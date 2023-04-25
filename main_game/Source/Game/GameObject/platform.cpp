@@ -202,21 +202,3 @@ void Platform::MovePlatform(char direction)			// 用此函式要注意要先用�
 		}
 	}
 }
-
-/*int PlatForm::GetX()
-{
-	return x;
-}
-int PlatForm::GetY()
-{
-	return y;
-}
-int PlatForm::GetColor()
-{
-	return color;
-}
-
-int PlatForm::GetStart_y()
-{
-	return y_start;
-}*/
