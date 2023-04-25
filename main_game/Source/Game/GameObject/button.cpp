@@ -19,7 +19,7 @@ void Button::Init(int x, int y, char color)
 {
 	this->x = x;
 	this->y = y;
-	is_clicked = false;
+	is_triggered = false;
 
 	switch (color)
 	{
@@ -41,6 +41,11 @@ void Button::Init(int x, int y, char color)
 	body.bottom = y + img_button.GetHeight();
 }
 
+bool Button::IsTriggered()
+{
+	return is_triggered;
+}
+
 void Button::OnMove(const CRect & boy_body, const CRect & girl_body)
 {
 	CRect temp_rect;
@@ -48,13 +53,13 @@ void Button::OnMove(const CRect & boy_body, const CRect & girl_body)
 	bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body);
 
 	if (boy_is_overlap || girl_is_overlap)
-		is_clicked = true;
+		is_triggered = true;
 	else
-		is_clicked = false;
+		is_triggered = false;
 }
 
 void Button::OnShow()
 {
-	if (!is_clicked)
+	if (!is_triggered)
 		img_button.ShowBitmap();
 }
