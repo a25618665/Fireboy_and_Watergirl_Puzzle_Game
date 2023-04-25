@@ -1,13 +1,15 @@
 #pragma once
 #include "switch.h"
 #include "button.h"
+#include <array>
 
 namespace game_framework {
 	class Platform {
 	public:
-		Platform();														// ********
-		void Init(int x, int y, int end, char direction, char color);	// ±q³o¶}©ldirection: 'U', 'D', 'L', 'R', color: 'Y', 'P'
-		void Bind(Switch *ptr_switch);									// ********
+		Platform();			
+		// Init: end: ç§»å‹•å®Œçš„åº§æ¨™(xæˆ–y), direction: 'U', 'D', 'L', 'R', color: 'Y', 'P'
+		void Init(int x, int y, int end, char direction, char color, array<array<int, 480>, 640> *map);
+		void Bind(Switch *ptr_switch);									
 		void Bind(Button *ptr_button);
 		void OnMove();
 		void OnShow();
@@ -16,10 +18,13 @@ namespace game_framework {
 		int GetColor();
 		int GetStart_y();*/
 	private:
-		int x, y, end;
+		void MovePlatform(char direction);
+
+		int original_x, original_y, x, y, end;
 		char direction; //*************************************************colorconst
 		bool isDown, isUp;//***********************************************
 		CMovingBitmap img;
+		array<array<int, 480>, 640> *ptr_map;
 		Switch *ptr_switch;
 		Button *ptr_button;
 		CRect body;

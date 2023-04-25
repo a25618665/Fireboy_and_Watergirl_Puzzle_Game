@@ -27,7 +27,8 @@ namespace game_framework {
 		x = coordinateX;
 		y = coordinateY;
 		color = COLOR;
-		switch (COLOR) {
+		switch (COLOR)
+		{
 
 		case 0:
 			Pic.LoadBitmap({ "Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/1.bmp",

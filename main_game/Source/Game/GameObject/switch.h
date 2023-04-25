@@ -10,17 +10,17 @@ namespace game_framework {
 		void OnMove(const CRect & boy_body, const CRect & girl_body);
 		void OnShow();
 	private:
-		void Right2Left();				// §â·n±ì¦V¥k®É¦b¦a¹Ï¤Wªº°Ï°ìÂà¦¨0¡A¦V¥ª®É¦b¦a¹Ï¤Wªºªº°Ï°ìÂà¦¨1
-		void Left2Right();				// §â·n±ì¦V¥ª®É¦b¦a¹Ï¤Wªºªº°Ï°ìÂà¦¨0¡A¦V¥k®É¦b¦a¹Ï¤Wªºªº°Ï°ìÂà¦¨1
+		void Right2Left();				// æŠŠæ–æ¡¿å‘å³æ™‚åœ¨åœ°åœ–ä¸Šçš„å€åŸŸè½‰æˆ0ï¼Œå‘å·¦æ™‚åœ¨åœ°åœ–ä¸Šçš„çš„å€åŸŸè½‰æˆ1
+		void Left2Right();				// æŠŠæ–æ¡¿å‘å·¦æ™‚åœ¨åœ°åœ–ä¸Šçš„çš„å€åŸŸè½‰æˆ0ï¼Œå‘å³æ™‚åœ¨åœ°åœ–ä¸Šçš„çš„å€åŸŸè½‰æˆ1
 
 		bool is_right, is_triggered;
 		int x, y;
 		array<array<int, 480>, 640> *ptr_map;
 		CMovingBitmap img_right; 
 		CMovingBitmap img_left;
-		CRect body_right;				// §PÂ_¬O§_Ä²µoªº°Ï°ì
-		CRect body_left;				// §PÂ_¬O§_Ä²µoªº°Ï°ì
-		// 1¬°·n±ì¦V¥ª©Î¦V¥kªº°Ï°ì
+		CRect body_right;				// åˆ¤æ–·æ˜¯å¦è§¸ç™¼çš„å€åŸŸ
+		CRect body_left;				// åˆ¤æ–·æ˜¯å¦è§¸ç™¼çš„å€åŸŸ
+		// 1ç‚ºæ–æ¡¿å‘å·¦æˆ–å‘å³çš„å€åŸŸ
 		bool right_obstacle_aria[16][18] = { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 											 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
 											 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},

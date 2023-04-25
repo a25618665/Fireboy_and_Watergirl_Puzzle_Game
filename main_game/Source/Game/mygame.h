@@ -123,16 +123,16 @@ namespace game_framework {
 		array<SelectPageDiamond, 2> select_page_diamond;
 		Person boy;
 		Person girl;
+		array<array<array<int, 480>, 640>, 1> map;		//每關的地圖陣列
+
 		CMovingBitmap level1_bg;
-		array<array<array<int, 480>, 640>, 1> map; //每關的地圖陣列
 		vector<Diamond> level1_red_diamond;
 		vector<Diamond> level1_blue_diamond;
 		vector<Switch>  level1_switch;
+		vector<Platform> level1_platform;
 
 		Button   *level1_purple_button;
-		PlatForm *level1_platform;
 		Door     *level1_door;
-		
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
