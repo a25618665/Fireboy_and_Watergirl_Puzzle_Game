@@ -19,14 +19,13 @@ using namespace game_framework;
 CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 {
 	
-	level1_purple_button = new Button[2];
 	level1_door = new Door[2];
 }   
 
 CGameStateRun::~CGameStateRun()
 {
 	
-	delete level1_purple_button;
+	
 	delete level1_door;
 }
 
@@ -223,9 +222,7 @@ void CGameStateRun::LoadLevel1()
 	level1_red_diamond.assign(4, Diamond("red"));
 	level1_blue_diamond.assign(4, Diamond("blue"));
 
-	for (int i = 0; i < 2; i++) {
-		level1_purple_button[i].buttonPic.LoadBitmapByString({ PURPLE_BUTTON }, RGB(0, 0, 0));
-	}
+	
 
 	// switch init 
 	level1_switch.assign(1, Switch());
@@ -241,8 +238,9 @@ void CGameStateRun::LoadLevel1()
 	level1_door[1].init(563,5,1);
 
 	//button init 
-	level1_purple_button[0].init(165,235);
-	level1_purple_button[1].init(478,175);
+	level1_purple_button.assign(2, Button());
+	level1_purple_button[0].Init(171, 236, 'P');
+	level1_purple_button[1].Init(475, 171, 'P');
 
 	//diamond init 
 	level1_red_diamond[0].Init(333, 423);
@@ -260,8 +258,9 @@ void CGameStateRun::LoadLevel1()
 void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 {
 	level1_switch[0].OnMove(boy_body, girl_body);
+	level1_purple_button[0].OnMove(boy_body, girl_body);
+	level1_purple_button[1].OnMove(boy_body, girl_body);
 	level1_platform[0].OnMove();
-	//level1_platform[1].OnMove(level1_purple_button[0]);
 }
 
 void CGameStateRun::Level1OnShow()

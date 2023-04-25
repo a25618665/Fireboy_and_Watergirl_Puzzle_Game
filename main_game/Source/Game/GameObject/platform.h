@@ -13,16 +13,11 @@ namespace game_framework {
 		void Bind(Button *ptr_button);
 		void OnMove();
 		void OnShow();
-		/*int GetX();
-		int GetY();
-		int GetColor();
-		int GetStart_y();*/
 	private:
 		void MovePlatform(char direction);
 
 		int original_x, original_y, x, y, end;
-		char direction; //*************************************************colorconst
-		bool isDown, isUp;//***********************************************
+		char direction;
 		CMovingBitmap img;
 		array<array<int, 480>, 640> *ptr_map;
 		Switch *ptr_switch;

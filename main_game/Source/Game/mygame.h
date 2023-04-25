@@ -130,8 +130,9 @@ namespace game_framework {
 		vector<Diamond> level1_blue_diamond;
 		vector<Switch>  level1_switch;
 		vector<Platform> level1_platform;
+		vector<Button> level1_purple_button;
 
-		Button   *level1_purple_button;
+		
 		Door     *level1_door;
 	};
 
