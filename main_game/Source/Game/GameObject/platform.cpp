@@ -15,17 +15,16 @@ Platform::Platform()
 {
 }
 
-void Platform::Init(int x, int y, int end, char direction, char color, array<array<int, 480>, 640> *map)
+void Platform::Init(int x, int y, int end, char defult_direction, char color, array<array<int, 480>, 640> *map)
 {
 	this->original_x = x;
 	this->original_y = y;
 	this->x = x;
 	this->y = y;
 	this->end = end;
-	this->direction = direction;
+	this->defult_direction = defult_direction;
 	ptr_map = map;
 	ptr_switch = nullptr;
-	ptr_button = nullptr;
 
 	body.left = x + 2;
 	body.top = y + 3;
@@ -56,87 +55,26 @@ void Platform::Bind(Switch *ptr_switch)
 	this->ptr_switch = ptr_switch;
 }
 
-void Platform::Bind(Button *ptr_button)
+void Platform::Bind(const vector<Button *> & button_ptr_vector)
 {
-	this->ptr_button = ptr_button;
+	this->button_ptr_vector = button_ptr_vector;
 }
 
 void Platform::OnMove()
 {
-	if (ptr_switch)						// 當platform是bind switch時
+	if (ptr_switch)							// 當platform是bind switch時
 	{
-		switch (direction)
-		{
-		case 'U':
-			if (ptr_switch->IsTriggered() && y > end)
-			{
-				y -= 2;
-				MovePlatform('U');
-				body.top -= 2;
-				body.bottom -= 2;
-			}
-			else if (!ptr_switch->IsTriggered() && y < original_y)
-			{
-				y += 2;
-				MovePlatform('D');
-				body.top += 2;
-				body.bottom += 2;
-			}
-			break;
-		case 'D':
-			if (ptr_switch->IsTriggered() && y < end)
-			{
-				y += 2;
-				MovePlatform('D');
-				body.top += 2;
-				body.bottom += 2;
-			}
-			else if (!ptr_switch->IsTriggered() && y > original_y)
-			{
-				y -= 2;
-				MovePlatform('U');
-				body.top -= 2;
-				body.bottom -= 2;
-			}
-			break;
-		case 'L':
-			if (ptr_switch->IsTriggered() && x > end)
-			{
-				x -= 2;
-				MovePlatform('L');
-				body.left -= 2;
-				body.right -= 2;
-			}
-			else if (!ptr_switch->IsTriggered() && x < original_x)
-			{
-				x += 2;
-				MovePlatform('R');
-				body.left += 2;
-				body.right += 2;
-			}
-			break;
-		case 'R':
-			if (ptr_switch->IsTriggered() && x < end)
-			{
-				x += 2;
-				MovePlatform('R');
-				body.left += 2;
-				body.right += 2;
-			}
-			else if (!ptr_switch->IsTriggered() && x > original_x)
-			{
-				x -= 2;
-				MovePlatform('L');
-				body.left -= 2;
-				body.right -= 2;
-			}
-			break;
-		}
+		PlatformOnMove( ptr_switch->IsTriggered() );
 	}
-	//else if (ptr_button)				// 當platform是bind button時
-	//{
-	//	
-	//}
+	else if (!button_ptr_vector.size())		// 當platform是bind button時
+	{
+		bool is_triggered = false;
+		for (auto & button_ptr : button_ptr_vector)
+		{
+			is_triggered = is_triggered || button_ptr->IsTriggered();
+		}
+		PlatformOnMove(is_triggered);
+	}
 }
 
 void Platform::OnShow()
@@ -145,7 +83,78 @@ void Platform::OnShow()
 	img.ShowBitmap();
 }
 
-void Platform::MovePlatform(char direction)			// 用此函式要注意要先用此函式再移動body
+void Platform::PlatformOnMove(bool is_triggered)
+{
+	switch (defult_direction)
+	{
+	case 'U':
+		if (is_triggered && y > end)
+		{
+			y -= 2;
+			MovePlatformOnMap('U');
+			body.top -= 2;
+			body.bottom -= 2;
+		}
+		else if (!is_triggered && y < original_y)
+		{
+			y += 2;
+			MovePlatformOnMap('D');
+			body.top += 2;
+			body.bottom += 2;
+		}
+		break;
+	case 'D':
+		if (is_triggered && y < end)
+		{
+			y += 2;
+			MovePlatformOnMap('D');
+			body.top += 2;
+			body.bottom += 2;
+		}
+		else if (!is_triggered && y > original_y)
+		{
+			y -= 2;
+			MovePlatformOnMap('U');
+			body.top -= 2;
+			body.bottom -= 2;
+		}
+		break;
+	case 'L':
+		if (is_triggered && x > end)
+		{
+			x -= 2;
+			MovePlatformOnMap('L');
+			body.left -= 2;
+			body.right -= 2;
+		}
+		else if (!is_triggered && x < original_x)
+		{
+			x += 2;
+			MovePlatformOnMap('R');
+			body.left += 2;
+			body.right += 2;
+		}
+		break;
+	case 'R':
+		if (is_triggered && x < end)
+		{
+			x += 2;
+			MovePlatformOnMap('R');
+			body.left += 2;
+			body.right += 2;
+		}
+		else if (!is_triggered && x > original_x)
+		{
+			x -= 2;
+			MovePlatformOnMap('L');
+			body.left -= 2;
+			body.right -= 2;
+		}
+		break;
+	}
+}
+
+void Platform::MovePlatformOnMap(char direction)	// 用此函式要注意要先用此函式再移動body 
 {
 	if (direction == 'U' || direction == 'D')		// 上下移動
 	{

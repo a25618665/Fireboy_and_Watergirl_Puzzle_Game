@@ -228,19 +228,29 @@ void CGameStateRun::LoadLevel1()
 	level1_switch.assign(1, Switch());
 	level1_switch[0].Init(156, 308, 'R', &map[0]);
 
-	//platform init 
-	level1_platform.assign(1, Platform());
-	level1_platform[0].Init(26, 248, 296, 'D', 'Y', &map[0]);
-	level1_platform[0].Bind(&level1_switch[0]);
-	//level1_platform[1].init(555,255,185,1);
-	//door init 
-	level1_door[0].init(511,5,0);
-	level1_door[1].init(563,5,1);
-
 	//button init 
 	level1_purple_button.assign(2, Button());
 	level1_purple_button[0].Init(171, 236, 'P');
 	level1_purple_button[1].Init(475, 171, 'P');
+
+	//platform init 
+	level1_platform.assign(2, Platform());
+	level1_platform[0].Init(26, 248, 296, 'D', 'Y', &map[0]);
+	level1_platform[0].Bind(&level1_switch[0]);
+	level1_platform[1].Init(553, 200, 248, 'D', 'P', &map[0]);
+
+	vector<Button *> temp_button_ptr_vector;
+	for (auto & button : level1_purple_button)
+	{
+		temp_button_ptr_vector.push_back(&button);
+	}
+	level1_platform[1].Bind(temp_button_ptr_vector);
+	
+	//door init 
+	level1_door[0].init(511,5,0);
+	level1_door[1].init(563,5,1);
+
+	
 
 	//diamond init 
 	level1_red_diamond[0].Init(333, 423);
@@ -261,6 +271,7 @@ void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 	level1_purple_button[0].OnMove(boy_body, girl_body);
 	level1_purple_button[1].OnMove(boy_body, girl_body);
 	level1_platform[0].OnMove();
+	level1_platform[1].OnMove();
 }
 
 void CGameStateRun::Level1OnShow()
@@ -280,7 +291,7 @@ void CGameStateRun::Level1OnShow()
 		level1_purple_button[i].OnShow();
 
 	}
-	for (int i = 0; i < 1; i++) {//顯示所有升降平台
+	for (int i = 0; i < 2; i++) {//顯示所有升降平台
 		level1_platform[i].OnShow();
 
 	}
