@@ -66,7 +66,7 @@ void Platform::OnMove()
 	{
 		PlatformOnMove( ptr_switch->IsTriggered() );
 	}
-	else if (!button_ptr_vector.size())		// 當platform是bind button時
+	else if (button_ptr_vector.size())		// 當platform是bind button時
 	{
 		bool is_triggered = false;
 		for (auto & button_ptr : button_ptr_vector)

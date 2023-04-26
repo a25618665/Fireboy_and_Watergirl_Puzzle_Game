@@ -300,6 +300,9 @@ void CGameStateRun::Level1OnShow()
 
 
 	level1_switch[0].OnShow();//顯示switch
+	CDC *pDC = CDDraw::GetBackCDC();
+	CTextDraw::Print(pDC, 450, 230, level1_purple_button[0].IsTriggered() ? "T" : "F");
+	CDDraw::ReleaseBackCDC();
 }
 
 void CGameStateRun::LoadMap(int level)
