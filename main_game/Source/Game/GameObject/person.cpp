@@ -290,6 +290,22 @@ void Person::OnMove()
 				velocity = -2;
 				is_jumping = true;
 			}
+			else
+			{
+				int i;
+				for (i = 0; i < 2; i++)
+				{
+					int j;
+					for (j = 0; j < 10; j++)
+					{
+						if ((*map)[x + body_offset.left + j][y + body_offset.bottom - i])
+							break;
+					}
+					if (j == 10)
+						break;
+				}
+				y -= i;
+			}
 		}
 		else //girl
 		{
@@ -324,6 +340,22 @@ void Person::OnMove()
 				y -= -1;
 				velocity = -2;
 				is_jumping = true;
+			}
+			else
+			{
+				int i;
+				for (i = 0; i < 2; i++)
+				{
+					int j;
+					for (j = 0; j < 10; j++)
+					{
+						if ((*map)[x + body_offset.left + j][y + body_offset.bottom - i])
+							break;
+					}
+					if (j == 10)
+						break;
+				}
+				y -= i;
 			}
 		}
 	}

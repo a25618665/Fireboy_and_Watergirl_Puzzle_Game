@@ -26,14 +26,11 @@ void Platform::Init(int x, int y, int end, char defult_direction, char color, ar
 	ptr_map = map;
 	ptr_switch = nullptr;
 
-	body.left = x + 2;
-	body.top = y + 3;
-	body.right = x + 57;
-	body.bottom = y + 13;
+	body.SetRect(x + 2, y + 2, x + 60, y + 13);
 	// 把地圖上platform的位置標成障礙物
-	for (int i = 0; i < 56; i++)
+	for (int i = 0; i < body.Width(); i++)
 	{
-		for (int j = 0; j < 11; j++)
+		for (int j = 0; j < body.Height(); j++)
 		{
 			(*ptr_map)[body.left + i][body.top + j] = 1;
 		}
@@ -46,6 +43,18 @@ void Platform::Init(int x, int y, int end, char defult_direction, char color, ar
 		break;
 	case 'P':
 		img.LoadBitmap(PURPLE_PLAT, RGB(0, 0, 0));
+		break;
+	case 'B':
+		img.LoadBitmap(BLUE_PLAT, RGB(0, 0, 0));
+		break;
+	case 'G':
+		img.LoadBitmap(GREEN_PLAT, RGB(0, 0, 0));
+		break;
+	case 'O':
+		img.LoadBitmap(ORANGE_PLAT, RGB(0, 0, 0));
+		break;
+	case 'W':
+		img.LoadBitmap(WHITE_PLAT, RGB(0, 0, 0));
 		break;
 	}
 }
@@ -92,15 +101,13 @@ void Platform::PlatformOnMove(bool is_triggered)
 		{
 			y -= 2;
 			MovePlatformOnMap('U');
-			body.top -= 2;
-			body.bottom -= 2;
+			body -= CPoint(0, 2);
 		}
 		else if (!is_triggered && y < original_y)
 		{
 			y += 2;
 			MovePlatformOnMap('D');
-			body.top += 2;
-			body.bottom += 2;
+			body += CPoint(0, 2);
 		}
 		break;
 	case 'D':
@@ -108,15 +115,13 @@ void Platform::PlatformOnMove(bool is_triggered)
 		{
 			y += 2;
 			MovePlatformOnMap('D');
-			body.top += 2;
-			body.bottom += 2;
+			body += CPoint(0, 2);
 		}
 		else if (!is_triggered && y > original_y)
 		{
 			y -= 2;
 			MovePlatformOnMap('U');
-			body.top -= 2;
-			body.bottom -= 2;
+			body -= CPoint(0, 2);
 		}
 		break;
 	case 'L':
@@ -124,15 +129,13 @@ void Platform::PlatformOnMove(bool is_triggered)
 		{
 			x -= 2;
 			MovePlatformOnMap('L');
-			body.left -= 2;
-			body.right -= 2;
+			body -= CPoint(2, 0);
 		}
 		else if (!is_triggered && x < original_x)
 		{
 			x += 2;
 			MovePlatformOnMap('R');
-			body.left += 2;
-			body.right += 2;
+			body += CPoint(2, 0);
 		}
 		break;
 	case 'R':
@@ -140,15 +143,13 @@ void Platform::PlatformOnMove(bool is_triggered)
 		{
 			x += 2;
 			MovePlatformOnMap('R');
-			body.left += 2;
-			body.right += 2;
+			body += CPoint(2, 0);
 		}
 		else if (!is_triggered && x > original_x)
 		{
 			x -= 2;
 			MovePlatformOnMap('L');
-			body.left -= 2;
-			body.right -= 2;
+			body -= CPoint(2, 0);
 		}
 		break;
 	}
@@ -171,7 +172,7 @@ void Platform::MovePlatformOnMap(char direction)	// 用此函式要注意要先�
 			break;
 		}
 
-		for (int i = 0; i < 56; i++)
+		for (int i = 0; i < body.Width(); i++)
 		{
 			for (int j = 0; j < 2; j++)
 			{
@@ -200,11 +201,11 @@ void Platform::MovePlatformOnMap(char direction)	// 用此函式要注意要先�
 
 		for (int i = 0; i < 2; i++)
 		{
-			for (int j = 0; j < 11; j++)
+			for (int j = 0; j < body.Height(); j++)
 			{
 				(*ptr_map)[x_start_fill_1 + i][body.top + j] = 1;
 			}
-			for (int j = 0; j < 11; j++)
+			for (int j = 0; j < body.Height(); j++)
 			{
 				(*ptr_map)[x_start_fill_0 + i][body.top + j] = 0;
 			}

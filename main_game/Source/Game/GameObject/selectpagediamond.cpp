@@ -41,10 +41,7 @@ void SelectPageDiamond::Init(int level, int x, int y, string color) {
 	}
 
 	// 設定滑鼠按下區域
-	body.left = diamond_x;
-	body.right = diamond_x + img_diamond.GetWidth();
-	body.top = diamond_y;
-	body.bottom = diamond_y + img_diamond.GetHeight();
+	body.SetRect(diamond_x, diamond_x + img_diamond.GetWidth(), diamond_y, diamond_y + img_diamond.GetHeight());
 }
 
 void SelectPageDiamond::SetTime(int time)
@@ -54,11 +51,11 @@ void SelectPageDiamond::SetTime(int time)
 		this->time = time;
 }
 
-int SelectPageDiamond::OnButtonDown(int point_x, int point_y)
+int SelectPageDiamond::OnButtonDown(CPoint point)
 {
-	if (point_x > body.left && point_x < body.right && point_y > body.top && point_y < body.bottom)
+	if (body.PtInRect(point))					// point是否在body裡
 	{
-		img_diamond.SetFrameIndexOfBitmap(1);  // 顯示按鈕被按下的圖片
+		img_diamond.SetFrameIndexOfBitmap(1);	// 顯示按鈕被按下的圖片
 		return level;
 	}
 	else

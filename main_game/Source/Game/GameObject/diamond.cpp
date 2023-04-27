@@ -11,6 +11,10 @@
 
 using namespace game_framework;
 
+Diamond::Diamond()
+{
+}
+
 Diamond::Diamond(string color)
 {
 	if (color == "blue")

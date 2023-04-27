@@ -46,6 +46,7 @@
 #include "GameObject/selectpagediamond.h"
 #include <vector>
 #include <array>
+#include <string>
 
 
 namespace game_framework {
@@ -110,30 +111,31 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private: 
+		void LoadMap();
 		void LoadSelectPage();
 		void LoadLevel1(); 
 		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
 		void Level1OnShow();
-		void LoadMap(int level);
-
+		// whole game varables
 		int level;                                      // 0為遊戲關卡選擇1為第一關依此類推
 		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關
-		int button_down;                                // 紀錄在select page哪關正在被按下
-		CMovingBitmap select_page_bg;
-		array<SelectPageDiamond, 2> select_page_diamond;
 		Person boy;
 		Person girl;
 		array<array<array<int, 480>, 640>, 1> map;		//每關的地圖陣列
-
+		// select page
+		int select_page_button_down;					// 紀錄在select page哪關正在被按下
+		CMovingBitmap select_page_bg;
+		array<SelectPageDiamond, 2> select_page_diamond;
+		// level 1
 		CMovingBitmap level1_bg;
-		vector<Diamond> level1_red_diamond;
-		vector<Diamond> level1_blue_diamond;
-		vector<Switch>  level1_switch;
-		vector<Platform> level1_platform;
-		vector<Button> level1_purple_button;
+		array<Diamond, 4> level1_red_diamond;
+		array<Diamond, 4> level1_blue_diamond;
+		array<Switch, 1>  level1_switch;
+		array<Button, 2> level1_button;
+		array<Platform, 2> level1_platform;
+		array<Door, 2> level1_door;
+		// level 2
 
-		
-		Door     *level1_door;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
