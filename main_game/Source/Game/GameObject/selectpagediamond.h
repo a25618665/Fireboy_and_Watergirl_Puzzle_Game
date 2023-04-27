@@ -7,7 +7,7 @@ namespace game_framework {
 		void Init(int level, int x, int y, string color);	// x, y 是寶石的位置
 		void SetTime(int time);
 		// 傳入滑鼠按下時的座標，判斷是否按下此關，是的話回傳level，不是的話回傳0
-		int OnButtonDown(int point_x, int point_y);
+		int OnButtonDown(CPoint point);
 		void OnButtonUp();
 		void OnShow();
 	private:

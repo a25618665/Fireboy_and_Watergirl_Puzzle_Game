@@ -8,10 +8,6 @@ namespace game_framework {
 		bool IsTriggered();
 		void OnMove(const CRect & boy_body, const CRect & girl_body);
 		void OnShow();
-		/*int GetX();
-		int GetY();
-		int GetColor();*/
-		//int colorindex;bool IsDown, IsUp;
 	private:
 		int x, y;      // 座標x,y
 		bool is_triggered;
