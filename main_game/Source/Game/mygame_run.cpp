@@ -62,8 +62,13 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		girl.Jump();
 
 	// debug: 按下p鍵回到select page
-	if (nChar == 0x50)   
+	if (nChar == 0x50)
+	{
+		boy.SetXY(35, 416);
+		girl.SetXY(37, 356);
+		sub_phase = 0;
 		level = 0;
+	}
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -253,11 +258,17 @@ void CGameStateRun::LoadLevel1()
 		temp_button_ptr_vector.push_back(&button);
 
 	level1_platform[1].Bind(temp_button_ptr_vector);
-	
+
 	// door init 
 	level1_door.fill(Door());
 	level1_door[0].init(511,5,0);
 	level1_door[1].init(563,5,1);
+
+	// water
+	level1_water.fill(Water());
+	level1_water[0].Init(302, 455, 369, 462, 'R');
+	level1_water[1].Init(428, 455, 498, 462, 'B');
+	level1_water[2].Init(396, 359, 467, 366, 'G');
 }
 
 void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
@@ -279,6 +290,14 @@ void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 	// platform
 	for (auto & platform : level1_platform)
 		platform.OnMove();
+
+	// water
+	for (auto & water : level1_water)
+	{
+		sub_phase = water.OnMove(boy_body, girl_body);
+		if (sub_phase)
+			break;
+	}
 }
 
 void CGameStateRun::Level1OnShow()
@@ -311,4 +330,8 @@ void CGameStateRun::Level1OnShow()
 	// person
 	boy.OnShow();
 	girl.OnShow();
+
+	// water
+	for (auto & water : level1_water)
+		water.OnShow();
 }
