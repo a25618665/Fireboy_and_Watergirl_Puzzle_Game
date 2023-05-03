@@ -44,6 +44,7 @@
 #include "GameObject/door.h"
 #include "GameObject/switch.h"
 #include "GameObject/selectpagediamond.h"
+#include "GameObject/water.h"
 #include <vector>
 #include <array>
 #include <string>
@@ -116,16 +117,19 @@ namespace game_framework {
 		void LoadLevel1(); 
 		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
 		void Level1OnShow();
+
 		// whole game varables
 		int level;                                      // 0為遊戲關卡選擇1為第一關依此類推
 		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關
 		Person boy;
 		Person girl;
 		array<array<array<int, 480>, 640>, 1> map;		//每關的地圖陣列
+
 		// select page
 		int select_page_button_down;					// 紀錄在select page哪關正在被按下
 		CMovingBitmap select_page_bg;
 		array<SelectPageDiamond, 2> select_page_diamond;
+
 		// level 1
 		CMovingBitmap level1_bg;
 		array<Diamond, 4> level1_red_diamond;
@@ -134,6 +138,8 @@ namespace game_framework {
 		array<Button, 2> level1_button;
 		array<Platform, 2> level1_platform;
 		array<Door, 2> level1_door;
+		array<Water, 3> level1_water;
+
 		// level 2
 
 	};
