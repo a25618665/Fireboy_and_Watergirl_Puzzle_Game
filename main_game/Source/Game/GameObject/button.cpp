@@ -1,79 +1,65 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "../../Core/Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
 #include "../../Library/audio.h"
 #include "../../Library/gameutil.h"
 #include "../../Library/gamecore.h"
-#include "button.h"
 #include "../pic_path.h"
+#include "button.h"
 
-namespace game_framework {
-	Button::Button()
+
+using namespace game_framework;
+
+Button::Button()
+{
+}
+
+void Button::Init(int x, int y, char color)
+{
+	this->x = x;
+	this->y = y;
+	is_triggered = false;
+
+	switch (color)
 	{
+	case 'P':
+		img_button.LoadBitmap(PURPLE_BUTTON, RGB(0, 0, 0));
+		break;
+	case 'Y':
+		//img_button.LoadBitmap(YELLOW_BUTTON, RGB(0, 0, 0)); 
+		break;
+	case 'G':
+		//img_button.LoadBitmap(IDB_GREENBOTTON, RGB(0, 0, 0)); 
+		break;
 	}
-	void Button::init(int coordinateX, int coordinateY)
-	{
-		x = coordinateX;
-		y = coordinateY;
-		body.left = x;
-		body.top = y;
-		Is_Click = false;
-	
-	}
-	void Button::OnShow()
-	{
-		if (Is_Click == false) {
-			buttonPic.SetTopLeft(x, y);
-			buttonPic.ShowBitmap();
-		}
-	}
-	void Button::LoadBitmap(int color)//1:purple2:yellow3:green
-	{
-		colorindex = color;
-		switch (colorindex) {
-		case 1:
-			buttonPic.LoadBitmap(PURPLE_BUTTON, RGB(0, 0, 0));
-			break;
-		case 2:
-			//buttonPic.LoadBitmap(YELLOW_BUTTON, RGB(0, 0, 0)); 
-			break;
-		case 3:
-			//buttonPic.LoadBitmap(IDB_GREENBOTTON, RGB(0, 0, 0)); 
-			break;
-		default:
-			break;
-		}
-		body.right = x + buttonPic.GetWidth();
-		body.bottom = y + buttonPic.GetHeight();
-	}
-	
-	int Button::GetX()
-	{
-		return x;
-	}
-	int Button::GetY()
-	{
-		return y;
-	}
-	int Button::GetColor()
-	{
-		return colorindex;
-	}
-	void Button::OnMove(const  CRect & person_body) {
-		if (person_body.bottom > body.top && person_body.bottom < body.bottom &&
-			person_body.left > body.left && person_body.right < body.right) {
-			Is_Click = true;
+	img_button.SetTopLeft(x, y);
 
-		}
-		else  {
+	body.left = x;
+	body.top = y;
+	body.right = x + img_button.GetWidth();
+	body.bottom = y + img_button.GetHeight();
+}
 
+bool Button::IsTriggered()
+{
+	return is_triggered;
+}
 
-			Is_Click = false;
+void Button::OnMove(const CRect & boy_body, const CRect & girl_body)
+{
+	CRect temp_rect;
+	bool boy_is_overlap = temp_rect.IntersectRect(boy_body, body);
+	bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body);
 
+	if (boy_is_overlap || girl_is_overlap)
+		is_triggered = true;
+	else
+		is_triggered = false;
+}
 
-		}
-
-
-	}
+void Button::OnShow()
+{
+	if (!is_triggered)
+		img_button.ShowBitmap();
 }

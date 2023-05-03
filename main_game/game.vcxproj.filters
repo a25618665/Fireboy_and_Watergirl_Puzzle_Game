@@ -69,11 +69,16 @@
     <ClCompile Include="Source\Game\GameObject\switch.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Source\Game\GameObject\switch.cpp">
-=======
     <ClCompile Include="Source\Game\GameObject\platform.cpp">
->>>>>>> 0c36778750392cdb241570eef479175061b85b2b
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameObject\selectpagediamond.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameObject\water.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameObject\rock.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -130,6 +135,15 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\GameObject\switch.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameObject\selectpagediamond.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameObject\rock.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameObject\water.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,53 +5,58 @@
 #include "../../Library/audio.h"
 #include "../../Library/gameutil.h"
 #include "../../Library/gamecore.h"
+#include "../pic_path.h"
 #include "diamond.h"
 
-namespace game_framework {
-	Diamond::Diamond()
-	{
-	}
-	void Diamond::init(int coordinateX, int coordinateY)
-	{
-		x = coordinateX;
-		y = coordinateY;
-		
-		body.left = x;
-		body.top = y;
-		body.right = x + 25;//暫定25
-		body.bottom = y + 21;//暫定21
 
-		is_showing = true;
-	}
+using namespace game_framework;
 
-	void Diamond::OnMove(const CRect & person_body)
+Diamond::Diamond()
+{
+}
+
+Diamond::Diamond(string color)
+{
+	if (color == "blue")
 	{
-		if (person_body.top < body.bottom && person_body.bottom > body.top &&
-				person_body.left < body.right && person_body.right > body.left)
-		{
+		img.LoadBitmapByString({ DIAMOND_BLUE_1, DIAMOND_BLUE_2 }, RGB(0, 0, 0));
+		img.SetAnimation(400, FALSE);
+	}
+	else if (color == "red")
+	{
+		img.LoadBitmapByString({ DIAMOND_RED_1, DIAMOND_RED_2 }, RGB(0, 0, 0));
+		img.SetAnimation(400, FALSE);
+	}
+}
+
+void Diamond::Init(int x, int y)
+{
+	this->x = x;
+	this->y = y;
+	img.SetTopLeft(x, y);
+
+	body.left = x + 4;
+	body.top = y + 2;
+	body.right = x + 21;
+	body.bottom = y + 17;
+	 
+	is_showing = true;
+}
+
+void Diamond::OnMove(const CRect& person_body)
+{
+	if (is_showing)		// 還未被吃掉才判斷是否overlap
+	{
+		CRect temp_rect;
+		bool is_overlap = temp_rect.IntersectRect(person_body, body);
+
+		if (is_overlap)
 			is_showing = false;
-		}
 	}
+}
 
-	void Diamond::OnShow()
-	{
-		if (is_showing)
-		{
-			DiamondPic.SetTopLeft(x, y);
-			DiamondPic.ShowBitmap();
-		}
-	}
-	/*bool Diamond::isTouch()
-	{
-		
-	}*/
-	int Diamond::GetX()
-	{
-		return x;
-	}
-	int Diamond::GetY()
-	{
-		return y;
-	}
-
+void Diamond::OnShow()
+{
+	if (is_showing)
+		img.ShowBitmap();
 }

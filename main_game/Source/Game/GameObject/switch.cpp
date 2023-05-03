@@ -1,114 +1,158 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "../../Core/Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
 #include "../../Library/audio.h"
 #include "../../Library/gameutil.h"
 #include "../../Library/gamecore.h"
-#include "switch.h"
 #include  "../pic_path.h"
+#include "switch.h"
 
 
+using namespace game_framework;
 
-namespace game_framework {
+Switch::Switch()
+{
+}
 
+void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 640> *map)
+{
+	this->x = x;
+	this->y = y;
+	is_triggered = false;
+	ptr_map = map;
 
-	Switch::Switch() {
+	body_right.left = x + 35;
+	body_right.top = y + 5;
+	body_right.right = x + 36;
+	body_right.bottom = y + 8;
 
-	}
-	void Switch::init(int coordinateX, int coordinateY, int COLOR)
+	body_left.left = x + 3;
+	body_left.top = y + 5;
+	body_left.right = x + 4;
+	body_left.bottom = y + 8; 
+	
+	switch (defult_direction)
 	{
-		x = coordinateX;
-		y = coordinateY;
-		body.left = x;
-		body.top = y;
-		color = COLOR;
-		moving_status = 0;
-		is_right = true; //預設為向右
-		switch (color) {
-
-		case 0:
-			right.LoadBitmap( SWITCH_RIGHT, RGB(0, 0, 0));
-			left.LoadBitmap(SWITCH_LEFT, RGB(0, 0, 0));
-			break;
-		case 2:
-			//right.LoadBitmap(, RGB(0, 0, 0));
-			//left.LoadBitmap(, RGB(0, 0, 0));
-			break;
-
+	case 'R':
+		is_right = true;
+		// 地圖上一開始搖桿沒有標成障礙物，所以在此要把搖桿向右時在地圖上的區域標成1
+		for (int i = 0; i < 16; i++)
+		{
+			for (int j = 0; j < 18; j++)
+			{
+				if (right_obstacle_aria[i][j])
+					(*ptr_map)[x + 19 + i][y + 2 + j] = 1;
+			}
 		}
-		body.right = x + right.GetWidth();
-		body.bottom = y + right.GetHeight();
-
-
-
+		break;
+	case 'L':
+		is_right = false;
+		// 地圖上一開始搖桿沒有標成障礙物，所以在此要把搖桿向左時在地圖上的區域標成1
+		for (int i = 0; i < 16; i++)
+		{
+			for (int j = 0; j < 18; j++)
+			{
+				if (left_obstacle_aria[i][j])
+					(*ptr_map)[x + 5 + i][y + 4 + j] = 1;
+			}
+		}
+		break;
 	}
-	void Switch::OnShow()
+	
+	/*switch (color) {
+
+	case 0:*/
+		img_right.LoadBitmap(SWITCH_RIGHT, RGB(0, 0, 0));
+		img_right.SetTopLeft(x, y);
+		img_left.LoadBitmap(SWITCH_LEFT, RGB(0, 0, 0));
+		img_left.SetTopLeft(x, y);
+	//	break;
+	//case 2:
+	//	//right.LoadBitmap(, RGB(0, 0, 0));
+	//	//left.LoadBitmap(, RGB(0, 0, 0));
+	//	break;
+
+	//}
+}
+
+bool Switch::IsTriggered()
+{
+	return is_triggered;
+}
+
+void Switch::OnMove(const CRect & boy_body, const CRect & girl_body)
+{
+	if (is_right)
 	{
-		right.SetTopLeft(x, y);
-		left.SetTopLeft(x, y);
-		if (is_right) {
-			
-			right.ShowBitmap();
+		CRect temp_rect;
+		bool boy_is_overlap = temp_rect.IntersectRect(boy_body, body_right);
+		bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body_right);
 
-		}
-		else  {
-			
-			left.ShowBitmap();
+		if (boy_is_overlap || girl_is_overlap)
+			Right2Left();
+	}
+	else
+	{
+		CRect temp_rect;
+		bool boy_is_overlap = temp_rect.IntersectRect(boy_body, body_left);
+		bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body_left);
+
+		if (boy_is_overlap || girl_is_overlap)
+			Left2Right();
+	}
+}
+
+void Switch::OnShow()
+{
+	if (is_right)
+		img_right.ShowBitmap();
+	else
+		img_left.ShowBitmap();
+}
+
+void Switch::Right2Left()
+{
+	for (int i = 0; i < 16; i++)
+	{
+		for (int j = 0; j < 18; j++)
+		{
+			if (right_obstacle_aria[i][j])
+				(*ptr_map)[x + 19 + i][y + 2 + j] = 0;
 		}
 	}
 
-	void Switch::OnMove(const CRect & person_body) {
-
-
-		if (person_body.top < body.top && person_body.bottom < body.bottom &&
-			person_body.left > body.right-20 && person_body.left < body.right) {
-			is_right = false;
-
+	for (int i = 0; i < 16; i++)
+	{
+		for (int j = 0; j < 18; j++)
+		{
+			if (left_obstacle_aria[i][j])
+				(*ptr_map)[x + 5 + i][y + 4 + j] = 1;
 		}
-		else if (person_body.top < body.top && person_body.bottom < body.bottom &&
-			person_body.right > body.left  && person_body.right < body.left+20){
-			
+	}
+	is_right = false;
+	is_triggered = !is_triggered;
+}
 
-			is_right = true;
-
-
+void Switch::Left2Right()
+{
+	for (int i = 0; i < 16; i++)
+	{
+		for (int j = 0; j < 18; j++)
+		{
+			if (left_obstacle_aria[i][j])
+				(*ptr_map)[x + 5 + i][y + 4 + j] = 0;
 		}
-
-
 	}
 
-
-
-
-	/*int Switch::GetY()
+	for (int i = 0; i < 16; i++)
+	{
+		for (int j = 0; j < 18; j++)
 		{
-			return x;
+			if (right_obstacle_aria[i][j])
+				(*ptr_map)[x + 19 + i][y + 2 + j] = 1;
 		}
-	int Switch::GetX()
-		{
-			return y;
-		}
-		*/
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
+	is_right = true;
+	is_triggered = !is_triggered;
 }

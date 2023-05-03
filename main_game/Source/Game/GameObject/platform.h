@@ -1,23 +1,29 @@
 #pragma once
 #include "switch.h"
 #include "button.h"
+#include <array>
+#include <vector>
+
 namespace game_framework {
-	class PlatForm {
+	class Platform {
 	public:
-		PlatForm();
+		Platform();			
+		// Init: end: 移動完的座標(x或y), direction: 'U', 'D', 'L', 'R', color: 'Y', 'P'
+		void Init(int x, int y, int end, char defult_direction, char color, array<array<int, 480>, 640> *map);
+		void Bind(Switch *ptr_switch);									
+		void Bind(const vector<Button *> & button_ptr_vector);
+		void OnMove();
 		void OnShow();
-		void OnMove(const  Switch  &switch_add);
-		void OnMove(const Button &button );
-		void init(int x, int y ,int Y_END , int  color );//1:purple2:yellow3:green
-		int GetX();
-		int GetY();
-		int GetColor();
-		int GetStart_y();
-		CMovingBitmap Pic;
-		int x, y, color;    
-		 int y_start  ;
-		 int  y_end ;
-		bool isDown, isUp;
+	private:
+		void PlatformOnMove(bool is_triggered);
+		void MovePlatformOnMap(char direction);
+
+		int original_x, original_y, x, y, end;
+		char defult_direction;
+		CMovingBitmap img;
+		array<array<int, 480>, 640> *ptr_map;
+		Switch *ptr_switch;
+		vector<Button *> button_ptr_vector;
+		CRect body;
 	};
 }
-

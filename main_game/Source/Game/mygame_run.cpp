@@ -8,6 +8,8 @@
 #include "mygame.h"
 #include "pic_path.h"
 #include <fstream>
+
+
 using namespace game_framework;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -16,22 +18,10 @@ using namespace game_framework;
 
 CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 {
-	level1_red = new Diamond[4];
-	level1_blue = new Diamond[4];
-	level1_purple_button = new Button[2];
-	level1_platform = new PlatForm[2];
-	level1_door = new Door[2];
-	level1_switch = new Switch[1];
-}   
+}
 
 CGameStateRun::~CGameStateRun()
 {
-	delete level1_red;
-	delete level1_blue;
-	delete level1_purple_button;
-	delete level1_door;
-	delete level1_platform;
-	delete level1_switch;
 }
 
 void CGameStateRun::OnBeginState()
@@ -40,86 +30,80 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
-	load_background();
-	load_level1();
+	level = 0;
+	sub_phase = 0;
+	// person
 	boy.Init("boy");
-	boy.SetXY(35, 416);
 	girl.Init("girl");
-	girl.SetXY(37, 356);
 
-	
-
-	
-	LoadMap(1);
-	boy.SetMap(&map);
-	girl.SetMap(&map);
+	LoadMap();
+	LoadSelectPage();
+	LoadLevel1();
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char VK_W = 0x57;
-	const char VK_A = 0x41;
-	const char VK_D = 0x44;
-	
-	//girl
-	if (nChar == VK_D)
-		girl.SetMovingRight(true);
-	else if (nChar == VK_A)
-		girl.SetMovingLeft(true);
-
-	if (nChar == VK_W)
-		girl.Jump();
-
-	//boy
-	if (nChar == VK_RIGHT)     //向右鍵
+	// boy
+	if (nChar == VK_RIGHT)			// 向右鍵
 		boy.SetMovingRight(true);
-	else if (nChar == VK_LEFT)  //向左鍵
+	else if (nChar == VK_LEFT)		// 向左鍵
 		boy.SetMovingLeft(true);
 
-	if (nChar == VK_UP)
+	if (nChar == VK_UP)				// 向上鍵
 		boy.Jump();
+
+	// girl
+	if (nChar == 0x44)				// D鍵
+		girl.SetMovingRight(true);
+	else if (nChar == 0x41)			// A鍵
+		girl.SetMovingLeft(true);
+
+	if (nChar == 0x57)				// W鍵
+		girl.Jump();
+
+	// debug: 按下p鍵回到select page
+	if (nChar == 0x50)
+	{
+		boy.SetXY(35, 416);
+		girl.SetXY(37, 356);
+		sub_phase = 0;
+		level = 0;
+	}
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char VK_W = 0x57;
-	const char VK_A = 0x41;
-	const char VK_D = 0x44;
-	
-	if (nChar == VK_D) {
-		girl.SetMovingRight(false);
-	}
-	else if (nChar == VK_A) {
-		girl.SetMovingLeft(false);
-	}
-
-	if (nChar == VK_RIGHT) {     //向右鍵
+	// boy
+	if (nChar == VK_RIGHT)			// 向右鍵
 		boy.SetMovingRight(false);
-	}
-	else if (nChar == VK_LEFT) {  //向左鍵
+	else if (nChar == VK_LEFT)		// 向左鍵
 		boy.SetMovingLeft(false);
-	}
+
+	// girl
+	if (nChar == 0x44)				// D鍵
+		girl.SetMovingRight(false);
+	else if (nChar == 0x41)			// A鍵
+		girl.SetMovingLeft(false);
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	//左鍵按下時滑鼠的座標
-	int x = point.x;
-	int y = point.y;
-
-	if (x >= 302 && x <= 326 && y >= 440 && y <= 468) {
-		diamond_flag = 1;
-		d_1.SetFrameIndexOfBitmap(1);
-		
+	if (level == 0)
+	{
+		for (auto & diamond : select_page_diamond)
+		{
+			select_page_button_down = diamond.OnButtonDown(point);
+			if (select_page_button_down != 0)
+				break;
+		}
 	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	if (diamond_flag == 1) {
-		diamond_flag = 0;
-		d_1.SetFrameIndexOfBitmap(0);
-		level = 1;
+	if (level == 0 && select_page_button_down != 0) {
+		select_page_diamond[select_page_button_down - 1].OnButtonUp();
+		level = select_page_button_down;
 	}
 }
 
@@ -135,158 +119,219 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 {
 }
 
-void CGameStateRun::OnMove()							// 移動遊戲元素
+void CGameStateRun::OnMove()					// 移動遊戲元素
 {
-	boy.OnMove();
-	girl.OnMove();
+	if (level != 0 && sub_phase == 0)			// 在所有關卡遊玩頁面
+	{
+		// 每關都有的元素
+		boy.OnMove();
+		girl.OnMove();
 
-	CRect boy_body = boy.GetBody();
-	CRect girl_body = girl.GetBody();
-	for (int i = 0; i < 4; i++) {
-		level1_red[i].OnMove(boy_body);
-		level1_blue[i].OnMove(girl_body);
+		CRect boy_body = boy.GetBody();
+		CRect girl_body = girl.GetBody();
+		switch (level)
+		{
+		case 1:
+			Level1OnMove(boy_body, girl_body);
+			break;
+		case 2:
+			break;
+		}
 	}
-	level1_switch[0].OnMove(boy_body);
-	level1_platform[0].OnMove(level1_switch[0]);
-	level1_platform[1].OnMove(level1_purple_button[0]);
-	level1_platform[1].OnMove(level1_purple_button[1]);
-
-	//girl.OnMove();
 }
 
 void CGameStateRun::OnShow()
 {
-	if (level == 0) {
-		level_map.ShowBitmap();
-		d_1.ShowBitmap();
-    }
-	else if (level == 1) {
-		//eachlevel_background.SetFrameIndexOfBitmap(level-1);
-		eachlevel_background.ShowBitmap();
-		boy.OnShow();
-		girl.OnShow();
-		level1_onshow();
+	switch (level)
+	{
+		case 0:
+			select_page_bg.ShowBitmap();
+			for (auto & diamond : select_page_diamond)
+				diamond.OnShow();
+			break;
+		case 1:
+			switch (sub_phase)
+			{
+			case 0:
+				Level1OnShow();
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			}
+			break;
+		case 2:
+			switch (sub_phase)
+			{
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			}
+			break;
+	}
+	//test
+	/*char* s = "te";
+	string st = "te";
+	st += TEST;
 
+	
+	CDC *pDC = CDDraw::GetBackCDC();
+	CTextDraw::Print(pDC, 450, 230, map.size() == 1 ? "T" : "F");
+	CDDraw::ReleaseBackCDC();*/ 
+}
+
+void CGameStateRun::LoadMap()
+{
+	for (int i = 0; i < int(map.size()); i++)
+	{
+		string map_path = "";
+		ifstream ifs(map_path + MAP_TEMPLATE + to_string(i + 1) + ".map");
+		for (int j = 0; j < 640; j++)
+		{
+			for (int k = 0; k < 480; k++)
+			{
+				ifs >> map[i][j][k];
+			}
+		}
+		ifs.close();
 	}
 }
 
-void CGameStateRun::load_background() {
-	level = 0;
-	level_map.LoadBitmapByString({ LEVEL_BG });
-	level_map.SetTopLeft(0, 0);
+void CGameStateRun::LoadSelectPage() 
+{
+	select_page_button_down = 0;
+	
+	select_page_bg.LoadBitmapByString({ SELECT_PAGE_BG });
+	select_page_bg.SetTopLeft(0, 0);
     
-	d_1.LoadBitmapByString({ DIAMOND, DIAMOND_CLICKED },RGB(255, 204, 0));
-    d_1.SetTopLeft(302,440);
-
-	eachlevel_background.LoadBitmapByString({ TEMP_BG });
-	eachlevel_background.SetTopLeft(0, 0);
+	select_page_diamond.fill( SelectPageDiamond() );
+	select_page_diamond[0].Init(1, 302, 440, "blue");
+	select_page_diamond[1].Init(2, 322, 386, "blue");
 }
 
-//void CGameStateRun::load_char() {
-//	fire_boy.LoadBitmapByString({ firestop }, RGB(0, 0, 0));
-//	//fire_boy.SetAnimation(40, false);
-//	fire_boy.SetTopLeft(36,400);
-//	fire_right.LoadBitmapByString({ fireright1,
-//		fireright2,
-//		fireright3,
-//		fireright4,}, RGB(0, 0, 0));
-//	fire_right.SetTopLeft(25,405);
-//	fire_right.SetAnimation(20, false);
-//	fire_move = 0;
-//	fire_left.LoadBitmapByString({ fireleft1,
-//		fireleft2,
-//		fireleft3,
-//		}, RGB(0, 0, 0));
-//	fire_left.SetTopLeft(25, 405);
-//	fire_left.SetAnimation(20, false);
-//	water_sis.LoadBitmapByString({ waterstop }, RGB(0, 0, 0));
-//	water_sis.SetTopLeft(36, 395);
-//	water_move = 0;
-//	water_right.LoadBitmapByString({ waterright1,
-//		waterright2,
-//		waterright3}, RGB(0, 0, 0));
-//	water_right.SetTopLeft(25, 405);
-//	water_left.LoadBitmapByString({ watwerleft1,
-//		watwerleft2,
-//		watwerleft3}, RGB(0, 0, 0));
-//	water_left.SetTopLeft(25, 405);
-//
-//
-//}
-void CGameStateRun::load_level1() {
+void CGameStateRun::LoadLevel1()
+{
+	// person
+	boy.SetXY(35, 416);
+	girl.SetXY(37, 356);
+	boy.SetMap(&map[0]);
+	girl.SetMap(&map[0]);
 
-	for (int i = 0; i < 4; i++) {
-		level1_red[i].DiamondPic.LoadBitmapByString({RED_1,RED_2}, RGB(0, 0, 0));
-		level1_red[i].DiamondPic.SetAnimation(400, FALSE);
-		level1_blue[i].DiamondPic.LoadBitmapByString({ BLUE_1,BLUE_2 }, RGB(0, 0, 0));
-		level1_blue[i].DiamondPic.SetAnimation(400, FALSE);
-	    
+	// background
+	level1_bg.LoadBitmapByString({ LEVEL_1_BG });
+	level1_bg.SetTopLeft(0, 0);
 
-	}
-	for (int i = 0; i < 2; i++) {
-		level1_purple_button[i].buttonPic.LoadBitmapByString({ PURPLE_BUTTON }, RGB(0, 0, 0));
-	}
-	//platform init 
-	level1_platform[0].init(24,320,245,2);
-	level1_platform[1].init(555,255,185,1);
-	//door init 
+	// diamond 
+	level1_red_diamond.fill(Diamond("red"));
+	level1_red_diamond[0].Init(333, 423);
+	level1_red_diamond[1].Init(129, 213);
+	level1_red_diamond[2].Init(174, 38);
+	level1_red_diamond[3].Init(299, 73);
+
+	level1_blue_diamond.fill(Diamond("blue"));
+	level1_blue_diamond[0].Init(463, 421);
+	level1_blue_diamond[1].Init(354, 222);
+	level1_blue_diamond[2].Init(38, 73);
+	level1_blue_diamond[3].Init(372, 63);
+
+	// switch init 
+	level1_switch.fill(Switch());
+	level1_switch[0].Init(156, 308, 'R', &map[0]);
+
+	// button init 
+	level1_button.fill(Button());
+	level1_button[0].Init(171, 236, 'P');
+	level1_button[1].Init(475, 171, 'P');
+
+	// platform init 
+	level1_platform.fill(Platform());
+	level1_platform[0].Init(26, 248, 296, 'D', 'Y', &map[0]);
+	level1_platform[0].Bind(&level1_switch[0]);
+	level1_platform[1].Init(553, 200, 248, 'D', 'P', &map[0]);
+
+	vector<Button *> temp_button_ptr_vector;
+	for (auto & button : level1_button)
+		temp_button_ptr_vector.push_back(&button);
+
+	level1_platform[1].Bind(temp_button_ptr_vector);
+
+	// door init 
+	level1_door.fill(Door());
 	level1_door[0].init(511,5,0);
 	level1_door[1].init(563,5,1);
 
-	//button init 
-	level1_purple_button[0].init(165,235);
-	level1_purple_button[1].init(478,175);
-
-	//diamond init 
-	level1_red[0].init(333, 423);
-	level1_red[1].init(129,213);
-	level1_red[2].init(174,38);
-	level1_red[3].init(299,73);
-	level1_blue[0].init(463, 421);
-	level1_blue[1].init(354, 222);
-	level1_blue[2].init(38, 73);
-	level1_blue[3].init(372, 63);
-	// switch init 
-	level1_switch[0].init(163,302,0);
-
-
-
-}
-void CGameStateRun::level1_onshow() {
-
-
-
-	for (int i = 0; i < 4; i++) {//顯示所有寶石
-		
-		level1_red[i].OnShow();
-		level1_blue[i].OnShow();
-		
-	}
-	for ( int i = 0; i < 2; i++) {//顯示所有按鈕
-		level1_purple_button[i].OnShow();
-
-	}
-	for (int i = 0; i < 2; i++) {//顯示所有升降平台
-		level1_platform[i].OnShow();
-
-	}
-	level1_door[0].OnShow();
-	level1_door[1].OnShow();//顯示door
-
-
-	level1_switch[0].OnShow();//顯示switch
-
+	// water
+	level1_water.fill(Water());
+	level1_water[0].Init(302, 455, 369, 462, 'R');
+	level1_water[1].Init(428, 455, 498, 462, 'B');
+	level1_water[2].Init(396, 359, 467, 366, 'G');
 }
 
-void CGameStateRun::LoadMap(int level)
+void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 {
-	ifstream ifs( MAP_TEMPLATE );
+	// diamond
+	for (auto & diamond : level1_red_diamond)
+		diamond.OnMove(boy_body);
+	for (auto & diamond : level1_blue_diamond)
+		diamond.OnMove(girl_body);
+	
+	// switch
+	for (auto & s : level1_switch)
+		s.OnMove(boy_body, girl_body);
 
-	for (int i = 0; i < 640; i++) {
-		for (int j = 0; j < 480; j++) {
-			ifs >> map[i][j];
-		}
+	// button
+	for (auto & button : level1_button)
+		button.OnMove(boy_body, girl_body);
+
+	// platform
+	for (auto & platform : level1_platform)
+		platform.OnMove();
+
+	// water
+	for (auto & water : level1_water)
+	{
+		sub_phase = water.OnMove(boy_body, girl_body);
+		if (sub_phase)
+			break;
 	}
+}
 
-	ifs.close();
+void CGameStateRun::Level1OnShow()
+{
+	// background
+	level1_bg.ShowBitmap();
+
+	// diamond
+	for (auto & diamond : level1_red_diamond)
+		diamond.OnShow();
+	for (auto & diamond : level1_blue_diamond)
+		diamond.OnShow();
+
+	// switch
+	for (auto & s : level1_switch)
+		s.OnShow();
+
+	// button
+	for (auto & button : level1_button)
+		button.OnShow();
+
+	// platform
+	for (auto & platform : level1_platform)
+		platform.OnShow();
+
+	// door
+	for (auto & door : level1_door)
+		door.OnShow();
+	
+	// person
+	boy.OnShow();
+	girl.OnShow();
+
+	// water
+	for (auto & water : level1_water)
+		water.OnShow();
 }
