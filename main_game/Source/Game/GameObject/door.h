@@ -5,12 +5,14 @@ namespace game_framework {
 	public:
 		Door();
 		void OnShow();
-		void init(int x, int y,int COLOR);//0: BOY1:GIRL
-		bool is_touched();
-		int GetX();
-		int GetY();
-		int x, y;
-		int color;
+		void init(int left_x, int top_y,int right_x,int bottom_y, char COLOR);//R:BOY B:GIRL
+		int  OnMove(const CRect & boy_body, const CRect & girl_body);
+		bool is_trigger = 0 ;
+	private :
+		int  length = 103 , width  = 59 ;
+		char color;
+		CRect body;
 		CMovingBitmap Pic;
+		int x, y;
 	};
 }

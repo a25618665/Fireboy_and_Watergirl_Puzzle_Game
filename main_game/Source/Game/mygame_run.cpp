@@ -261,8 +261,8 @@ void CGameStateRun::LoadLevel1()
 
 	// door init 
 	level1_door.fill(Door());
-	level1_door[0].init(511,5,0);
-	level1_door[1].init(563,5,1);
+	level1_door[0].init(511,5,545,100,'R');
+	level1_door[1].init(555,5,593,100,'B');
 
 	// water
 	level1_water.fill(Water());
@@ -297,6 +297,19 @@ void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 		sub_phase = water.OnMove(boy_body, girl_body);
 		if (sub_phase)
 			break;
+	}
+	door_counter = 0;
+	for (auto & door : level1_door)
+	{
+	
+		door_counter = door_counter +  door.OnMove(boy_body, girl_body);
+         		
+		if (door_counter == 2) {
+			sub_phase = 2;
+			break;
+		}
+		
+		
 	}
 }
 

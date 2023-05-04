@@ -139,6 +139,7 @@ namespace game_framework {
 		array<Platform, 2> level1_platform;
 		array<Door, 2> level1_door;
 		array<Water, 3> level1_water;
+		int door_counter  ;
 
 		// level 2
 
