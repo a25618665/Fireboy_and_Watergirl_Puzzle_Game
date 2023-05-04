@@ -22,15 +22,17 @@ namespace game_framework {
 	Door::Door()
 	{
 	}
-	void Door::init(int coordinateX, int coordinateY, int COLOR)
+	
+	void Door::init(int left_x, int top_y,int right_x, int bottom_y, char COLOR)
 	{
-		x = coordinateX;
-		y = coordinateY;
-		color = COLOR;
-		switch (COLOR)
+		this-> x = left_x;
+		this->y  = top_y;
+		this ->color = COLOR;
+		body.SetRect(left_x, top_y, right_x, bottom_y);
+		switch (color)
 		{
 
-		case 0:
+		case 'R':
 			Pic.LoadBitmap({ "Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/1.bmp",
 				"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/3.bmp",
 				"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/4.bmp",
@@ -45,9 +47,9 @@ namespace game_framework {
 				"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/22.bmp"
 
 				}, RGB(0, 0, 0));
-			Pic.SetAnimation(200, true);
+		
 			break;
-		case 1:
+		case 'B':
 			Pic.LoadBitmap({ "Resources/game_run/door/door_girl/1.bmp",
 				"Resources/game_run/door/door_girl/3.bmp" ,
 				"Resources/game_run/door/door_girl/4.bmp" ,
@@ -61,22 +63,40 @@ namespace game_framework {
 				"Resources/game_run/door/door_girl/20.bmp" ,
 				"Resources/game_run/door/door_girl/22.bmp",
 				}, RGB(0, 0, 0));
-			Pic.SetAnimation(200, true);
+			
 			break;
 		}
+		
 	}
+	int Door::OnMove(const CRect & boy_body, const CRect & girl_body) {
 
+		CRect temp_rect;
+		bool boy_is_overlap = temp_rect.IntersectRect(boy_body, body);
+		bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body);
+		switch (color)
+		{
+		case 'R':
+			if (boy_is_overlap) {
+				return 1;
+			}
+			break;
+		case 'B':
+			if (girl_is_overlap) {
+				return 1;
+			}
+			break;
+			
+		}
+
+		return 0;
+
+	}
 	void Door::OnShow()
 	{
 		Pic.SetTopLeft(x, y);
+		Pic.SetAnimation(200, true);
 		Pic.ShowBitmap();
 	}
-	int Door::GetX()
-	{
-		return x;
-	}
-	int Door::GetY()
-	{
-		return y;
-	}
+	
+	
 }
