@@ -216,8 +216,8 @@ void CGameStateRun::LoadSelectPage()
 void CGameStateRun::LoadLevel1()
 {
 	// person
-	boy.SetXY(35, 416);
-	girl.SetXY(37, 356);
+	boy.SetXY(450, 3);
+	girl.SetXY(490, 3);
 	boy.SetMap(&map[0]);
 	girl.SetMap(&map[0]);
 
@@ -261,8 +261,8 @@ void CGameStateRun::LoadLevel1()
 
 	// door init 
 	level1_door.fill(Door());
-	level1_door[0].init(511,5,545,100,'R');
-	level1_door[1].init(555,5,593,100,'B');
+	level1_door[0].init(500,25,510,100,'R');
+	level1_door[1].init(560,5,570,100,'B');
 
 	// water
 	level1_water.fill(Water());
@@ -305,7 +305,7 @@ void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 		door_counter = door_counter +  door.OnMove(boy_body, girl_body);
          		
 		if (door_counter == 2) {
-			sub_phase = 2;
+			sub_phase = 1;
 			break;
 		}
 		
