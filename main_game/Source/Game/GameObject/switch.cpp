@@ -19,6 +19,7 @@ void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 64
 {
 	this->x = x;
 	this->y = y;
+	this->defult_direction = defult_direction;
 	is_triggered = false;
 	ptr_map = map;
 
@@ -79,6 +80,26 @@ void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 64
 bool Switch::IsTriggered()
 {
 	return is_triggered;
+}
+
+void Switch::Reset()
+{
+	// 如果是triggered才要復原
+	if (is_triggered)
+	{
+		switch (defult_direction)
+		{
+		case 'R':
+			is_right = true;
+			Left2Right();
+			break;
+		case 'L':
+			is_right = false;
+			Right2Left();
+			break;
+		}
+		is_triggered = false;
+	}
 }
 
 void Switch::OnMove(const CRect & boy_body, const CRect & girl_body)

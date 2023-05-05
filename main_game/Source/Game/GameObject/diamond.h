@@ -6,6 +6,7 @@ namespace game_framework {
 		Diamond();
 		Diamond(string color);
 		void Init(int x, int y);
+		void Reset();
 		void OnMove(const CRect& person_body);	// 傳入person的body判斷是否吃到鑽石
 		void OnShow();
 	private:

@@ -43,6 +43,11 @@ void Diamond::Init(int x, int y)
 	is_showing = true;
 }
 
+void Diamond::Reset()
+{
+	is_showing = true;
+}
+
 void Diamond::OnMove(const CRect& person_body)
 {
 	if (is_showing)		// 還未被吃掉才判斷是否overlap

@@ -46,6 +46,11 @@ bool Button::IsTriggered()
 	return is_triggered;
 }
 
+void Button::Reset()
+{
+	is_triggered = false;
+}
+
 void Button::OnMove(const CRect & boy_body, const CRect & girl_body)
 {
 	CRect temp_rect;

@@ -69,6 +69,31 @@ void Platform::Bind(const vector<Button *> & button_ptr_vector)
 	this->button_ptr_vector = button_ptr_vector;
 }
 
+void Platform::Reset()
+{
+	if (x != original_x || y != original_y)
+	{
+		for (int i = 0; i < body.Width(); i++)
+		{
+			for (int j = 0; j < body.Height(); j++)
+			{
+				(*ptr_map)[body.left + i][body.top + j] = 0;
+			}
+		}
+
+		x = original_x;
+		y = original_y;
+		body.SetRect(x + 2, y + 2, x + 60, y + 13);
+		for (int i = 0; i < body.Width(); i++)
+		{
+			for (int j = 0; j < body.Height(); j++)
+			{
+				(*ptr_map)[body.left + i][body.top + j] = 1;
+			}
+		}
+	}
+}
+
 void Platform::OnMove()
 {
 	if (ptr_switch)							// 當platform是bind switch時
