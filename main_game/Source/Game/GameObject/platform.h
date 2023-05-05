@@ -12,6 +12,7 @@ namespace game_framework {
 		void Init(int x, int y, int end, char defult_direction, char color, array<array<int, 480>, 640> *map);
 		void Bind(Switch *ptr_switch);									
 		void Bind(const vector<Button *> & button_ptr_vector);
+		void Reset();
 		void OnMove();
 		void OnShow();
 	private:

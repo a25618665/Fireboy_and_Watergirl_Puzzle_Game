@@ -7,6 +7,7 @@ namespace game_framework {
 		Switch();
 		void Init(int x, int y, char defult_direction, array<array<int, 480>, 640> *map);	// defult_direction: 'R', 'L'
 		bool IsTriggered();
+		void Reset();
 		void OnMove(const CRect & boy_body, const CRect & girl_body);
 		void OnShow();
 	private:
@@ -15,6 +16,7 @@ namespace game_framework {
 
 		bool is_right, is_triggered;
 		int x, y;
+		char defult_direction;
 		array<array<int, 480>, 640> *ptr_map;
 		CMovingBitmap img_right; 
 		CMovingBitmap img_left;

@@ -209,8 +209,8 @@ void CGameStateRun::LoadSelectPage()
 	select_page_bg.SetTopLeft(0, 0);
     
 	select_page_diamond.fill( SelectPageDiamond() );
-	select_page_diamond[0].Init(1, 302, 440, "blue");
-	select_page_diamond[1].Init(2, 322, 386, "blue");
+	select_page_diamond[0].Init(1, 302, 440, 'B');
+	select_page_diamond[1].Init(2, 322, 386, 'B');
 }
 
 void CGameStateRun::LoadLevel1()
@@ -262,7 +262,7 @@ void CGameStateRun::LoadLevel1()
 	// door init 
 	level1_door.fill(Door());
 	level1_door[0].init(500,25,510,100,'R');
-	level1_door[1].init(560,5,570,100,'B');
+	level1_door[1].init(551,25,570,100,'B');
 
 	// water
 	level1_water.fill(Water());

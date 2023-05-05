@@ -118,6 +118,9 @@ namespace game_framework {
 		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
 		void Level1OnShow();
 
+		// test
+		CPoint t;
+
 		// whole game varables
 		int level;                                      // 0為遊戲關卡選擇1為第一關依此類推
 		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關

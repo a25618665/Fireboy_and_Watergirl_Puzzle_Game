@@ -13,9 +13,10 @@ using namespace game_framework;
 
 SelectPageDiamond::SelectPageDiamond()
 {
+	is_init = false;
 }
 
-void SelectPageDiamond::Init(int level, int x, int y, string color) {
+void SelectPageDiamond::Init(int level, int x, int y, char color) {
 	//..
 	this->level = level;
 	time = 0;//暫定
@@ -23,25 +24,27 @@ void SelectPageDiamond::Init(int level, int x, int y, string color) {
 	diamond_y = y;
 	time_x = x + 30;//暫定
 	time_y = y;//暫定
+	is_init = true;
 
 	// load img
-	if (color == "blue") {
-		img_diamond.LoadBitmapByString({ SELECT_PAGE_DIAMOND_BLUE, SELECT_PAGE_DIAMOND_BLUE_CLICKED }, RGB(255, 204, 0));
-		img_diamond.SetTopLeft(x, y);
-	}
-	else if (color == "orange")
+	switch (color)
 	{
-		img_diamond.LoadBitmapByString({ SELECT_PAGE_DIAMOND_ORANGE, SELECT_PAGE_DIAMOND_ORANGE_CLICKED }, RGB(255, 204, 0));
+	case 'B':
+		img_diamond.LoadBitmapByString({SELECT_PAGE_DIAMOND_BLUE, SELECT_PAGE_DIAMOND_BLUE_CLICKED}, RGB(255, 204, 0));
 		img_diamond.SetTopLeft(x, y);
-	}
-	else if (color == "green")
-	{
-		img_diamond.LoadBitmapByString({ SELECT_PAGE_DIAMOND_GREEN, SELECT_PAGE_DIAMOND_GREEN_CLICKED }, RGB(255, 204, 0));
+		break;
+	case 'O':
+		img_diamond.LoadBitmapByString({SELECT_PAGE_DIAMOND_ORANGE, SELECT_PAGE_DIAMOND_ORANGE_CLICKED}, RGB(255, 204, 0));
 		img_diamond.SetTopLeft(x, y);
+		break;
+	case 'G':
+		img_diamond.LoadBitmapByString({SELECT_PAGE_DIAMOND_GREEN, SELECT_PAGE_DIAMOND_GREEN_CLICKED}, RGB(255, 204, 0));
+		img_diamond.SetTopLeft(x, y);
+		break;
 	}
 
 	// 設定滑鼠按下區域
-	body.SetRect(diamond_x, diamond_x + img_diamond.GetWidth(), diamond_y, diamond_y + img_diamond.GetHeight());
+	body.SetRect(diamond_x, diamond_y, diamond_x + img_diamond.GetWidth(), diamond_y + img_diamond.GetHeight());
 }
 
 void SelectPageDiamond::SetTime(int time)
@@ -53,7 +56,9 @@ void SelectPageDiamond::SetTime(int time)
 
 int SelectPageDiamond::OnButtonDown(CPoint point)
 {
-	if (body.PtInRect(point))					// point是否在body裡
+	if (!is_init)
+		return 0;
+	else if (body.PtInRect(point))					// point是否在body裡
 	{
 		img_diamond.SetFrameIndexOfBitmap(1);	// 顯示按鈕被按下的圖片
 		return level;
@@ -64,10 +69,12 @@ int SelectPageDiamond::OnButtonDown(CPoint point)
 
 void SelectPageDiamond::OnButtonUp()
 {
-	img_diamond.SetFrameIndexOfBitmap(0);
+	if (is_init)
+		img_diamond.SetFrameIndexOfBitmap(0);
 }
 
 void SelectPageDiamond::OnShow()
 {
-	img_diamond.ShowBitmap();
+	if (is_init)
+		img_diamond.ShowBitmap();
 }

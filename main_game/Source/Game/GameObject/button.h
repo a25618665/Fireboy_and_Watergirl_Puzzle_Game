@@ -6,6 +6,7 @@ namespace game_framework {
 		Button();
 		void Init(int x, int y, char color);
 		bool IsTriggered();
+		void Reset();
 		void OnMove(const CRect & boy_body, const CRect & girl_body);
 		void OnShow();
 	private:
