@@ -77,11 +77,13 @@ namespace game_framework {
 		{
 		case 'R':
 			if (boy_is_overlap) {
+				Pic.ToggleAnimation();
 				return 1;
 			}
 			break;
 		case 'B':
 			if (girl_is_overlap) {
+				Pic.ToggleAnimation();
 				return 1;
 			}
 			break;
