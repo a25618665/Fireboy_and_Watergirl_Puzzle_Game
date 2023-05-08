@@ -39,6 +39,9 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	LoadMap();
 	LoadSelectPage();
 	LoadLevel1();
+
+
+	LoadSubphase();
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -142,22 +145,33 @@ void CGameStateRun::OnMove()					// 移動遊戲元素
 
 void CGameStateRun::OnShow()
 {
+	
 	switch (level)
 	{
 		case 0:
 			select_page_bg.ShowBitmap();
 			for (auto & diamond : select_page_diamond)
 				diamond.OnShow();
+			//CDC *pDC = CDDraw::GetBackCDC();
+			
 			break;
 		case 1:
 			switch (sub_phase)
 			{
 			case 0:
+				
 				Level1OnShow();
+				if (c_time_counter == 0) {
+					time_counter = timeGetTime(); 
+					c_time_counter = c_time_counter + 1;
+				}
 				break;
 			case 1:
+				
+				SubPhaseOnShow();
 				break;
 			case 2:
+				SubPhaseOnShow();
 				break;
 			}
 			break;
@@ -173,15 +187,8 @@ void CGameStateRun::OnShow()
 			}
 			break;
 	}
-	//test
-	/*char* s = "te";
-	string st = "te";
-	st += TEST;
-
 	
-	CDC *pDC = CDDraw::GetBackCDC();
-	CTextDraw::Print(pDC, 450, 230, map.size() == 1 ? "T" : "F");
-	CDDraw::ReleaseBackCDC();*/ 
+
 }
 
 void CGameStateRun::LoadMap()
@@ -213,17 +220,24 @@ void CGameStateRun::LoadSelectPage()
 	select_page_diamond[1].Init(2, 322, 386, 'B');
 }
 
+
+
 void CGameStateRun::LoadLevel1()
-{
+{   //subphase init
+	blue_diamond_counter = 0;
+	red_diamond_counter = 0;
+	time_counter = 0;
+	c_time_counter = 0;
 	// person
-	boy.SetXY(450, 3);
-	girl.SetXY(490, 3);
+	boy.SetXY(35,416);
+	girl.SetXY(35, 416);
 	boy.SetMap(&map[0]);
 	girl.SetMap(&map[0]);
 
 	// background
 	level1_bg.LoadBitmapByString({ LEVEL_1_BG });
 	level1_bg.SetTopLeft(0, 0);
+	
 
 	// diamond 
 	level1_red_diamond.fill(Diamond("red"));
@@ -271,13 +285,42 @@ void CGameStateRun::LoadLevel1()
 	level1_water[2].Init(396, 359, 467, 366, 'G');
 }
 
+
+void CGameStateRun::LoadSubphase() {
+	subphse_bg.LoadBitmapByString({ SUBPHASE });
+	subphse_bg.SetTopLeft(0, 0);
+
+	red.LoadBitmapByString({ DIAMOND_RED_1 },RGB(0,0,0));
+	red.SetTopLeft(280,180);
+
+	blue.LoadBitmapByString({ DIAMOND_BLUE_1 }, RGB(0, 0, 0));
+	blue.SetTopLeft(280, 215);
+
+
+}
+void CGameStateRun::SubPhaseOnShow() {
+	subphse_bg.ShowBitmap();
+	red.ShowBitmap();
+	blue.ShowBitmap();
+	if (c_time_counter == 1) {
+		
+		time_counter = timeGetTime() - time_counter;
+		c_time_counter = 0;
+	}
+
+	timer_showtext::show(time_counter,blue_diamond_counter,red_diamond_counter);
+	//blue_diamond_counter = 0;
+	//red_diamond_counter = 0;
+}
+
 void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 {
 	// diamond
-	for (auto & diamond : level1_red_diamond)
-		diamond.OnMove(boy_body);
+	for (auto & diamond : level1_red_diamond) {
+		diamond.OnMove(boy_body,red_diamond_counter);
+	}
 	for (auto & diamond : level1_blue_diamond)
-		diamond.OnMove(girl_body);
+		diamond.OnMove(girl_body,blue_diamond_counter);
 	
 	// switch
 	for (auto & s : level1_switch)
@@ -317,7 +360,9 @@ void CGameStateRun::Level1OnShow()
 {
 	// background
 	level1_bg.ShowBitmap();
-
+	//timer紀錄開始時間
+	//if (c_time_counter == 0) {
+		
 	// diamond
 	for (auto & diamond : level1_red_diamond)
 		diamond.OnShow();

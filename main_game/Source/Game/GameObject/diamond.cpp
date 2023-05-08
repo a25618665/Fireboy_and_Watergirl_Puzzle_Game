@@ -41,6 +41,7 @@ void Diamond::Init(int x, int y)
 	body.bottom = y + 17;
 	 
 	is_showing = true;
+	is_recorded = false;
 }
 
 void Diamond::Reset()
@@ -48,15 +49,19 @@ void Diamond::Reset()
 	is_showing = true;
 }
 
-void Diamond::OnMove(const CRect& person_body)
+void Diamond::OnMove(const CRect& person_body,  int &diamond_counter)
 {
 	if (is_showing)		// 還未被吃掉才判斷是否overlap
 	{
 		CRect temp_rect;
 		bool is_overlap = temp_rect.IntersectRect(person_body, body);
 
-		if (is_overlap)
+		if (is_overlap) {
 			is_showing = false;
+			diamond_counter += 1;
+		}
+		
+		    
 	}
 }
 
@@ -65,3 +70,5 @@ void Diamond::OnShow()
 	if (is_showing)
 		img.ShowBitmap();
 }
+
+

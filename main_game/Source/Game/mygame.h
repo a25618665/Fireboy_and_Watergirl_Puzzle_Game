@@ -45,10 +45,10 @@
 #include "GameObject/switch.h"
 #include "GameObject/selectpagediamond.h"
 #include "GameObject/water.h"
+#include "GameObject/timer.h"
 #include <vector>
 #include <array>
 #include <string>
-
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -117,6 +117,15 @@ namespace game_framework {
 		void LoadLevel1(); 
 		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
 		void Level1OnShow();
+		//subphase
+		void LoadSubphase();
+		void SubPhaseOnShow();
+		CMovingBitmap subphse_bg;
+
+
+
+
+
 
 		// test
 		CPoint t;
@@ -126,12 +135,22 @@ namespace game_framework {
 		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關
 		Person boy;
 		Person girl;
-		array<array<array<int, 480>, 640>, 1> map;		//每關的地圖陣列
+		array<array<array<int, 480>, 640>, 1> map;//每關的地圖陣列
+		CDC* pDC;//字體顯示
+
+
+		//subphase
+		int blue_diamond_counter, red_diamond_counter;
+		int time_counter;//存放遊玩時間
+		int c_time_counter; //控制儲存進time變數
+		CMovingBitmap red;
+		CMovingBitmap blue;
 
 		// select page
 		int select_page_button_down;					// 紀錄在select page哪關正在被按下
 		CMovingBitmap select_page_bg;
 		array<SelectPageDiamond, 2> select_page_diamond;
+
 
 		// level 1
 		CMovingBitmap level1_bg;
