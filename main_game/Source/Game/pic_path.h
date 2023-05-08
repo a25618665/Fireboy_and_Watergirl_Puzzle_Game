@@ -53,3 +53,5 @@
 #define SWITCH_RIGHT						"Resources/game_run/switch/switch_right.bmp"
 #define SWITCH_LEFT							"Resources/game_run/switch/switch_left.bmp"
 #define TEST "test"
+#define FONTS                                "Resources/game_run/FONT/fonts/Trajan Pro.ttf"
+#define SUBPHASE                             "Resources/game_run/map/subphase_bg/SUBPHASE2.bmp"
