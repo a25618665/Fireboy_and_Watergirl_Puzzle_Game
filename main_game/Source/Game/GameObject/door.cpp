@@ -9,15 +9,6 @@
 #include "../pic_path.h"
 
 
-
-
-
-
-
-
-
-
-
 namespace game_framework {
 	Door::Door()
 	{
