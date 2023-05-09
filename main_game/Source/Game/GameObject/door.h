@@ -4,15 +4,15 @@ namespace game_framework {
 	class Door {
 	public:
 		Door();
+		void Init(int left_x, int top_y, char color);					//R:BOY B:GIRL
+		bool OnMove(const CRect & boy_body, const CRect & girl_body);
 		void OnShow();
-		void init(int left_x, int top_y,int right_x,int bottom_y, char COLOR);//R:BOY B:GIRL
-		int  OnMove(const CRect & boy_body, const CRect & girl_body);
-		bool is_trigger = 0 ;
-	private :
-		int  length = 103 , width  = 59 ;
+		bool is_trigger = 0;
+	private:
+		int x, y;
+		int frame_counter, frame_size;
 		char color;
 		CRect body;
 		CMovingBitmap Pic;
-		int x, y;
 	};
 }

@@ -116,9 +116,6 @@
     <ClInclude Include="Source\Core\StdAfx.h">
       <Filter>MFC</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\mygame.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\config.h">
       <Filter>MyGame</Filter>
     </ClInclude>
@@ -153,6 +150,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\GameObject\timer.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\mygame.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

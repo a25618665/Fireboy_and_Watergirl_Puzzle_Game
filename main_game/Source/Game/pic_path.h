@@ -49,9 +49,14 @@
 #define BLUE_PLAT							"Resources/game_run/platform/blue.bmp"
 #define ORANGE_PLAT							"Resources/game_run/platform/orange.bmp"
 #define WHITE_PLAT							"Resources/game_run/platform/white.bmp"
+// subphase
+#define SUBPHASE_1                          "Resources/game_run/subphase/1/phase1.bmp"
+#define SUBPHASE_1_RETRY                    "Resources/game_run/subphase/1/retry_clicked.bmp"
+#define SUBPHASE_1_BACK                     "Resources/game_run/subphase/1/back_clicked.bmp"
+#define SUBPHASE_2                          "Resources/game_run/subphase/2/phase2.bmp"
+#define SUBPHASE_2_CONTINUE                 "Resources/game_run/subphase/2/continue_clicked.bmp"
 
 #define SWITCH_RIGHT						"Resources/game_run/switch/switch_right.bmp"
 #define SWITCH_LEFT							"Resources/game_run/switch/switch_left.bmp"
 #define TEST "test"
-#define FONTS                                "Resources/game_run/FONT/fonts/Trajan Pro.ttf"
-#define SUBPHASE                             "Resources/game_run/map/subphase_bg/SUBPHASE2.bmp"
+#define FONTS								"Resources/game_run/FONT/fonts/Trajan Pro.ttf"
