@@ -269,7 +269,13 @@ namespace game_framework {
 		GAME_ASSERT(isBitmapLoaded, "A bitmap must be loaded before Width() is called !!!");
 		return locations[frameIndex].right - locations[frameIndex].left;
 	}
-	
+
+	//! 自己加的function
+	CRect CMovingBitmap::GetLocation()
+	{
+		return locations[0];
+	}
+
 	//! 啟動單次動畫。
 	/*!
 		將動畫設為初始幀，並且初始化單次動畫的參數值。

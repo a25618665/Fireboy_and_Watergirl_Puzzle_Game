@@ -32,16 +32,18 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	level = 0;
 	sub_phase = 0;
+	
+	blue_diamond_counter = 0;
+	red_diamond_counter = 0;
+	
 	// person
 	boy.Init("boy");
 	girl.Init("girl");
 
 	LoadMap();
 	LoadSelectPage();
+	LoadSubPhase();
 	LoadLevel1();
-
-
-	LoadSubphase();
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -100,6 +102,18 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 				break;
 		}
 	}
+	else if (sub_phase == 1)
+	{
+		if (sub1_retry_body.PtInRect(point))
+			is_sub1_retry_clicked = true;
+		else if (sub1_back_body.PtInRect(point))
+			is_sub1_back_clicked = true;
+	}
+	else if (sub_phase == 2)
+	{
+		if (sub2_con_body.PtInRect(point))
+			is_sub2_con_clicked = true;
+	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -107,6 +121,38 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 	if (level == 0 && select_page_button_down != 0) {
 		select_page_diamond[select_page_button_down - 1].OnButtonUp();
 		level = select_page_button_down;
+	}
+	else if (sub_phase == 1)
+	{
+		if (is_sub1_retry_clicked)
+		{
+			is_sub1_retry_clicked = false;
+			// reset 暫時
+			boy.SetXY(35, 416);
+			girl.SetXY(37, 356);
+			sub_phase = 0;
+		}
+		else if (is_sub1_back_clicked)
+		{
+			is_sub1_back_clicked = false;
+			// reset 暫時
+			boy.SetXY(35, 416);
+			girl.SetXY(37, 356);
+			level = 0;
+			sub_phase = 0;
+		}
+	}
+	else if (sub_phase == 2)
+	{
+		if (is_sub2_con_clicked)
+		{
+			is_sub2_con_clicked = false;
+			// reset 暫時
+			boy.SetXY(35, 416);
+			girl.SetXY(37, 356);
+			level = 0;
+			sub_phase = 0;
+		}
 	}
 }
 
@@ -145,7 +191,6 @@ void CGameStateRun::OnMove()					// 移動遊戲元素
 
 void CGameStateRun::OnShow()
 {
-	
 	switch (level)
 	{
 		case 0:
@@ -167,11 +212,14 @@ void CGameStateRun::OnShow()
 				}
 				break;
 			case 1:
-				
-				SubPhaseOnShow();
+				img_sub1_bg.ShowBitmap();
+				if (is_sub1_retry_clicked)
+					img_sub1_retry_clicked.ShowBitmap();
+				if (is_sub1_back_clicked)
+					img_sub1_back_clicked.ShowBitmap();
 				break;
 			case 2:
-				SubPhaseOnShow();
+				SubPhaseShowText();
 				break;
 			}
 			break;
@@ -220,17 +268,73 @@ void CGameStateRun::LoadSelectPage()
 	select_page_diamond[1].Init(2, 322, 386, 'B');
 }
 
+void CGameStateRun::LoadSubPhase()
+{
+	// sub phase 1
+	img_sub1_bg.LoadBitmapByString({ SUBPHASE_1 });
+	img_sub1_bg.SetTopLeft(0, 0);
 
+	img_sub1_retry_clicked.LoadBitmapByString({ SUBPHASE_1_RETRY });
+	img_sub1_retry_clicked.SetTopLeft(230, 230);
+
+	img_sub1_back_clicked.LoadBitmapByString({ SUBPHASE_1_BACK });
+	img_sub1_back_clicked.SetTopLeft(260, 285);
+
+	sub1_retry_body = img_sub1_retry_clicked.GetLocation();
+	sub1_back_body = img_sub1_back_clicked.GetLocation();
+
+	is_sub1_retry_clicked = false;
+	is_sub1_back_clicked = false;
+
+	// sub phase 2
+	img_sub2_bg.LoadBitmapByString({ SUBPHASE_2 });
+	img_sub2_bg.SetTopLeft(0, 0);
+
+	img_sub2_con_clicked.LoadBitmapByString({ SUBPHASE_2_CONTINUE });
+	img_sub2_con_clicked.SetTopLeft(263, 379);
+
+	sub2_con_body.SetRect(263, 328, 397, 348);
+
+	is_sub2_con_clicked = false;
+
+	/*img_sub2_red.LoadBitmapByString({ DIAMOND_RED_1 }, RGB(0, 0, 0));
+	img_sub2_red.SetTopLeft(280, 180);
+
+	img_sub2_blue.LoadBitmapByString({ DIAMOND_BLUE_1 }, RGB(0, 0, 0));
+	img_sub2_blue.SetTopLeft(280, 215);*/
+}
+
+void CGameStateRun::SubPhaseShowText()
+{
+	img_sub2_bg.ShowBitmap();
+	/*img_sub2_red.ShowBitmap();
+	img_sub2_blue.ShowBitmap();*/
+	if (c_time_counter == 1)
+	{
+		time_counter = timeGetTime() - time_counter;
+		c_time_counter = 0;
+	}
+
+	timer_showtext::show(time_counter, blue_diamond_counter, red_diamond_counter);
+
+	if (!is_sub2_con_clicked)
+	{
+		CDC *pDC = CDDraw::GetBackCDC();
+		CTextDraw::ChangeFontLog(pDC, 16, "Trajan Pro", RGB(255, 218, 0), 800);
+		CTextDraw::Print(pDC, 263, 326, "CONTINUE");
+		CDDraw::ReleaseBackCDC();
+	}
+}
 
 void CGameStateRun::LoadLevel1()
-{   //subphase init
-	blue_diamond_counter = 0;
-	red_diamond_counter = 0;
+{   
 	time_counter = 0;
 	c_time_counter = 0;
 	// person
-	boy.SetXY(35,416);
-	girl.SetXY(35, 416);
+	/*boy.SetXY(35, 416);
+	girl.SetXY(37, 356);*/
+	boy.SetXY(370, 40);
+	girl.SetXY(400, 40);
 	boy.SetMap(&map[0]);
 	girl.SetMap(&map[0]);
 
@@ -275,8 +379,8 @@ void CGameStateRun::LoadLevel1()
 
 	// door init 
 	level1_door.fill(Door());
-	level1_door[0].init(500,25,510,100,'R');
-	level1_door[1].init(551,25,570,100,'B');
+	level1_door[0].Init(500, 25, 'R');
+	level1_door[1].Init(551, 25, 'B');
 
 	// water
 	level1_water.fill(Water());
@@ -285,42 +389,14 @@ void CGameStateRun::LoadLevel1()
 	level1_water[2].Init(396, 359, 467, 366, 'G');
 }
 
-
-void CGameStateRun::LoadSubphase() {
-	subphse_bg.LoadBitmapByString({ SUBPHASE });
-	subphse_bg.SetTopLeft(0, 0);
-
-	red.LoadBitmapByString({ DIAMOND_RED_1 },RGB(0,0,0));
-	red.SetTopLeft(280,180);
-
-	blue.LoadBitmapByString({ DIAMOND_BLUE_1 }, RGB(0, 0, 0));
-	blue.SetTopLeft(280, 215);
-
-
-}
-void CGameStateRun::SubPhaseOnShow() {
-	subphse_bg.ShowBitmap();
-	red.ShowBitmap();
-	blue.ShowBitmap();
-	if (c_time_counter == 1) {
-		
-		time_counter = timeGetTime() - time_counter;
-		c_time_counter = 0;
-	}
-
-	timer_showtext::show(time_counter,blue_diamond_counter,red_diamond_counter);
-	//blue_diamond_counter = 0;
-	//red_diamond_counter = 0;
-}
-
 void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 {
 	// diamond
 	for (auto & diamond : level1_red_diamond) {
-		diamond.OnMove(boy_body,red_diamond_counter);
+		diamond.OnMove(boy_body, red_diamond_counter);
 	}
 	for (auto & diamond : level1_blue_diamond)
-		diamond.OnMove(girl_body,blue_diamond_counter);
+		diamond.OnMove(girl_body, blue_diamond_counter);
 	
 	// switch
 	for (auto & s : level1_switch)
@@ -341,19 +417,16 @@ void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 		if (sub_phase)
 			break;
 	}
-	door_counter = 0;
+
+	// door
+	/*door_counter = 0;
 	for (auto & door : level1_door)
-	{
-	
-		door_counter = door_counter +  door.OnMove(boy_body, girl_body);
-         		
-		if (door_counter == 2) {
-			sub_phase = 1;
-			break;
-		}
-		
-		
-	}
+		door_counter +=  door.OnMove(boy_body, girl_body);*/
+
+	bool door0_is_triggered = level1_door[0].OnMove(boy_body, girl_body);
+	bool door1_is_triggered = level1_door[1].OnMove(boy_body, girl_body);
+	if (door0_is_triggered && door1_is_triggered)
+		sub_phase = 2;
 }
 
 void CGameStateRun::Level1OnShow()

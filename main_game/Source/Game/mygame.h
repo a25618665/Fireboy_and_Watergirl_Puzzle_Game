@@ -114,43 +114,52 @@ namespace game_framework {
 	private: 
 		void LoadMap();
 		void LoadSelectPage();
+		void LoadSubPhase();
+		void SubPhaseShowText();
+		// level1
 		void LoadLevel1(); 
 		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
 		void Level1OnShow();
-		//subphase
-		void LoadSubphase();
-		void SubPhaseOnShow();
-		CMovingBitmap subphse_bg;
-
-
-
-
-
-
+		// level2
+		/*void LoadLevel1();
+		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
+		void Level1OnShow();*/
+		
 		// test
 		CPoint t;
 
 		// whole game varables
 		int level;                                      // 0為遊戲關卡選擇1為第一關依此類推
 		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關
+		int blue_diamond_counter, red_diamond_counter;
 		Person boy;
 		Person girl;
-		array<array<array<int, 480>, 640>, 1> map;//每關的地圖陣列
-		CDC* pDC;//字體顯示
+		array<array<array<int, 480>, 640>, 1> map;		//每關的地圖陣列
+		CDC* pDC;										//字體顯示
 
+		// sub phase1
+		bool is_sub1_retry_clicked;
+		bool is_sub1_back_clicked;
+		CMovingBitmap img_sub1_bg;
+		CMovingBitmap img_sub1_retry_clicked;
+		CMovingBitmap img_sub1_back_clicked;
+		CRect sub1_retry_body;
+		CRect sub1_back_body;
 
-		//subphase
-		int blue_diamond_counter, red_diamond_counter;
-		int time_counter;//存放遊玩時間
-		int c_time_counter; //控制儲存進time變數
-		CMovingBitmap red;
-		CMovingBitmap blue;
+		// sub phase2
+		int time_counter;					//存放遊玩時間
+		int c_time_counter;					//控制儲存進time變數
+		bool is_sub2_con_clicked;
+		CRect sub2_con_body;
+		CMovingBitmap img_sub2_bg;
+		CMovingBitmap img_sub2_red;
+		CMovingBitmap img_sub2_blue;
+		CMovingBitmap img_sub2_con_clicked;
 
 		// select page
 		int select_page_button_down;					// 紀錄在select page哪關正在被按下
 		CMovingBitmap select_page_bg;
 		array<SelectPageDiamond, 2> select_page_diamond;
-
 
 		// level 1
 		CMovingBitmap level1_bg;
@@ -161,7 +170,6 @@ namespace game_framework {
 		array<Platform, 2> level1_platform;
 		array<Door, 2> level1_door;
 		array<Water, 3> level1_water;
-		int door_counter  ;
 
 		// level 2
 

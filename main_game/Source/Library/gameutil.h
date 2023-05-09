@@ -109,6 +109,7 @@ namespace game_framework {
 		int   GetLeft();
 		int   GetHeight();
 		int   GetWidth();
+		CRect GetLocation();				// 自己加的function
 		string GetImageFileName();
 		COLORREF GetFilterColor();
 
