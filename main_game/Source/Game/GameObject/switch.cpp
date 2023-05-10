@@ -15,7 +15,7 @@ Switch::Switch()
 {
 }
 
-void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 640> *map)
+void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 640> *map, char color)
 {
 	this->x = x;
 	this->y = y;
@@ -61,20 +61,28 @@ void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 64
 		break;
 	}
 	
-	/*switch (color) {
+	switch (color) {
 
-	case 0:*/
+	case 'Y':
 		img_right.LoadBitmap(SWITCH_RIGHT, RGB(0, 0, 0));
 		img_right.SetTopLeft(x, y);
 		img_left.LoadBitmap(SWITCH_LEFT, RGB(0, 0, 0));
 		img_left.SetTopLeft(x, y);
-	//	break;
-	//case 2:
-	//	//right.LoadBitmap(, RGB(0, 0, 0));
-	//	//left.LoadBitmap(, RGB(0, 0, 0));
-	//	break;
+		break;
+	case 'B':
+	    img_right.LoadBitmap(BLUE_RIGHT, RGB(0, 0, 0));
+		img_right.SetTopLeft(x, y);
+		img_left.LoadBitmap(BLUE_LEFT, RGB(0, 0, 0));
+		img_left.SetTopLeft(x, y);
+		break;
+	case 'R':
+		img_right.LoadBitmap(RED_RIGHT, RGB(0, 0, 0));
+		img_right.SetTopLeft(x, y);
+		img_left.LoadBitmap(RED_LEFT, RGB(0, 0, 0));
+		img_left.SetTopLeft(x, y);
+		
 
-	//}
+	}
 }
 
 bool Switch::IsTriggered()

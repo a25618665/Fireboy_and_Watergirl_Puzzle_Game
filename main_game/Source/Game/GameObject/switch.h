@@ -5,7 +5,7 @@ namespace game_framework {
 	class Switch {
 	public:
 		Switch();
-		void Init(int x, int y, char defult_direction, array<array<int, 480>, 640> *map);	// defult_direction: 'R', 'L'
+		void Init(int x, int y, char defult_direction, array<array<int, 480>, 640> *map, char color);	// defult_direction: 'R', 'L' COLOR: ;'Y','B','R'
 		bool IsTriggered();
 		void Reset();
 		void OnMove(const CRect & boy_body, const CRect & girl_body);

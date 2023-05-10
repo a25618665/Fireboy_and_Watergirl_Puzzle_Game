@@ -33,6 +33,22 @@ namespace game_framework {
 		//
 
 	}
+
+	void timer_showtext::show_in_the_game(int time_counter) {
+		int  second = time_counter / 1000;
+		int  minute = (second / 10) / 6; //分鐘個位數
+		//second = second - minute * 60;
+		//show_as_text("TIME", 250, 142);
+		show_as_text(second - (second / 10) * 10, 335, 5);
+		show_as_text(second / 10 - ((second / 10) / 6) * 6, 325, 5);
+		show_as_text(":", 320, 5);
+		show_as_text((second / 10) / 6 - (minute / 10) * 10, 305, 5);
+		show_as_text(minute / 10, 295, 5);
+
+
+
+	}
+
 	void timer_showtext::show_as_text(int  text , int x ,int y) {
 		CDC *pDC = CDDraw::GetBackCDC();
 		CTextDraw::ChangeFontLog(pDC, 16, "Trajan Pro", RGB(255, 218, 0), 800);
