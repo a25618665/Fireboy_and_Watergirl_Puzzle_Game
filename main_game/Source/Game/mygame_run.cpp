@@ -207,7 +207,7 @@ void CGameStateRun::OnShow()
 				
 				Level1OnShow();
 				if (c_time_counter == 0) {
-					time_counter = timeGetTime(); 
+					time_counter_start = timeGetTime(); 
 					c_time_counter = c_time_counter + 1;
 				}
 				break;
@@ -311,7 +311,7 @@ void CGameStateRun::SubPhaseShowText()
 	img_sub2_blue.ShowBitmap();*/
 	if (c_time_counter == 1)
 	{
-		time_counter = timeGetTime() - time_counter;
+		time_counter = timeGetTime() - time_counter_start;
 		c_time_counter = 0;
 	}
 
@@ -358,7 +358,7 @@ void CGameStateRun::LoadLevel1()
 
 	// switch init 
 	level1_switch.fill(Switch());
-	level1_switch[0].Init(156, 308, 'R', &map[0]);
+	level1_switch[0].Init(156, 308, 'R', &map[0],'Y');
 
 	// button init 
 	level1_button.fill(Button());
@@ -379,8 +379,8 @@ void CGameStateRun::LoadLevel1()
 
 	// door init 
 	level1_door.fill(Door());
-	level1_door[0].Init(500, 25, 'R');
-	level1_door[1].Init(551, 25, 'B');
+	level1_door[0].Init(500, 52, 'R');
+	level1_door[1].Init(551, 52, 'B');
 
 	// water
 	level1_water.fill(Water());
@@ -433,9 +433,9 @@ void CGameStateRun::Level1OnShow()
 {
 	// background
 	level1_bg.ShowBitmap();
-	//timer紀錄開始時間
-	//if (c_time_counter == 0) {
-		
+	//
+	time_counter = timeGetTime() - time_counter_start;
+	timer_showtext::show_in_the_game(time_counter);
 	// diamond
 	for (auto & diamond : level1_red_diamond)
 		diamond.OnShow();
@@ -465,4 +465,60 @@ void CGameStateRun::Level1OnShow()
 	// water
 	for (auto & water : level1_water)
 		water.OnShow();
+}
+
+void CGameStateRun::LoadLevel2()
+{
+
+
+	time_counter = 0;
+	c_time_counter = 0;
+
+
+
+
+
+
+
+	//diamond
+	level2_red_diamond.fill(Diamond("red"));
+	level2_red_diamond[0].Init(147, 38);
+	level2_red_diamond[1].Init(50, 120);
+	level2_red_diamond[2].Init(275, 185);
+	level2_red_diamond[3].Init(129, 218);
+	level2_red_diamond[4].Init(360, 197);
+	level2_red_diamond[5].Init(144, 348);
+	level2_red_diamond[6].Init(177, 408);
+
+	level2_blue_diamond.fill(Diamond("blue"));
+	level2_blue_diamond[0].Init(453, 119);
+	level2_blue_diamond[1].Init(334, 231);
+	level2_blue_diamond[2].Init(420, 212);
+	level2_blue_diamond[3].Init(357, 342);
+	level2_blue_diamond[4].Init(489, 348);
+	level2_blue_diamond[5].Init(224, 346);
+	level2_blue_diamond[6].Init(210, 408);
+
+
+	// platform init
+
+
+	// button init 
+	level2_button.fill(Button());
+	level2_button[0].Init(305, 445, 'W');
+	level2_button[1].Init(582, 445, 'W');
+
+
+
+
+	//door
+	// door init 
+	level2_door.fill(Door());
+	level2_door[0].Init(500, 25, 'R');
+	level2_door[1].Init(551, 25, 'B');
+
+
+
+
+
 }

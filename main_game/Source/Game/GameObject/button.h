@@ -4,7 +4,7 @@ namespace game_framework {
 	class Button {
 	public:
 		Button();
-		void Init(int x, int y, char color);
+		void Init(int x, int y, char color);//COLOR : 'P' ,'Y','G','W'
 		bool IsTriggered();
 		void Reset();
 		void OnMove(const CRect & boy_body, const CRect & girl_body);
