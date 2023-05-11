@@ -151,9 +151,9 @@ namespace game_framework {
 		CMovingBitmap img_sub1_retry_clicked;
 		CMovingBitmap img_sub1_back_clicked;
 
-		// sub phase 2
-		int time_counter;					//存放遊玩時間
-		int c_time_counter;					//控制儲存進time變數
+		// sub phase2
+		int time_counter,time_counter_start;			//start紀錄進入每個關卡的初始時間 counter 紀錄總共遊玩時間
+		int c_time_counter;								//控制儲存進time變數
 		bool is_sub2_con_clicked;
 		CRect sub2_con_body;
 		CMovingBitmap img_sub2_bg;
@@ -182,6 +182,22 @@ namespace game_framework {
 		Rock level1_rock;
 
 		// level 2
+		void LoadLevel2();
+
+
+
+
+		
+
+	    CMovingBitmap level2_bg;
+		array<Diamond, 7> level2_red_diamond;
+		array<Diamond, 7> level2_blue_diamond;
+		array<Switch, 2>  level2_switch;
+		array<Button, 2> level2_button;
+		array<Platform, 2> level2_platform;
+		array<Door, 2> level2_door;
+		array<Water, 4> level2_water;
+
 
 	};
 

@@ -8,7 +8,7 @@ namespace game_framework {
 	class Platform {
 	public:
 		Platform();			
-		// Init: end: 移動完的座標(x或y), direction: 'U', 'D', 'L', 'R', color: 'Y', 'P'
+		// Init: end: 移動完的座標(x或y), direction: 'U', 'D', 'L', 'R', color: 'Y', 'P' ,'B'
 		void Init(int x, int y, int end, char defult_direction, char color, array<array<int, 480>, 640> *map);
 		void Bind(Switch *ptr_switch);									
 		void Bind(const vector<Button *> & button_ptr_vector);
