@@ -17,13 +17,16 @@ Person::Person()
 
 Person::~Person()
 {
-	delete[] r_check_point;
-	delete[] l_check_point;
+	if (r_check_point || l_check_point)
+	{
+		delete[] r_check_point;
+		delete[] l_check_point;
+	}
 }
 
-void Person::Init(string type)
+void Person::Init(int x, int y, string gender)
 {
-	if (type == "boy")
+	if (gender == "boy")
 	{
 		is_boy = true;
 
@@ -40,7 +43,7 @@ void Person::Init(string type)
 		r_check_point = new int[5][2] { {18, 12}, {18, 25}, {18, 37}, {18, 38}, {18, 39} };
 		l_check_point = new int[5][2] { {6, 12}, {6, 25}, {6, 37}, {6, 38}, {6, 39} };
 	}	
-	else if (type == "girl")
+	else if (gender == "girl")
 	{
 		is_boy = false;
 
@@ -58,8 +61,10 @@ void Person::Init(string type)
 		l_check_point = new int[5][2]{ {5, 7}, {5, 20}, {5, 32}, {5, 33}, {5, 34} };
 	}
 		
-	x = 0;
-	y = 0;
+	this->init_x = x;
+	this->init_y = y;
+	this->x = x;
+	this->y = y;
 	velocity = 0;
 	is_jumping = false;
 	is_on_the_ground = true;
@@ -67,12 +72,6 @@ void Person::Init(string type)
 	is_moving_right = false;
 	
 	LoadImg();
-}
-
-void Person::SetXY(int x, int y)
-{
-	this->x = x;
-	this->y = y;
 }
 
 void Person::SetMovingLeft(bool flag)
@@ -88,6 +87,17 @@ void Person::SetMovingRight(bool flag)
 void Person::SetMap(array<array<int, 480>, 640> *m)
 {
 	map = m;
+}
+
+void Person::Reset()
+{
+	x = init_x;
+	y = init_y;
+	velocity = 0;
+	is_jumping = false;
+	is_on_the_ground = true;
+	is_moving_left = false;
+	is_moving_right = false;
 }
 
 int Person::GetX()

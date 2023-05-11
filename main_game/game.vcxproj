@@ -246,7 +246,6 @@
     <ClCompile Include="Source\Game\GameObject\button.cpp" />
     <ClCompile Include="Source\Game\GameObject\diamond.cpp" />
     <ClCompile Include="Source\Game\GameObject\door.cpp" />
-    <ClCompile Include="Source\Game\GameObject\font.cpp" />
     <ClCompile Include="Source\Game\GameObject\person.cpp" />
     <ClCompile Include="Source\Game\GameObject\platform.cpp" />
     <ClCompile Include="Source\Game\GameObject\rock.cpp" />
