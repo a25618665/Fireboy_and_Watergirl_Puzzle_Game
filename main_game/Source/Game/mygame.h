@@ -46,9 +46,12 @@
 #include "GameObject/selectpagediamond.h"
 #include "GameObject/water.h"
 #include "GameObject/timer.h"
+#include "GameObject/rock.h"
 #include <vector>
 #include <array>
 #include <string>
+#include <map>
+
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -105,7 +108,7 @@ namespace game_framework {
 		void OnKeyUp(UINT, UINT, UINT);
 		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnLButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
-		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
+		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 	protected:
@@ -115,7 +118,8 @@ namespace game_framework {
 		void LoadMap();
 		void LoadSelectPage();
 		void LoadSubPhase();
-		void SubPhaseShowText();
+		void SubPhase2ShowText();
+		void SubPhase3ShowText();
 		// level1
 		void LoadLevel1(); 
 		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
@@ -130,31 +134,36 @@ namespace game_framework {
 
 		// whole game varables
 		int level;                                      // 0為遊戲關卡選擇1為第一關依此類推
-		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關
+		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關，3:寶石沒吃完
 		int blue_diamond_counter, red_diamond_counter;
 		Person boy;
 		Person girl;
 		array<array<array<int, 480>, 640>, 1> map;		//每關的地圖陣列
+		array<std::map<string, int>, 32> num_diamonds_each_level;
 		CDC* pDC;										//字體顯示
 
-		// sub phase1
+		// sub phase 1
 		bool is_sub1_retry_clicked;
 		bool is_sub1_back_clicked;
+		CRect sub1_retry_body;
+		CRect sub1_back_body;
 		CMovingBitmap img_sub1_bg;
 		CMovingBitmap img_sub1_retry_clicked;
 		CMovingBitmap img_sub1_back_clicked;
-		CRect sub1_retry_body;
-		CRect sub1_back_body;
 
-		// sub phase2
+		// sub phase 2
 		int time_counter;					//存放遊玩時間
 		int c_time_counter;					//控制儲存進time變數
 		bool is_sub2_con_clicked;
 		CRect sub2_con_body;
 		CMovingBitmap img_sub2_bg;
-		CMovingBitmap img_sub2_red;
-		CMovingBitmap img_sub2_blue;
 		CMovingBitmap img_sub2_con_clicked;
+
+		// sub phase 3
+		bool is_sub3_retry_clicked;
+		bool is_sub3_back_clicked;
+		CRect sub3_retry_body;
+		CRect sub3_back_body;
 
 		// select page
 		int select_page_button_down;					// 紀錄在select page哪關正在被按下
@@ -170,6 +179,7 @@ namespace game_framework {
 		array<Platform, 2> level1_platform;
 		array<Door, 2> level1_door;
 		array<Water, 3> level1_water;
+		Rock level1_rock;
 
 		// level 2
 

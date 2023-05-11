@@ -73,6 +73,7 @@ void Platform::Reset()
 {
 	if (x != original_x || y != original_y)
 	{
+		// 把現在的區域設成0
 		for (int i = 0; i < body.Width(); i++)
 		{
 			for (int j = 0; j < body.Height(); j++)

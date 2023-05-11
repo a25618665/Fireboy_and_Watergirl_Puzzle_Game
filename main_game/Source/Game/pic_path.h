@@ -60,3 +60,4 @@
 #define SWITCH_LEFT							"Resources/game_run/switch/switch_left.bmp"
 #define TEST "test"
 #define FONTS								"Resources/game_run/FONT/fonts/Trajan Pro.ttf"
+#define ROCK								"Resources/game_run/rock/rock.bmp"
