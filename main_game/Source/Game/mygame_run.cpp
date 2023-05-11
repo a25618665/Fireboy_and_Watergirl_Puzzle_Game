@@ -44,6 +44,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	LoadSelectPage();
 	LoadSubPhase();
 	LoadLevel1();
+
+	// 各關鑽石數量
+	num_diamonds_each_level[0]["red_diamond"] = level1_red_diamond.size();
+	num_diamonds_each_level[0]["blue_diamond"] = level1_blue_diamond.size();
+	//num_diamonds_each_level[0]["g_diamond"] = .size();
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -71,8 +76,23 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
 		boy.SetXY(35, 416);
 		girl.SetXY(37, 356);
+		level1_rock.Reset();
 		sub_phase = 0;
 		level = 0;
+	}
+	// debug: 按下t鍵
+	if (nChar == 0x54)
+	{
+		ofstream ifs("./test.map");
+		for (int j = 0; j < 480; j++)
+		{
+			for (int k = 0; k < 640; k++)
+			{
+				ifs << map[0][k][j];
+				ifs << endl;
+			}
+		}
+		ifs.close();
 	}
 }
 
@@ -114,6 +134,13 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 		if (sub2_con_body.PtInRect(point))
 			is_sub2_con_clicked = true;
 	}
+	else if (sub_phase == 3)
+	{
+		if (sub3_retry_body.PtInRect(point))
+			is_sub3_retry_clicked = true;
+		else if (sub3_back_body.PtInRect(point))
+			is_sub3_back_clicked = true;
+	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -154,6 +181,26 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 			sub_phase = 0;
 		}
 	}
+	else if (sub_phase == 3)
+	{
+		if (is_sub3_retry_clicked)
+		{
+			is_sub3_retry_clicked = false;
+			// reset 暫時
+			boy.SetXY(35, 416);
+			girl.SetXY(37, 356);
+			sub_phase = 0;
+		}
+		else if (is_sub3_back_clicked)
+		{
+			is_sub3_back_clicked = false;
+			// reset 暫時
+			boy.SetXY(35, 416);
+			girl.SetXY(37, 356);
+			level = 0;
+			sub_phase = 0;
+		}
+	}
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -170,6 +217,7 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 
 void CGameStateRun::OnMove()					// 移動遊戲元素
 {
+
 	if (level != 0 && sub_phase == 0)			// 在所有關卡遊玩頁面
 	{
 		// 每關都有的元素
@@ -191,52 +239,43 @@ void CGameStateRun::OnMove()					// 移動遊戲元素
 
 void CGameStateRun::OnShow()
 {
-	switch (level)
+	switch (sub_phase)
 	{
+	case 1:
+		img_sub1_bg.ShowBitmap();
+		if (is_sub1_retry_clicked)
+			img_sub1_retry_clicked.ShowBitmap();
+		if (is_sub1_back_clicked)
+			img_sub1_back_clicked.ShowBitmap();
+		break;
+	case 2:
+		img_sub2_bg.ShowBitmap();
+		SubPhase2ShowText();
+		break;
+	case 3:
+		img_sub2_bg.ShowBitmap();
+		SubPhase3ShowText();
+		break;
+	case 0:
+		switch (level)
+		{
 		case 0:
 			select_page_bg.ShowBitmap();
 			for (auto & diamond : select_page_diamond)
 				diamond.OnShow();
-			//CDC *pDC = CDDraw::GetBackCDC();
-			
 			break;
 		case 1:
-			switch (sub_phase)
+			Level1OnShow();
+			// 暫
+			if (c_time_counter == 0)
 			{
-			case 0:
-				
-				Level1OnShow();
-				if (c_time_counter == 0) {
-					time_counter_start = timeGetTime(); 
-					c_time_counter = c_time_counter + 1;
-				}
-				break;
-			case 1:
-				img_sub1_bg.ShowBitmap();
-				if (is_sub1_retry_clicked)
-					img_sub1_retry_clicked.ShowBitmap();
-				if (is_sub1_back_clicked)
-					img_sub1_back_clicked.ShowBitmap();
-				break;
-			case 2:
-				SubPhaseShowText();
-				break;
+				time_counter = timeGetTime();
+				c_time_counter = c_time_counter + 1;
 			}
 			break;
-		case 2:
-			switch (sub_phase)
-			{
-			case 0:
-				break;
-			case 1:
-				break;
-			case 2:
-				break;
-			}
-			break;
+		}
+		break;
 	}
-	
-
 }
 
 void CGameStateRun::LoadMap()
@@ -294,21 +333,17 @@ void CGameStateRun::LoadSubPhase()
 	img_sub2_con_clicked.SetTopLeft(263, 379);
 
 	sub2_con_body.SetRect(263, 328, 397, 348);
-
 	is_sub2_con_clicked = false;
 
-	/*img_sub2_red.LoadBitmapByString({ DIAMOND_RED_1 }, RGB(0, 0, 0));
-	img_sub2_red.SetTopLeft(280, 180);
-
-	img_sub2_blue.LoadBitmapByString({ DIAMOND_BLUE_1 }, RGB(0, 0, 0));
-	img_sub2_blue.SetTopLeft(280, 215);*/
+	// sub phase 3
+	sub3_retry_body.SetRect(25, 302, 178, 321);
+	sub3_back_body.SetRect(237, 337, 424, 356);
+	is_sub3_retry_clicked = false;
+	is_sub3_back_clicked = false;
 }
 
-void CGameStateRun::SubPhaseShowText()
+void CGameStateRun::SubPhase2ShowText()
 {
-	img_sub2_bg.ShowBitmap();
-	/*img_sub2_red.ShowBitmap();
-	img_sub2_blue.ShowBitmap();*/
 	if (c_time_counter == 1)
 	{
 		time_counter = timeGetTime() - time_counter_start;
@@ -320,10 +355,28 @@ void CGameStateRun::SubPhaseShowText()
 	if (!is_sub2_con_clicked)
 	{
 		CDC *pDC = CDDraw::GetBackCDC();
-		CTextDraw::ChangeFontLog(pDC, 16, "Trajan Pro", RGB(255, 218, 0), 800);
-		CTextDraw::Print(pDC, 263, 326, "CONTINUE");
+		CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+		CTextDraw::Print(pDC, 260, 326, "CONTINUE");
 		CDDraw::ReleaseBackCDC();
 	}
+}
+
+void CGameStateRun::SubPhase3ShowText()
+{
+	CDC *pDC = CDDraw::GetBackCDC();
+	CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+
+
+	CTextDraw::Print(pDC, 300, 257, "FAIL");
+
+	// 暫時
+	if (!is_sub3_retry_clicked)
+		CTextDraw::Print(pDC, 254, 300, "RETRY LEVEL");
+
+	if (!is_sub3_back_clicked)
+		CTextDraw::Print(pDC, 237, 334, "BACK TO MENU");
+
+	CDDraw::ReleaseBackCDC();
 }
 
 void CGameStateRun::LoadLevel1()
@@ -333,8 +386,8 @@ void CGameStateRun::LoadLevel1()
 	// person
 	/*boy.SetXY(35, 416);
 	girl.SetXY(37, 356);*/
-	boy.SetXY(370, 40);
-	girl.SetXY(400, 40);
+	boy.SetXY(470, 130);
+	girl.SetXY(500, 130);
 	boy.SetMap(&map[0]);
 	girl.SetMap(&map[0]);
 
@@ -377,6 +430,10 @@ void CGameStateRun::LoadLevel1()
 
 	level1_platform[1].Bind(temp_button_ptr_vector);
 
+	// rock
+	level1_rock.Init(320, 121, &map[0]);
+	// level1_rock.Init(388, 233, &map[0]);
+
 	// door init 
 	level1_door.fill(Door());
 	level1_door[0].Init(500, 52, 'R');
@@ -410,6 +467,9 @@ void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 	for (auto & platform : level1_platform)
 		platform.OnMove();
 
+	// rock
+	level1_rock.OnMove(boy_body, girl_body);
+
 	// water
 	for (auto & water : level1_water)
 	{
@@ -426,7 +486,13 @@ void CGameStateRun::Level1OnMove(const CRect& boy_body, const CRect& girl_body)
 	bool door0_is_triggered = level1_door[0].OnMove(boy_body, girl_body);
 	bool door1_is_triggered = level1_door[1].OnMove(boy_body, girl_body);
 	if (door0_is_triggered && door1_is_triggered)
-		sub_phase = 2;
+	{
+		if (red_diamond_counter == num_diamonds_each_level[0]["red_diamond"] &&
+			blue_diamond_counter == num_diamonds_each_level[0]["blue_diamond"])	// 破關
+			sub_phase = 2;
+		else				// 寶石沒吃完
+			sub_phase = 3;
+	}
 }
 
 void CGameStateRun::Level1OnShow()
@@ -454,6 +520,9 @@ void CGameStateRun::Level1OnShow()
 	for (auto & platform : level1_platform)
 		platform.OnShow();
 
+	// rock
+	level1_rock.OnShow();
+
 	// door
 	for (auto & door : level1_door)
 		door.OnShow();
@@ -461,10 +530,6 @@ void CGameStateRun::Level1OnShow()
 	// person
 	boy.OnShow();
 	girl.OnShow();
-
-	// water
-	for (auto & water : level1_water)
-		water.OnShow();
 }
 
 void CGameStateRun::LoadLevel2()

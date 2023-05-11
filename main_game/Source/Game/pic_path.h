@@ -70,3 +70,4 @@
 
 //fonts
 #define FONTS								"Resources/game_run/FONT/fonts/Trajan Pro.ttf"
+#define ROCK								"Resources/game_run/rock/rock.bmp"
