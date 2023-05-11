@@ -65,11 +65,11 @@
 #define ORANGE_PLAT							"Resources/game_run/platform/orange.bmp"
 #define WHITE_PLAT							"Resources/game_run/platform/white.bmp"
 //switch
-#define SWITCH_RIGHT						"Resources/game_run/switch/switch_right.bmp"	//yellow 
-#define SWITCH_LEFT							"Resources/game_run/switch/switch_left.bmp"		//yellow
-#define BLUE_RIGHT                          "Resources/game_run/switch/switch_blue_right.bmp"
-#define	BLUE_LEFT                           "Resources/game_run/switch/switch_blue_left.bmp"   
-#define	RED_LEFT                           "Resources/game_run/switch/switch_red_left.bmp"   
-#define RED_RIGHT                           "Resources/game_run/switch/switch_red_right.bmp"
+#define SWITCH_YELLOW_RIGHT					"Resources/game_run/switch/switch_yellow_right.bmp" 
+#define SWITCH_YELLOW_LEFT					"Resources/game_run/switch/switch_yellow_left.bmp"
+#define SWITCH_BLUE_RIGHT                   "Resources/game_run/switch/switch_blue_right.bmp"
+#define	SWITCH_BLUE_LEFT                    "Resources/game_run/switch/switch_blue_left.bmp"   
+#define SWITCH_RED_RIGHT                    "Resources/game_run/switch/switch_red_right.bmp"
+#define	SWITCH_RED_LEFT						"Resources/game_run/switch/switch_red_left.bmp"   
 // rock
 #define ROCK								"Resources/game_run/rock/rock.bmp"
