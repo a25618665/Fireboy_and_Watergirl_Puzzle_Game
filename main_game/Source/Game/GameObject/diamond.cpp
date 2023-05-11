@@ -49,7 +49,7 @@ void Diamond::Reset()
 	is_showing = true;
 }
 
-void Diamond::OnMove(const CRect& person_body,  int &diamond_counter)
+void Diamond::OnMove(const CRect& person_body, int &diamond_counter)
 {
 	if (is_showing)		// 還未被吃掉才判斷是否overlap
 	{
@@ -60,8 +60,6 @@ void Diamond::OnMove(const CRect& person_body,  int &diamond_counter)
 			is_showing = false;
 			diamond_counter += 1;
 		}
-		
-		    
 	}
 }
 
@@ -70,5 +68,3 @@ void Diamond::OnShow()
 	if (is_showing)
 		img.ShowBitmap();
 }
-
-

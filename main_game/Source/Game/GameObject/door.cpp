@@ -100,39 +100,3 @@ void Door::OnShow()
 	Pic.SetFrameIndexOfBitmap(frame_counter);
 	Pic.ShowBitmap();
 }
-
-	/*int Door::OnMove(const CRect & boy_body, const CRect & girl_body) {
-
-		CRect temp_rect;
-		bool boy_is_overlap = temp_rect.IntersectRect(boy_body, body);
-		bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body);
-
-		switch (color)
-		{
-		case 'R':
-			if (boy_is_overlap) {
-				Pic.ToggleAnimation();
-				return 1;
-			}
-			break;
-		case 'B':
-			if (girl_is_overlap) {
-				Pic.ToggleAnimation();
-				return 1;
-			}
-			break;
-			
-		}
-
-		return 0;
-
-	}
-	void Door::OnShow()
-	{
-		Pic.SetTopLeft(x, y);
-		Pic.SetAnimation(200, true);
-		Pic.ShowBitmap();
-	}
-	
-	
-}*/
