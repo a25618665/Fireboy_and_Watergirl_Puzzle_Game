@@ -7,6 +7,7 @@
 #include "../../Library/gamecore.h"
 #include "../pic_path.h"
 #include "person.h"
+#include <fstream>
 
 
 using namespace game_framework;
@@ -17,11 +18,6 @@ Person::Person()
 
 Person::~Person()
 {
-	if (r_check_point || l_check_point)
-	{
-		delete[] r_check_point;
-		delete[] l_check_point;
-	}
 }
 
 void Person::Init(int x, int y, string gender)
@@ -40,8 +36,22 @@ void Person::Init(int x, int y, string gender)
 		body_offset.right = 17;
 		body_offset.bottom = 39;
 		//*******************************************
-		r_check_point = new int[5][2] { {18, 12}, {18, 25}, {18, 37}, {18, 38}, {18, 39} };
-		l_check_point = new int[5][2] { {6, 12}, {6, 25}, {6, 37}, {6, 38}, {6, 39} };
+		ifstream ifs(TEST_B);
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				ifs >> r_check_point[i][j];
+			}
+		}
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				ifs >> l_check_point[i][j];
+			}
+		}
+		ifs.close();
 	}	
 	else if (gender == "girl")
 	{
@@ -57,8 +67,22 @@ void Person::Init(int x, int y, string gender)
 		body_offset.right = 16;
 		body_offset.bottom = 34;
 		//
-		r_check_point = new int[5][2]{ {17, 7}, {17, 20}, {17, 32}, {17, 33}, {17, 34} };
-		l_check_point = new int[5][2]{ {5, 7}, {5, 20}, {5, 32}, {5, 33}, {5, 34} };
+		ifstream ifs(TEST_G);
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				ifs >> r_check_point[i][j];
+			}
+		}
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				ifs >> l_check_point[i][j];
+			}
+		}
+		ifs.close();
 	}
 		
 	this->init_x = x;
