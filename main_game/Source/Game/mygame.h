@@ -195,10 +195,10 @@ namespace game_framework {
 		array<Diamond, 7> level31_red_diamond;
 		array<Diamond, 7> level31_blue_diamond;
 		array<Switch, 2>  level31_switch;
-		array<Button, 2> level31_button;
+		//array<Button, 2> level31_button;
 		array<Platform, 2> level31_platform;
 		array<Door, 2> level31_door;
-		array<Water, 4> level31_water;
+		array<Water, 10> level31_water;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
