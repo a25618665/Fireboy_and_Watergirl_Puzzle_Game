@@ -37,7 +37,7 @@ namespace game_framework {
 		CMovingBitmap img_right;
 
 		//
-		int (*r_check_point)[2] = nullptr;
-		int (*l_check_point)[2] = nullptr;
+		array<array<int, 2>, 5> r_check_point;
+		array<array<int, 2>, 5> l_check_point;
 	};
 }

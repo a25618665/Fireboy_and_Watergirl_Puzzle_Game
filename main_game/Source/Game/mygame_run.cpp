@@ -44,13 +44,14 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	LoadSelectPage();
 	LoadSubPhase();
 	LoadLevel1();
+	LoadLevel6();
 	LoadLevel31();
 
 	// 各關鑽石數量
 	num_diamonds_each_level[0]["red_diamond"] = level1_red_diamond.size();
 	num_diamonds_each_level[0]["blue_diamond"] = level1_blue_diamond.size();
-	//num_diamonds_each_level[5]["red_diamond"] = level6_red_diamond.size();
-	//num_diamonds_each_level[5]["blue_diamond"] = level6_blue_diamond.size();
+	num_diamonds_each_level[5]["red_diamond"] = level6_red_diamond.size();
+	num_diamonds_each_level[5]["blue_diamond"] = level6_blue_diamond.size();
 	num_diamonds_each_level[30]["red_diamond"] = level31_red_diamond.size();
 	num_diamonds_each_level[30]["blue_diamond"] = level31_blue_diamond.size();
 	//num_diamonds_each_level[0]["g_diamond"] = .size();
@@ -94,7 +95,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			{
 				for (int k = 0; k < 640; k++)
 				{
-					ifs << map[0][k][j];
+					ifs << map[level - 1][k][j];
 					ifs << endl;
 				}
 			}
@@ -309,8 +310,8 @@ void CGameStateRun::LoadMap()
 {
 	array<int, 3> a;
 	a[0] = 0;
-	a[0] = 5;
-	a[0] = 30;
+	a[1] = 5;
+	a[2] = 30;
 	for (int i: a)
 	{
 		string map_path = "";
@@ -625,10 +626,10 @@ void CGameStateRun::ResetL1()
 void CGameStateRun::LoadLevel6()
 {
 	// person
-	/*boy[5].Init(563, 42, "boy");
+	boy[5].Init(563, 42, "boy");
 	girl[5].Init(56, 240, "girl");
 	boy[5].SetMap(&map[5]);
-	girl[5].SetMap(&map[5]);*/
+	girl[5].SetMap(&map[5]);
 
 	// background
 	level6_bg.LoadBitmapByString({LEVEL_6_BG});

@@ -31,6 +31,8 @@
 #define LEVEL_6_BG							"Resources/game_run/map/map_background/L6_bg.bmp"
 #define LEVEL_31_BG							"Resources/game_run/map/map_background/L31_bg.bmp"
 // person
+#define TEST_B								"Resources/game_run/person/test_b.txt"
+#define TEST_G								"Resources/game_run/person/test_g.txt"
 #define BOY_STOP							"Resources/game_run/person/boy/boy_stop.bmp"
 #define BOY_RIGHT_1							"Resources/game_run/person/boy/right/r1.bmp"
 #define BOY_RIGHT_2							"Resources/game_run/person/boy/right/r3.bmp"
