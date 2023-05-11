@@ -16,7 +16,6 @@ namespace game_framework {
 	void timer_showtext::show(int time_counter ,  int blue_counter, int red_counter) {
 		int  second = time_counter/1000 ;
 		int  minute = (second / 10) / 6; //分鐘個位數
-		//second = second - minute * 60;
 		show_as_text("TIME", 250, 142);
 		show_as_text(second-(second/10)*10, 387, 142);
 		show_as_text(second/10-((second/10)/6)*6, 372, 142);
@@ -42,7 +41,7 @@ namespace game_framework {
 		string time_str = "";
 		time_str += (minute >= 10 ? to_string(minute) : ("0" + to_string(minute))) +
 					 ":" + (second >= 10 ? to_string(second) : ("0" + to_string(second)));
-		show_as_text(time_str, 295, 5);
+		show_as_text(time_str, 291, 0);
 
 		//int  second = time_counter / 1000;
 		//int  minute = (second / 10) / 6; //分鐘個位數
@@ -57,7 +56,7 @@ namespace game_framework {
 
 	void timer_showtext::show_as_text(int  text , int x ,int y) {
 		CDC *pDC = CDDraw::GetBackCDC();
-		CTextDraw::ChangeFontLog(pDC, 16, "Trajan Pro", RGB(255, 218, 0), 800);
+		CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
 		CTextDraw::Print(pDC, x, y, std::to_string(text));
 		CDDraw::ReleaseBackCDC();
 		
@@ -65,7 +64,7 @@ namespace game_framework {
 	void timer_showtext::show_as_text(string  text, int x, int y) {
 
 		CDC *pDC = CDDraw::GetBackCDC();
-		CTextDraw::ChangeFontLog(pDC, 16, "Trajan Pro", RGB(255, 218, 0), 800);
+		CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
 		CTextDraw::Print(pDC, x, y, text);
 		CDDraw::ReleaseBackCDC();
 

@@ -20,7 +20,7 @@ void Door::Init(int left_x, int top_y, char color)
 	this->x = left_x;
 	this->y = top_y;
 	this->color = color;
-	body.SetRect(x + 23, y + 41, x + 25, y + 81);
+	body.SetRect(x + 22, y + 13, x + 26, y + 51);
 
 	switch (color)
 	{

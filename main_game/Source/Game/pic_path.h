@@ -16,7 +16,21 @@
 #define SELECT_PAGE_DIAMOND_ORANGE_CLICKED	"Resources/game_run/select_page/orange_diamond_clicked.bmp"
 #define SELECT_PAGE_DIAMOND_GREEN			"Resources/game_run/select_page/green_diamond.bmp"
 #define SELECT_PAGE_DIAMOND_GREEN_CLICKED	"Resources/game_run/select_page/green_diamond_clicked.bmp"
-
+// subphase
+#define SUBPHASE_1                          "Resources/game_run/subphase/1/phase1.bmp"
+#define SUBPHASE_1_RETRY                    "Resources/game_run/subphase/1/retry_clicked.bmp"
+#define SUBPHASE_1_BACK                     "Resources/game_run/subphase/1/back_clicked.bmp"
+#define SUBPHASE_2                          "Resources/game_run/subphase/2/phase2.bmp"
+#define SUBPHASE_2_CONTINUE                 "Resources/game_run/subphase/2/continue_clicked.bmp"
+// fonts
+#define FONTS								"Resources/font/Trajan Pro.ttf"
+// map
+#define MAP_TEMPLATE						"Resources/game_run/map/.map/map"
+// level bg
+#define LEVEL_1_BG							"Resources/game_run/map/map_background/L1_bg.bmp"
+#define LEVEL_6_BG							"Resources/game_run/map/map_background/L6_bg.bmp"
+#define LEVEL_31_BG							"Resources/game_run/map/map_background/L31_bg.bmp"
+// person
 #define BOY_STOP							"Resources/game_run/person/boy/boy_stop.bmp"
 #define BOY_RIGHT_1							"Resources/game_run/person/boy/right/r1.bmp"
 #define BOY_RIGHT_2							"Resources/game_run/person/boy/right/r3.bmp"
@@ -35,14 +49,12 @@
 #define GIRL_LEFT_2							"Resources/game_run/person/girl/left/l3.bmp"
 #define GIRL_LEFT_3							"Resources/game_run/person/girl/left/l5.bmp"
 #define GIRL_LEFT_4							"Resources/game_run/person/girl/left/l7.bmp"
-#define LEVEL_1_BG							"Resources/game_run/map/map_background/map1.bmp"
-#define MAP_TEMPLATE						"Resources/game_run/map/.map/map"
-//DIAMOND
+// DIAMOND
 #define DIAMOND_RED_1						"Resources/game_run/diamond/red/red_1.bmp"
 #define DIAMOND_RED_2						"Resources/game_run/diamond/red/red_2.bmp"
 #define DIAMOND_BLUE_1						"Resources/game_run/diamond/blue/blue1.bmp"
 #define DIAMOND_BLUE_2						"Resources/game_run/diamond/blue/blue2.bmp"
-//BUTTON
+// BUTTON
 #define PURPLE_BUTTON						"Resources/game_run/button/button_purple.bmp"
 #define WHITE_BUTTON                        "Resources/game_run/button/button_white.bmp"
 // platform
@@ -52,22 +64,12 @@
 #define BLUE_PLAT							"Resources/game_run/platform/blue.bmp"
 #define ORANGE_PLAT							"Resources/game_run/platform/orange.bmp"
 #define WHITE_PLAT							"Resources/game_run/platform/white.bmp"
-// subphase
-#define SUBPHASE_1                          "Resources/game_run/subphase/1/phase1.bmp"
-#define SUBPHASE_1_RETRY                    "Resources/game_run/subphase/1/retry_clicked.bmp"
-#define SUBPHASE_1_BACK                     "Resources/game_run/subphase/1/back_clicked.bmp"
-#define SUBPHASE_2                          "Resources/game_run/subphase/2/phase2.bmp"
-#define SUBPHASE_2_CONTINUE                 "Resources/game_run/subphase/2/continue_clicked.bmp"
 //switch
-#define SWITCH_RIGHT						"Resources/game_run/switch/switch_right.bmp" //yellow 
-#define SWITCH_LEFT							"Resources/game_run/switch/switch_left.bmp"//yellow
-#define TEST "test"
+#define SWITCH_RIGHT						"Resources/game_run/switch/switch_right.bmp"	//yellow 
+#define SWITCH_LEFT							"Resources/game_run/switch/switch_left.bmp"		//yellow
 #define BLUE_RIGHT                          "Resources/game_run/switch/switch_blue_right.bmp"
 #define	BLUE_LEFT                           "Resources/game_run/switch/switch_blue_left.bmp"   
 #define	RED_LEFT                           "Resources/game_run/switch/switch_red_left.bmp"   
 #define RED_RIGHT                           "Resources/game_run/switch/switch_red_right.bmp"
-
-
-//fonts
-#define FONTS								"Resources/game_run/FONT/fonts/Trajan Pro.ttf"
+// rock
 #define ROCK								"Resources/game_run/rock/rock.bmp"

@@ -115,19 +115,28 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private: 
+		void ResetLevel(int level);
 		void LoadMap();
 		void LoadSelectPage();
+		// sub phase
 		void LoadSubPhase();
 		void SubPhase2ShowText();
 		void SubPhase3ShowText();
 		// level1
 		void LoadLevel1(); 
-		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
+		void Level1OnMove();
 		void Level1OnShow();
-		// level2
-		/*void LoadLevel1();
-		void Level1OnMove(const CRect& boy_body, const CRect& girl_body);
-		void Level1OnShow();*/
+		void ResetL1();
+		// level6
+		void LoadLevel6();
+		void Level6OnMove();
+		void Level6OnShow();
+		void ResetL6();
+		// level31
+		void LoadLevel31();
+		void Level31OnMove();
+		void Level31OnShow();
+		void ResetL31();
 		
 		// test
 		CPoint t;
@@ -136,9 +145,11 @@ namespace game_framework {
 		int level;                                      // 0為遊戲關卡選擇1為第一關依此類推
 		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關，3:寶石沒吃完
 		int blue_diamond_counter, red_diamond_counter;
-		Person boy;
-		Person girl;
-		array<array<array<int, 480>, 640>, 1> map;		//每關的地圖陣列
+		int time_counter, time_counter_start;			//start紀錄進入每個關卡的初始時間 counter 紀錄總共遊玩時間
+		bool time_counter_flag;							//控制儲存進time變數
+		array<Person, 32> boy;
+		array<Person, 32> girl;
+		array<array<array<int, 480>, 640>, 32> map;		//每關的地圖陣列
 		array<std::map<string, int>, 32> num_diamonds_each_level;
 		CDC* pDC;										//字體顯示
 
@@ -152,8 +163,6 @@ namespace game_framework {
 		CMovingBitmap img_sub1_back_clicked;
 
 		// sub phase2
-		int time_counter,time_counter_start;			//start紀錄進入每個關卡的初始時間 counter 紀錄總共遊玩時間
-		int c_time_counter;								//控制儲存進time變數
 		bool is_sub2_con_clicked;
 		CRect sub2_con_body;
 		CMovingBitmap img_sub2_bg;
@@ -168,7 +177,7 @@ namespace game_framework {
 		// select page
 		int select_page_button_down;					// 紀錄在select page哪關正在被按下
 		CMovingBitmap select_page_bg;
-		array<SelectPageDiamond, 2> select_page_diamond;
+		array<SelectPageDiamond, 32> select_page_diamond;
 
 		// level 1
 		CMovingBitmap level1_bg;
@@ -181,24 +190,15 @@ namespace game_framework {
 		array<Water, 3> level1_water;
 		Rock level1_rock;
 
-		// level 2
-		void LoadLevel2();
-
-
-
-
-		
-
-	    CMovingBitmap level2_bg;
-		array<Diamond, 7> level2_red_diamond;
-		array<Diamond, 7> level2_blue_diamond;
-		array<Switch, 2>  level2_switch;
-		array<Button, 2> level2_button;
-		array<Platform, 2> level2_platform;
-		array<Door, 2> level2_door;
-		array<Water, 4> level2_water;
-
-
+		// level 31
+	    CMovingBitmap level31_bg;
+		array<Diamond, 7> level31_red_diamond;
+		array<Diamond, 7> level31_blue_diamond;
+		array<Switch, 2>  level31_switch;
+		array<Button, 2> level31_button;
+		array<Platform, 2> level31_platform;
+		array<Door, 2> level31_door;
+		array<Water, 4> level31_water;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

@@ -81,9 +81,6 @@
     <ClCompile Include="Source\Game\GameObject\rock.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\GameObject\font.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\GameObject\timer.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
