@@ -32,6 +32,8 @@ void Button::Init(int x, int y, char color)
 	case 'G':
 		//img_button.LoadBitmap(IDB_GREENBOTTON, RGB(0, 0, 0)); 
 		break;
+	case 'W':
+		img_button.LoadBitmap(WHITE_BUTTON, RGB(0, 0, 0));
 	}
 	img_button.SetTopLeft(x, y);
 
