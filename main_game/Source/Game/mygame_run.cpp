@@ -624,22 +624,138 @@ void CGameStateRun::ResetL1()
 
 void CGameStateRun::LoadLevel6()
 {
+	// person
+	/*boy[5].Init(563, 42, "boy");
+	girl[5].Init(56, 240, "girl");
+	boy[5].SetMap(&map[5]);
+	girl[5].SetMap(&map[5]);*/
+
+	// background
+	level6_bg.LoadBitmapByString({LEVEL_6_BG});
+	level6_bg.SetTopLeft(0, 0);
+
+	// diamond 
+	level6_red_diamond.fill(Diamond("red"));
+	level6_red_diamond[0].Init(86, 106);
+	level6_red_diamond[1].Init(70, 170);
+	level6_red_diamond[2].Init(167, 42);
+	level6_red_diamond[3].Init(230, 90);
+	level6_red_diamond[4].Init(423, 90);
+	level6_red_diamond[5].Init(325, 90);
+	level6_red_diamond[6].Init(263, 154);
+	level6_red_diamond[7].Init(407, 170);
+
+
+
+
+	level6_blue_diamond.fill(Diamond("blue"));
+	level6_blue_diamond[0].Init(199, 280);
+	level6_blue_diamond[1].Init(296, 280);
+	level6_blue_diamond[2].Init(392, 280);
+	level6_blue_diamond[3].Init(457, 234);
+	level6_blue_diamond[4].Init(535, 299);
+	level6_blue_diamond[5].Init(550, 360);
+	level6_blue_diamond[6].Init(359, 347);
+	level6_blue_diamond[7].Init(215, 362);
+
 	
+	
+
+	
+
+	
+
+	// door init 
+	level6_door.fill(Door());
+	level6_door[0].Init(500, 200, 'R');
+	level6_door[1].Init(94, 404, 'B');
+
+	// water
+	level6_water.fill(Water());
+	level6_water[0].Init(250, 120, 305, 127, 'B');
+	level6_water[1].Init(345, 120, 403, 127, 'B');
+	level6_water[2].Init(443, 120, 496, 127, 'B');
+	level6_water[3].Init(250, 200, 291, 206, 'B');
+	level6_water[4].Init(140, 310, 194, 320, 'R');
+	level6_water[5].Init(235, 310, 290, 320, 'R');
+	level6_water[6].Init(330, 310, 385, 320, 'R');
+	level6_water[7].Init(348, 390, 386, 400, 'R');
 }
 
 void CGameStateRun::Level6OnMove()
 {
-	
+	boy[5].OnMove();
+	girl[5].OnMove();
+
+	CRect boy_body = boy[5].GetBody();
+	CRect girl_body = girl[5].GetBody();
+
+	// diamond
+	for (auto & diamond : level6_red_diamond)
+		diamond.OnMove(boy_body, red_diamond_counter);
+
+	for (auto & diamond : level6_blue_diamond)
+		diamond.OnMove(girl_body, blue_diamond_counter);
+
+
+	// water
+	for (auto & water : level6_water)
+	{
+		sub_phase = water.OnMove(boy_body, girl_body);
+		if (sub_phase)
+			break;
+	}
+
+	// door
+	bool door0_is_triggered = level6_door[0].OnMove(boy_body, girl_body);
+	bool door1_is_triggered = level6_door[1].OnMove(boy_body, girl_body);
+	if (door0_is_triggered && door1_is_triggered)
+	{
+		if (red_diamond_counter == num_diamonds_each_level[5]["red_diamond"] &&
+			blue_diamond_counter == num_diamonds_each_level[5]["blue_diamond"])	// 破關
+			sub_phase = 2;
+		else				// 寶石沒吃完
+			sub_phase = 3;
+	}
 }
 
 void CGameStateRun::Level6OnShow()
 {
+	// background
+	level6_bg.ShowBitmap();
+
+	// timer
+	time_counter = timeGetTime() - time_counter_start;
+	timer_showtext::show_in_the_game(time_counter);
+
+	// diamond
+	for (auto & diamond : level6_red_diamond)
+		diamond.OnShow();
+	for (auto & diamond : level6_blue_diamond)
+		diamond.OnShow();
+
+
+	// door
+	for (auto & door : level6_door)
+		door.OnShow();
+
 	
+	// person
+	boy[5].OnShow();
+	girl[5].OnShow();
 }
 
 void CGameStateRun::ResetL6()
 {
-	
+	boy[5].Reset();
+	girl[5].Reset();
+
+	// diamond
+	for (auto & diamond : level6_red_diamond)
+		diamond.Reset();
+
+	for (auto & diamond : level6_blue_diamond)
+		diamond.Reset();
 }
 
 void CGameStateRun::LoadLevel31()
