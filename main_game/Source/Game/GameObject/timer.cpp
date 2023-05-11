@@ -16,7 +16,6 @@ namespace game_framework {
 	void timer_showtext::show(int time_counter ,  int blue_counter, int red_counter) {
 		int  second = time_counter/1000 ;
 		int  minute = (second / 10) / 6; //分鐘個位數
-		//second = second - minute * 60;
 		show_as_text("TIME", 250, 142);
 		show_as_text(second-(second/10)*10, 387, 142);
 		show_as_text(second/10-((second/10)/6)*6, 372, 142);
@@ -37,13 +36,11 @@ namespace game_framework {
 	void timer_showtext::show_in_the_game(int time_counter) {
 		int  second = time_counter / 1000;
 		int  minute = (second / 10) / 6; //分鐘個位數
-		//second = second - minute * 60;
-		//show_as_text("TIME", 250, 142);
-		show_as_text(second - (second / 10) * 10, 335, 5);
-		show_as_text(second / 10 - ((second / 10) / 6) * 6, 325, 5);
-		show_as_text(":", 320, 5);
-		show_as_text((second / 10) / 6 - (minute / 10) * 10, 305, 5);
-		show_as_text(minute / 10, 295, 5);
+		show_as_text(second - (second / 10) * 10, 335, 1);
+		show_as_text(second / 10 - ((second / 10) / 6) * 6, 325, 1);
+		show_as_text(":", 320, 1);
+		show_as_text((second / 10) / 6 - (minute / 10) * 10, 305, 1);
+		show_as_text(minute / 10, 295, 1);
 
 
 
