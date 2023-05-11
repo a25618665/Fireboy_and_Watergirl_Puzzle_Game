@@ -190,6 +190,15 @@ namespace game_framework {
 		array<Water, 3> level1_water;
 		Rock level1_rock;
 
+		//level6
+		CMovingBitmap level6_bg;
+		array<Diamond, 8> level6_red_diamond;
+		array<Diamond, 8> level6_blue_diamond;
+		array<Water, 8> level6_water;
+		array<Door, 2> level6_door;
+
+
+
 		// level 31
 	    CMovingBitmap level31_bg;
 		array<Diamond, 7> level31_red_diamond;
