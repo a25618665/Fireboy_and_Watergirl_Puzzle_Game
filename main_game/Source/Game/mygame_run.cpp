@@ -269,7 +269,7 @@ void CGameStateRun::OnShow()
 			// 暫
 			if (c_time_counter == 0)
 			{
-				time_counter = timeGetTime();
+				time_counter_start = timeGetTime();
 				c_time_counter = c_time_counter + 1;
 			}
 			break;
@@ -499,9 +499,11 @@ void CGameStateRun::Level1OnShow()
 {
 	// background
 	level1_bg.ShowBitmap();
-	//
+
+	// 
 	time_counter = timeGetTime() - time_counter_start;
 	timer_showtext::show_in_the_game(time_counter);
+
 	// diamond
 	for (auto & diamond : level1_red_diamond)
 		diamond.OnShow();
