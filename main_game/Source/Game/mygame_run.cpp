@@ -762,7 +762,7 @@ void CGameStateRun::ResetL6()
 void CGameStateRun::LoadLevel31()
 {
 	// person
-	boy[30].Init(35, 27, "boy");
+	boy[30].Init(41, 34, "boy");
 	girl[30].Init(516, 34, "girl");
 	boy[30].SetMap(&map[30]);
 	girl[30].SetMap(&map[30]);
@@ -820,10 +820,17 @@ void CGameStateRun::LoadLevel31()
 	level31_door[1].Init(519, 402, 'B');
 
 	// water
-	level1_water.fill(Water());
-	level1_water[0].Init(302, 455, 369, 462, 'R');
-	level1_water[1].Init(428, 455, 498, 462, 'B');
-	level1_water[2].Init(396, 359, 467, 366, 'G');
+	level31_water.fill(Water());
+	level31_water[0].Init(90, 165, 162, 175, 'R');
+	level31_water[1].Init(121, 375, 177, 385, 'R');
+	level31_water[2].Init(426, 327, 449, 335, 'R');
+	level31_water[3].Init(586, 295, 610, 302, 'R');
+	level31_water[4].Init(123, 264, 163, 272, 'B');
+	level31_water[5].Init(206, 264, 226, 270, 'B');
+	level31_water[6].Init(221, 377, 271, 385, 'B');
+	level31_water[7].Init(525, 200, 575, 207, 'B');
+	level31_water[8].Init(155, 437, 180, 445, 'G');
+	level31_water[9].Init(235, 437, 260, 447, 'G');
 
 }
 
