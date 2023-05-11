@@ -47,7 +47,3 @@ int Water::OnMove(const CRect & boy_body, const CRect & girl_body)
 	}
 	return 0;
 }
-
-void Water::OnShow()
-{
-}
