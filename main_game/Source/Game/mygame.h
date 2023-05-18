@@ -122,17 +122,37 @@ namespace game_framework {
 		void LoadSubPhase();
 		void SubPhase2ShowText();
 		void SubPhase3ShowText();
-		// level1
+		// level 1
 		void LoadLevel1(); 
 		void Level1OnMove();
 		void Level1OnShow();
 		void ResetL1();
-		// level6
+		// level 6
 		void LoadLevel6();
 		void Level6OnMove();
 		void Level6OnShow();
 		void ResetL6();
-		// level31
+		// level 10
+		void LoadLevel10();
+		void Level10OnMove();
+		void Level10OnShow();
+		void ResetL10();
+		// level 15
+		void LoadLevel15();
+		void Level15OnMove();
+		void Level15OnShow();
+		void ResetL15();
+		// level 16
+		void LoadLevel16();
+		void Level16OnMove();
+		void Level16OnShow();
+		void ResetL16();
+		// level 18
+		void LoadLevel18();
+		void Level18OnMove();
+		void Level18OnShow();
+		void ResetL18();
+		// level 31
 		void LoadLevel31();
 		void Level31OnMove();
 		void Level31OnShow();
@@ -190,12 +210,24 @@ namespace game_framework {
 		array<Water, 3> level1_water;
 		Rock level1_rock;
 
-		//level6
+		//level 6
 		CMovingBitmap level6_bg;
 		array<Diamond, 8> level6_red_diamond;
 		array<Diamond, 8> level6_blue_diamond;
 		array<Water, 8> level6_water;
 		array<Door, 2> level6_door;
+
+		//level 10
+		CMovingBitmap level10_bg;
+
+		//level 15
+		CMovingBitmap level15_bg;
+
+		//level 16
+		CMovingBitmap level16_bg;
+		
+		//level 18
+		CMovingBitmap level18_bg;
 
 		// level 31
 	    CMovingBitmap level31_bg;
