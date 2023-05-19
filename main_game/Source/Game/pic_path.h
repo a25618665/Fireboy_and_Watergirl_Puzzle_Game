@@ -29,6 +29,10 @@
 // level bg
 #define LEVEL_1_BG							"Resources/game_run/map/map_background/L1_bg.bmp"
 #define LEVEL_6_BG							"Resources/game_run/map/map_background/L6_bg.bmp"
+#define LEVEL_10_BG							"Resources/game_run/map/map_background/L10_bg.bmp"
+#define LEVEL_15_BG							"Resources/game_run/map/map_background/L15_bg.bmp"
+#define LEVEL_16_BG							"Resources/game_run/map/map_background/L16_bg.bmp"
+#define LEVEL_18_BG							"Resources/game_run/map/map_background/L18_bg.bmp"
 #define LEVEL_31_BG							"Resources/game_run/map/map_background/L31_bg.bmp"
 // person
 #define TEST_B								"Resources/game_run/person/test_b.txt"
