@@ -86,8 +86,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		// debug: 按下p鍵回到select page
 		if (nChar == 0x50)
 		{
-			boy[0].Init(440, 35, "boy");
-			girl[0].Init(470, 35, "girl");
+			ResetL1();
 			sub_phase = 0;
 			level = 0;
 		}
@@ -523,7 +522,7 @@ void CGameStateRun::LoadLevel1()
 	level1_platform[1].Bind(temp_button_ptr_vector);
 
 	// rock
-	level1_rock.Init(320, 121, &map[0]);
+	level1_rock.Init(220, 250, &map[0]);
 
 	// door init 
 	level1_door.fill(Door());
@@ -568,12 +567,12 @@ void CGameStateRun::Level1OnMove()
 	level1_rock.OnMove(boy_body, girl_body);
 
 	// water
-	for (auto & water : level1_water)
+	/*for (auto & water : level1_water)
 	{
 		sub_phase = water.OnMove(boy_body, girl_body);
 		if (sub_phase)
 			break;
-	}
+	}*/
 
 	// door
 	bool door0_is_triggered = level1_door[0].OnMove(boy_body, girl_body);

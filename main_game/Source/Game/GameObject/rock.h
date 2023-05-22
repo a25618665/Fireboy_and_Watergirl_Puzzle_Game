@@ -12,9 +12,11 @@ namespace game_framework {
 	private:
 		void MoveRockOnMap(char direction, int distance);
 		bool RightSideIsClear();
+		int  RightBottomSideIsClear();				// 回傳往上幾pixel
 		bool LeftSideIsClear();
-		int BottomSideIsClear(int check_distance);	// return岩石底部與下方check_distance距離內障礙物的距離，無障礙物則return check_distance + 1
-
+		int  LeftBottomSideIsClear();				// 回傳往上幾pixel
+		int  BottomSideIsClear(int check_distance);	// return岩石底部與下方check_distance距離內障礙物的距離，
+													// 無障礙物則return check_distance + 1
 		int init_x, init_y, x, y;
 		int horizontal_moving_distance_per_frame;
 		int vertical_velocity;
