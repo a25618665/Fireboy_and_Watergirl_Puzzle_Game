@@ -219,6 +219,12 @@ namespace game_framework {
 
 		//level 10
 		CMovingBitmap level10_bg;
+		array<Diamond, 6> level10_red_diamond;
+		array<Diamond, 6> level10_blue_diamond;
+		array<Switch, 2>  level10_switch;
+		array<Platform, 2> level10_platform;
+		array<Door, 2> level10_door;
+		array<Water, 10> level10_water;
 
 		//level 15
 		CMovingBitmap level15_bg;
