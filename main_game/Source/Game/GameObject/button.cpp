@@ -27,13 +27,15 @@ void Button::Init(int x, int y, char color)
 		img_button.LoadBitmap(PURPLE_BUTTON, RGB(0, 0, 0));
 		break;
 	case 'Y':
-		//img_button.LoadBitmap(YELLOW_BUTTON, RGB(0, 0, 0)); 
+		img_button.LoadBitmap(YELLOW_BUTTON, RGB(0, 0, 0)); 
 		break;
 	case 'G':
 		//img_button.LoadBitmap(IDB_GREENBOTTON, RGB(0, 0, 0)); 
 		break;
 	case 'W':
 		img_button.LoadBitmap(WHITE_BUTTON, RGB(0, 0, 0));
+	case 'B':
+		img_button.LoadBitmap(BLUE_BUTTON, RGB(0, 0, 0));
 	}
 	img_button.SetTopLeft(x, y);
 
