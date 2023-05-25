@@ -76,12 +76,30 @@ void Rock::OnMove(const CRect & boy_body, const CRect & girl_body)
 	// 檢查左右移動
 	if (!is_left && is_right && RightSideIsClear())
 	{
+		int up = RightBottomSideIsClear();
+		if (up)
+		{
+			vertical_velocity = 0;
+			MoveRockOnMap('U', up);
+			y -= up;
+			body -= CPoint(0, up);
+		}
+		
 		MoveRockOnMap('R', horizontal_moving_distance_per_frame);
 		x += horizontal_moving_distance_per_frame;
 		body += CPoint(horizontal_moving_distance_per_frame, 0);
 	}
 	else if (!is_right && is_left && LeftSideIsClear())
 	{
+		int up = LeftBottomSideIsClear();
+		if (up)
+		{
+			vertical_velocity = 0;
+			MoveRockOnMap('U', up);
+			y -= up;
+			body -= CPoint(0, up);
+		}
+
 		MoveRockOnMap('L', horizontal_moving_distance_per_frame);
 		x -= horizontal_moving_distance_per_frame;
 		body -= CPoint(horizontal_moving_distance_per_frame, 0);
@@ -141,33 +159,78 @@ void Rock::MoveRockOnMap(char direction, int distance)
 			}
 		}
 		break;
+	case 'U':
+		for (int i = 0; i < body.Width() + 1; i++)
+		{
+			for (int j = 0; j < distance; j++)
+			{
+				(*ptr_map)[body.left + i][body.top - 1 - j] = 1;
+				(*ptr_map)[body.left + i][body.bottom - j] = 0;
+			}
+		}
+		break;
 	}
 }
 
 bool Rock::RightSideIsClear()
 {
+	bool once = false;
+	int up = 0;
 	for (int i = 0; i < horizontal_moving_distance_per_frame; i++)
 	{
-		for (int j = 0; j < body.Height() + 1; j++)
+		for (int j = 0; j < body.Height() - 1; j++)
 		{
 			if ((*ptr_map)[body.right + 1 + i][body.top + j])
 				return false;
 		}
+		for (int k = 0; k < 2; k++)
+		{
+			if ((*ptr_map)[body.right + 1 + i][body.top + k] && !once)
+			{
+				once = true;
+			}
+		}
 	}
 	return true;
+}
+
+int Rock::RightBottomSideIsClear()
+{
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < horizontal_moving_distance_per_frame; j++)
+		{
+			if ((*ptr_map)[body.right + 1 + j][body.bottom - 1 + i])
+				return 2 - i;
+		}
+	}
+	return 0;
 }
 
 bool Rock::LeftSideIsClear()
 {
 	for (int i = 0; i < horizontal_moving_distance_per_frame; i++)
 	{
-		for (int j = 0; j < body.Height() + 1; j++)
+		for (int j = 0; j < body.Height() - 1; j++)
 		{
 			if ((*ptr_map)[body.left - 1 - i][body.top + j])
 				return false;
 		}
 	}
 	return true;
+}
+
+int Rock::LeftBottomSideIsClear()
+{
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < horizontal_moving_distance_per_frame; j++)
+		{
+			if ((*ptr_map)[body.left - 1 - j][body.bottom - 1 + i])
+				return 2 - i;
+		}
+	}
+	return 0;
 }
 
 int Rock::BottomSideIsClear(int check_distance)
