@@ -328,9 +328,16 @@ void CGameStateRun::ResetLevel(int level)
 	case 6:
 		ResetL6();
 		break;
+	case 10:
+		ResetL10();
+		break;
+
 	case 31:
 		ResetL31();
 		break;
+	
+
+
 	}
 }
 
@@ -1708,5 +1715,194 @@ void CGameStateRun::ResetL31()
 
 	// platform
 	for (auto & platform : level31_platform)
+		platform.Reset();
+}
+void CGameStateRun::LoadLevel10(){
+
+	boy[9].Init(278, 49, "boy");
+	girl[9].Init(300, 49, "girl");
+	boy[9].SetMap(&map[9]);
+	girl[9].SetMap(&map[9]);
+
+
+	// background
+	level31_bg.LoadBitmapByString({ LEVEL_10_BG });
+	level31_bg.SetTopLeft(0, 0);
+
+
+	//diamond
+	level10_red_diamond.fill(Diamond("red"));
+	level10_red_diamond[0].Init(154, 43);
+	level10_red_diamond[1].Init(396, 90);
+	level10_red_diamond[2].Init(588, 58);
+	level10_red_diamond[3].Init(381, 187);
+	level10_red_diamond[4].Init(217, 251);
+	level10_red_diamond[5].Init(217, 360);
+
+	level10_blue_diamond.fill(Diamond("blue"));
+	level10_blue_diamond[0].Init(233, 93);
+	level10_blue_diamond[1].Init(491, 123);
+	level10_blue_diamond[2].Init(123, 172);
+	level10_blue_diamond[3].Init(557, 220);
+	level10_blue_diamond[4].Init(427, 300);
+	level10_blue_diamond[5].Init(475, 397);
+	
+	// switch
+	level10_switch.fill(Switch());
+	level10_switch[0].Init(564, 87, 'R', &map[9], 'Y');
+	level10_switch[1].Init(161, 184, 'L', &map[9], 'B');
+
+
+	// platform
+	level10_platform.fill(Platform());
+	level10_platform[0].Init(200, 30, 90, 'D', 'Y', &map[9]);
+	level10_platform[0].Bind(&level10_switch[0]);
+
+	level10_platform[1].Init(522, 155, 570, 'R', 'B', &map[9]);
+	level10_platform[1].Bind(&level10_switch[1]);
+
+
+	//door
+	level10_door.fill(Door());
+	level10_door[0].Init(580, 283, 'R');
+	level10_door[1].Init(26, 363, 'B');
+
+	// water
+	level10_water.fill(Water());
+	level10_water[0].Init(104, 70, 179, 78, 'R');
+	level10_water[1].Init(346, 119, 189, 126, 'R');
+	level10_water[2].Init(409, 118, 435, 126, 'R');
+	level10_water[3].Init(139, 121, 242, 128, 'B');
+	level10_water[4].Init(316, 233, 339, 238, 'B');
+	level10_water[5].Init(526, 249, 578, 255, 'B');
+	level10_water[6].Init(156, 280, 195, 285, 'B');
+	level10_water[7].Init(106, 280, 130, 287, 'B');
+	level10_water[8].Init(235, 280, 180, 289, 'B');
+	level10_water[9].Init(74, 440, 613, 450, 'G');
+
+}
+void CGameStateRun::Level10OnMove() {
+
+
+
+	boy[9].OnMove();
+	girl[9].OnMove();
+
+	CRect boy_body = boy[9].GetBody();
+	CRect girl_body = girl[9].GetBody();
+
+
+
+
+
+	// diamond
+	for (auto & diamond : level10_red_diamond)
+		diamond.OnMove(boy_body, red_diamond_counter);
+
+	for (auto & diamond : level10_blue_diamond)
+		diamond.OnMove(girl_body, blue_diamond_counter);
+
+	// switch
+	for (auto & s : level10_switch)
+		s.OnMove(boy_body, girl_body);
+
+
+	// platform
+	for (auto & platform : level10_platform)
+		platform.OnMove();
+
+	// water
+	for (auto & water : level10_water)
+	{
+		sub_phase = water.OnMove(boy_body, girl_body);
+		if (sub_phase)
+			break;
+	}
+
+	// door
+	bool door0_is_triggered = level10_door[0].OnMove(boy_body, girl_body);
+	bool door1_is_triggered = level10_door[1].OnMove(boy_body, girl_body);
+	if (door0_is_triggered && door1_is_triggered)
+	{
+		if (red_diamond_counter == num_diamonds_each_level[9]["red_diamond"] &&
+			blue_diamond_counter == num_diamonds_each_level[9]["blue_diamond"])	// 破關
+			sub_phase = 2;
+		else				// 寶石沒吃完
+			sub_phase = 3;
+	}
+}
+void CGameStateRun::Level10OnShow()
+{
+
+
+
+
+
+
+
+
+
+
+	// background
+	level10_bg.ShowBitmap();
+
+	// timer
+	time_counter = timeGetTime() - time_counter_start;
+	timer_showtext::show_in_the_game(time_counter);
+
+	// diamond
+	for (auto & diamond : level10_red_diamond)
+		diamond.OnShow();
+	for (auto & diamond : level10_blue_diamond)
+		diamond.OnShow();
+
+	// switch
+	for (auto & s : level10_switch)
+		s.OnShow();
+
+	// button
+	/*for (auto & button : level31_button)
+		button.OnShow();*/
+
+		// platform
+	for (auto & platform : level10_platform)
+		platform.OnShow();
+
+	// door
+	for (auto & door : level10_door)
+		door.OnShow();
+
+	// person
+	boy[9].OnShow();
+	girl[9].OnShow();
+
+
+
+
+
+
+
+
+
+
+}
+void CGameStateRun::ResetL10()
+{
+	boy[9].Reset();
+	girl[9].Reset();
+
+	// diamond
+	for (auto & diamond : level10_red_diamond)
+		diamond.Reset();
+
+	for (auto & diamond : level10_blue_diamond)
+		diamond.Reset();
+
+	// switch
+	for (auto & s : level10_switch)
+		s.Reset();
+
+		// platform
+	for (auto & platform : level10_platform)
 		platform.Reset();
 }
