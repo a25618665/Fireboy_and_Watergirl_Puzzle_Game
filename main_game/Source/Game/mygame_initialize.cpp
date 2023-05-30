@@ -21,7 +21,7 @@ CGameStateInit::CGameStateInit(CGame *g) : CGameState(g)
 
 void CGameStateInit::OnInit()
 {
-	ShowInitProgress(0, "load menu");
+	ShowInitProgress(0, "Load Menu");
 	LoadBackground();
 	//CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/5.mp3");
 	//CAudio::Instance()->Load(2, "../ireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.mp3");

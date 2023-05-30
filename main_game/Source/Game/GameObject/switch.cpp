@@ -61,8 +61,8 @@ void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 64
 		break;
 	}
 	
-	switch (color) {
-
+	switch (color)
+	{
 	case 'Y':
 		img_right.LoadBitmap(SWITCH_YELLOW_RIGHT, RGB(0, 0, 0));
 		img_right.SetTopLeft(x, y);
@@ -75,13 +75,29 @@ void Switch::Init(int x, int y, char defult_direction, array<array<int, 480>, 64
 		img_left.LoadBitmap(SWITCH_BLUE_LEFT, RGB(0, 0, 0));
 		img_left.SetTopLeft(x, y);
 		break;
-	case 'R':
+	case 'O':
 		img_right.LoadBitmap(SWITCH_RED_RIGHT, RGB(0, 0, 0));
 		img_right.SetTopLeft(x, y);
 		img_left.LoadBitmap(SWITCH_RED_LEFT, RGB(0, 0, 0));
 		img_left.SetTopLeft(x, y);
-		
-
+	case 'W':
+		img_right.LoadBitmap(SWITCH_WHITE_RIGHT, RGB(0, 0, 0));
+		img_right.SetTopLeft(x, y);
+		img_left.LoadBitmap(SWITCH_WHITE_LEFT, RGB(0, 0, 0));
+		img_left.SetTopLeft(x, y);
+		break;
+	case 'P':
+		img_right.LoadBitmap(SWITCH_PURPLE_RIGHT, RGB(0, 0, 0));
+		img_right.SetTopLeft(x, y);
+		img_left.LoadBitmap(SWITCH_PURPLE_LEFT, RGB(0, 0, 0));
+		img_left.SetTopLeft(x, y);
+		break;
+	case 'G':
+		img_right.LoadBitmap(SWITCH_GREEN_RIGHT, RGB(0, 0, 0));
+		img_right.SetTopLeft(x, y);
+		img_left.LoadBitmap(SWITCH_GREEN_LEFT, RGB(0, 0, 0));
+		img_left.SetTopLeft(x, y);
+		break;
 	}
 }
 

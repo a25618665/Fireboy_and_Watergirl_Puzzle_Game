@@ -160,6 +160,7 @@ namespace game_framework {
 		
 		// test
 		CPoint t;
+		int test_int = 0;
 
 		// whole game varables
 		int level;                                      // 0為遊戲關卡選擇1為第一關依此類推
@@ -227,19 +228,26 @@ namespace game_framework {
 		array<Water, 10> level10_water;
 
 		//level 15
-		CMovingBitmap level15_bg;
+		/*CMovingBitmap level15_bg;
 		array<Diamond, 8> level15_red_diamond;
 		array<Diamond, 8> level15_blue_diamond;
 		array<Switch, 4>  level15_switch;
 		array<Button, 4> level15_button;
 		array<Platform, 9> level15_platform;
-		array<Door, 2> level15_door;
+		array<Door, 2> level15_door;*/
 
 		//level 16
-		CMovingBitmap level16_bg;
+		//CMovingBitmap level16_bg;
 		
-		//level 18
+		// level 18
 		CMovingBitmap level18_bg;
+		array<Diamond, 5> level18_red_diamond;
+		array<Diamond, 5> level18_blue_diamond;
+		array<Switch, 2>  level18_switch;
+		array<Button, 2> level18_button;
+		array<Platform, 1> level18_platform;
+		array<Door, 2> level18_door;
+		array<Water, 7> level18_water;
 
 		// level 31
 	    CMovingBitmap level31_bg;
