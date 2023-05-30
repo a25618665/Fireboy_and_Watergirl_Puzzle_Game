@@ -228,16 +228,21 @@ namespace game_framework {
 		array<Water, 10> level10_water;
 
 		//level 15
-		/*CMovingBitmap level15_bg;
+		CMovingBitmap level15_bg;
 		array<Diamond, 8> level15_red_diamond;
 		array<Diamond, 8> level15_blue_diamond;
 		array<Switch, 4>  level15_switch;
 		array<Button, 4> level15_button;
 		array<Platform, 9> level15_platform;
-		array<Door, 2> level15_door;*/
+		array<Door, 2> level15_door;
 
 		//level 16
-		//CMovingBitmap level16_bg;
+		CMovingBitmap level16_bg;
+		array<Diamond, 8> level16_red_diamond;
+		array<Diamond, 8> level16_blue_diamond;
+		array<Platform, 2> level16_platform;
+		array<Switch, 2>  level16_switch;
+		array<Door, 2> level16_door;
 		
 		// level 18
 		CMovingBitmap level18_bg;
@@ -254,7 +259,6 @@ namespace game_framework {
 		array<Diamond, 7> level31_red_diamond;
 		array<Diamond, 7> level31_blue_diamond;
 		array<Switch, 2>  level31_switch;
-		//array<Button, 2> level31_button;
 		array<Platform, 2> level31_platform;
 		array<Door, 2> level31_door;
 		array<Water, 10> level31_water;
