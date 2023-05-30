@@ -47,8 +47,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	LoadLevel1();
 	LoadLevel6();
 	LoadLevel10();
-	/*LoadLevel15();
-	LoadLevel16();*/
+	LoadLevel15();
+	LoadLevel16();
 	LoadLevel18();
 	LoadLevel31();
 	ShowInitProgress(100, "Done");
@@ -60,6 +60,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	num_diamonds_each_level[5]["blue_diamond"] = level6_blue_diamond.size();
 	num_diamonds_each_level[9]["red_diamond"] = level10_red_diamond.size();
 	num_diamonds_each_level[9]["blue_diamond"] = level10_blue_diamond.size();
+	num_diamonds_each_level[14]["red_diamond"] = level15_red_diamond.size();
+	num_diamonds_each_level[14]["blue_diamond"] = level15_blue_diamond.size();
+	num_diamonds_each_level[15]["red_diamond"] = level16_red_diamond.size();
+	num_diamonds_each_level[15]["blue_diamond"] = level16_blue_diamond.size();
 	num_diamonds_each_level[17]["red_diamond"] = level18_red_diamond.size();
 	num_diamonds_each_level[17]["blue_diamond"] = level18_blue_diamond.size();
 	num_diamonds_each_level[30]["red_diamond"] = level31_red_diamond.size();
@@ -248,12 +252,12 @@ void CGameStateRun::OnMove()					// 移動遊戲元素
 		case 10:
 			Level10OnMove();
 			break;
-		/*case 15:
+		case 15:
 			Level15OnMove();
 			break;
 		case 16:
 			Level16OnMove();
-			break;*/
+			break;
 		case 18:
 			Level18OnMove();
 			break;
@@ -300,12 +304,12 @@ void CGameStateRun::OnShow()
 		case 10:
 			Level10OnShow();
 			break;
-		/*case 15:
+		case 15:
 			Level15OnShow();
 			break;
 		case 16:
 			Level16OnShow();
-			break;*/
+			break;
 		case 18:
 			Level18OnShow();
 			break;
@@ -336,6 +340,12 @@ void CGameStateRun::ResetLevel(int level)
 		break;
 	case 10:
 		ResetL10();
+		break;
+	case 15:
+		ResetL15();
+		break;
+	case 16:
+		ResetL16();
 		break;
 	case 18:
 		ResetL18();
@@ -495,6 +505,7 @@ void CGameStateRun::SubPhase3ShowText()
 	CDDraw::ReleaseBackCDC();
 }
 
+// Level 1
 void CGameStateRun::LoadLevel1()
 {   
 	// person
@@ -674,6 +685,7 @@ void CGameStateRun::ResetL1()
 	level1_rock.Reset();
 }
 
+// Level 6
 void CGameStateRun::LoadLevel6()
 {
 	// person
@@ -810,6 +822,562 @@ void CGameStateRun::ResetL6()
 		diamond.Reset();
 }
 
+// Level 10
+void CGameStateRun::LoadLevel10()
+{
+
+	boy[9].Init(278, 49, "boy");
+	girl[9].Init(300, 49, "girl");
+	boy[9].SetMap(&map[9]);
+	girl[9].SetMap(&map[9]);
+
+
+	// background
+	level10_bg.LoadBitmapByString({LEVEL_10_BG});
+	level10_bg.SetTopLeft(0, 0);
+
+
+	//diamond
+	level10_red_diamond.fill(Diamond("red"));
+	level10_red_diamond[0].Init(154, 43);
+	level10_red_diamond[1].Init(396, 90);
+	level10_red_diamond[2].Init(588, 58);
+	level10_red_diamond[3].Init(381, 187);
+	level10_red_diamond[4].Init(217, 251);
+	level10_red_diamond[5].Init(217, 360);
+
+	level10_blue_diamond.fill(Diamond("blue"));
+	level10_blue_diamond[0].Init(233, 93);
+	level10_blue_diamond[1].Init(491, 123);
+	level10_blue_diamond[2].Init(123, 172);
+	level10_blue_diamond[3].Init(557, 220);
+	level10_blue_diamond[4].Init(427, 300);
+	level10_blue_diamond[5].Init(475, 397);
+
+	// switch
+	level10_switch.fill(Switch());
+	level10_switch[0].Init(564, 87, 'R', &map[9], 'Y');
+	level10_switch[1].Init(161, 184, 'L', &map[9], 'B');
+
+
+	// platform
+	level10_platform.fill(Platform());
+	level10_platform[0].Init(200, 30, 90, 'D', 'Y', &map[9]);
+	level10_platform[0].Bind(&level10_switch[0]);
+
+	level10_platform[1].Init(522, 155, 570, 'R', 'B', &map[9]);
+	level10_platform[1].Bind(&level10_switch[1]);
+
+
+	//door
+	level10_door.fill(Door());
+	level10_door[0].Init(580, 283, 'R');
+	level10_door[1].Init(26, 363, 'B');
+
+	// water
+	level10_water.fill(Water());
+	level10_water[0].Init(104, 70, 179, 78, 'R');
+	level10_water[1].Init(346, 119, 189, 126, 'R');
+	level10_water[2].Init(409, 118, 435, 126, 'R');
+	level10_water[3].Init(139, 121, 242, 128, 'B');
+	level10_water[4].Init(316, 233, 339, 238, 'B');
+	level10_water[5].Init(526, 249, 578, 255, 'B');
+	level10_water[6].Init(156, 280, 195, 285, 'B');
+	level10_water[7].Init(106, 280, 130, 287, 'B');
+	level10_water[8].Init(235, 280, 180, 289, 'B');
+	level10_water[9].Init(74, 440, 613, 450, 'G');
+
+}
+
+void CGameStateRun::Level10OnMove()
+{
+
+
+
+	boy[9].OnMove();
+	girl[9].OnMove();
+
+	CRect boy_body = boy[9].GetBody();
+	CRect girl_body = girl[9].GetBody();
+
+
+
+
+
+	// diamond
+	for (auto & diamond : level10_red_diamond)
+		diamond.OnMove(boy_body, red_diamond_counter);
+
+	for (auto & diamond : level10_blue_diamond)
+		diamond.OnMove(girl_body, blue_diamond_counter);
+
+	// switch
+	for (auto & s : level10_switch)
+		s.OnMove(boy_body, girl_body);
+
+
+	// platform
+	for (auto & platform : level10_platform)
+		platform.OnMove();
+
+	// water
+	for (auto & water : level10_water)
+	{
+		sub_phase = water.OnMove(boy_body, girl_body);
+		if (sub_phase)
+			break;
+	}
+
+	// door
+	bool door0_is_triggered = level10_door[0].OnMove(boy_body, girl_body);
+	bool door1_is_triggered = level10_door[1].OnMove(boy_body, girl_body);
+	if (door0_is_triggered && door1_is_triggered)
+	{
+		if (red_diamond_counter == num_diamonds_each_level[9]["red_diamond"] &&
+			blue_diamond_counter == num_diamonds_each_level[9]["blue_diamond"])	// 破關
+			sub_phase = 2;
+		else				// 寶石沒吃完
+			sub_phase = 3;
+	}
+}
+
+void CGameStateRun::Level10OnShow()
+{
+
+
+
+
+
+
+
+
+
+
+	// background
+	level10_bg.ShowBitmap();
+
+	// timer
+	time_counter = timeGetTime() - time_counter_start;
+	timer_showtext::show_in_the_game(time_counter);
+
+	// diamond
+	for (auto & diamond : level10_red_diamond)
+		diamond.OnShow();
+	for (auto & diamond : level10_blue_diamond)
+		diamond.OnShow();
+
+	// switch
+	for (auto & s : level10_switch)
+		s.OnShow();
+
+	// button
+	/*for (auto & button : level31_button)
+		button.OnShow();*/
+
+		// platform
+	for (auto & platform : level10_platform)
+		platform.OnShow();
+
+	// door
+	for (auto & door : level10_door)
+		door.OnShow();
+
+	// person
+	boy[9].OnShow();
+	girl[9].OnShow();
+
+
+
+
+
+
+
+
+
+
+}
+
+void CGameStateRun::ResetL10()
+{
+	boy[9].Reset();
+	girl[9].Reset();
+
+	// diamond
+	for (auto & diamond : level10_red_diamond)
+		diamond.Reset();
+
+	for (auto & diamond : level10_blue_diamond)
+		diamond.Reset();
+
+	// switch
+	for (auto & s : level10_switch)
+		s.Reset();
+
+	// platform
+	for (auto & platform : level10_platform)
+		platform.Reset();
+}
+
+// Level 15
+void CGameStateRun::LoadLevel15()
+{
+	// person
+	boy[14].Init(500, 360, "boy");
+	girl[14].Init(455, 360, "girl");
+	boy[14].SetMap(&map[14]);
+	girl[14].SetMap(&map[14]);
+
+	// background
+	level15_bg.LoadBitmapByString({LEVEL_15_BG});
+	level15_bg.SetTopLeft(0, 0);
+
+	//diamond
+	level15_red_diamond.fill(Diamond("red"));
+	level15_red_diamond[0].Init(185, 40);
+	level15_red_diamond[1].Init(520, 42);
+	level15_red_diamond[2].Init(200, 107);
+	level15_red_diamond[3].Init(107, 170);
+	level15_red_diamond[4].Init(170, 234);
+	level15_red_diamond[5].Init(520, 234);
+	level15_red_diamond[6].Init(425, 300);
+	level15_red_diamond[7].Init(458, 427);
+
+	level15_blue_diamond.fill(Diamond("blue"));
+	level15_blue_diamond[0].Init(218, 40);
+	level15_blue_diamond[1].Init(570, 42);
+	level15_blue_diamond[2].Init(458, 107);
+	level15_blue_diamond[3].Init(425, 170);
+	level15_blue_diamond[4].Init(425, 234);
+	level15_blue_diamond[5].Init(475, 300);
+	level15_blue_diamond[6].Init(140, 363);
+	level15_blue_diamond[7].Init(140, 428);
+
+	// switch
+	level15_switch.fill(Switch());
+	level15_switch[0].Init(197, 182, 'R', &map[14], 'Y');
+	level15_switch[1].Init(96, 378, 'R', &map[14], 'W');
+	level15_switch[2].Init(96, 440, 'R', &map[14], 'G');
+	level15_switch[3].Init(560, 439, 'L', &map[14], 'P');
+
+	// button 
+	level15_button.fill(Button());
+	level15_button[0].Init(466, 61, 'P');
+	level15_button[1].Init(482, 250, 'Y');
+	level15_button[2].Init(50, 315, 'B');
+	level15_button[3].Init(273, 315, 'Y');
+
+	// platform
+	level15_platform.fill(Platform());
+	level15_platform[0].Init(330, 73, 265, 'L', 'Y', &map[14]);
+	level15_platform[0].Bind(&level15_switch[0]);
+
+	level15_platform[1].Init(530, 138, 595, 'R', 'P', &map[14]);
+	vector<Button *> temp_button_ptr_vector;
+	for (auto & button : level15_button)
+		temp_button_ptr_vector.push_back(&button);
+
+	level15_platform[1].Bind(temp_button_ptr_vector);
+	level15_platform[2].Init(257, 200, 330, 'R', 'O', &map[14]);
+	level15_platform[2].Bind(temp_button_ptr_vector);
+	level15_platform[3].Init(315, 220, 270, 'U', 'B', &map[14]);
+	level15_platform[3].Bind(temp_button_ptr_vector);
+	level15_platform[4].Init(48, 265, 110, 'R', 'O', &map[14]);
+	level15_platform[4].Bind(temp_button_ptr_vector);
+	level15_platform[5].Init(313, 282, 273, 'U', 'G', &map[14]);
+	level15_platform[5].Bind(&level15_switch[2]);
+	level15_platform[6].Init(530, 330, 585, 'R', 'W', &map[14]);
+	level15_platform[6].Bind(&level15_switch[1]);
+	level15_platform[7].Init(310, 410, 250, 'L', 'P', &map[14]);
+	level15_platform[8].Init(370, 410, 310, 'L', 'P', &map[14]);
+	level15_platform[7].Bind(&level15_switch[3]);
+	level15_platform[8].Bind(&level15_switch[3]);
+
+
+
+	/*level31_platform[1].Init(423, 455, 409, 'D', 'P', &map[30]);
+	vector<Button *> temp_button_ptr_vector;
+	for (auto & button : level31_button)
+		temp_button_ptr_vector.push_back(&button);
+	level31_platform[1].Bind(temp_button_ptr_vector);*/
+
+	//door
+	level15_door.fill(Door());
+	level15_door[0].Init(40, 25, 'R');
+	level15_door[1].Init(110, 25, 'B');
+
+
+
+}
+
+void CGameStateRun::Level15OnMove()
+{
+	boy[14].OnMove();
+	girl[14].OnMove();
+
+	CRect boy_body = boy[14].GetBody();
+	CRect girl_body = girl[14].GetBody();
+
+	// diamond
+	for (auto & diamond : level15_red_diamond)
+		diamond.OnMove(boy_body, red_diamond_counter);
+
+	for (auto & diamond : level15_blue_diamond)
+		diamond.OnMove(girl_body, blue_diamond_counter);
+
+	// switch
+	for (auto & s : level15_switch)
+		s.OnMove(boy_body, girl_body);
+
+	// button
+	for (auto & button : level15_button)
+		button.OnMove(boy_body, girl_body);
+
+	// platform
+	for (auto & platform : level15_platform)
+		platform.OnMove();
+
+
+
+	// door
+	bool door0_is_triggered = level15_door[0].OnMove(boy_body, girl_body);
+	bool door1_is_triggered = level15_door[1].OnMove(boy_body, girl_body);
+	if (door0_is_triggered && door1_is_triggered)
+	{
+		if (red_diamond_counter == num_diamonds_each_level[14]["red_diamond"] &&
+			blue_diamond_counter == num_diamonds_each_level[14]["blue_diamond"])	// 破關
+			sub_phase = 2;
+		else				// 寶石沒吃完
+			sub_phase = 3;
+	}
+}
+
+void CGameStateRun::Level15OnShow()
+{
+	// background
+	level15_bg.ShowBitmap();
+
+	// timer
+	time_counter = timeGetTime() - time_counter_start;
+	timer_showtext::show_in_the_game(time_counter);
+
+	// diamond
+	for (auto & diamond : level15_red_diamond)
+		diamond.OnShow();
+	for (auto & diamond : level15_blue_diamond)
+		diamond.OnShow();
+
+	// switch
+	for (auto & s : level15_switch)
+		s.OnShow();
+
+	// button
+	for (auto & button : level15_button)
+		button.OnShow();
+	// platform
+	for (auto & platform : level15_platform)
+		platform.OnShow();
+
+	// door
+	for (auto & door : level15_door)
+		door.OnShow();
+
+	// person
+	boy[14].OnShow();
+	girl[14].OnShow();
+}
+
+void CGameStateRun::ResetL15()
+{
+	boy[14].Reset();
+	girl[14].Reset();
+
+	// diamond
+	for (auto & diamond : level15_red_diamond)
+		diamond.Reset();
+
+	for (auto & diamond : level15_blue_diamond)
+		diamond.Reset();
+
+	// switch
+	for (auto & s : level15_switch)
+		s.Reset();
+
+	// button
+	for (auto & button : level15_button)
+		button.Reset();
+
+	// platform
+	for (auto & platform : level15_platform)
+		platform.Reset();
+}
+
+// Level 16
+void CGameStateRun::LoadLevel16()
+{
+	// person
+	boy[15].Init(535, 418, "boy");
+	girl[15].Init(535, 359, "girl");
+	boy[15].SetMap(&map[15]);
+	girl[15].SetMap(&map[15]);
+
+	// background
+	level16_bg.LoadBitmapByString({LEVEL_16_BG});
+	level16_bg.SetTopLeft(0, 0);
+
+	//diamond
+	level16_red_diamond.fill(Diamond("red"));
+	level16_red_diamond[0].Init(265, 40);
+	level16_red_diamond[1].Init(538, 40);
+	level16_red_diamond[2].Init(395, 150);
+	level16_red_diamond[3].Init(282, 263);
+	level16_red_diamond[4].Init(265, 330);
+	level16_red_diamond[5].Init(135, 390);
+
+	level16_blue_diamond.fill(Diamond("blue"));
+	level16_blue_diamond[0].Init(170, 87);
+	level16_blue_diamond[1].Init(282, 119);
+	level16_blue_diamond[2].Init(187, 183);
+	level16_blue_diamond[3].Init(427, 264);
+	level16_blue_diamond[4].Init(140, 330);
+	level16_blue_diamond[5].Init(329, 408);
+
+	// switch
+	level16_switch.fill(Switch());
+	level16_switch[0].Init(350, 290, 'L', &map[15], 'B');
+	level16_switch[1].Init(252, 276, 'L', &map[15], 'Y');
+
+
+
+	// platform
+	level16_platform.fill(Platform());
+	level16_platform[0].Init(185, 297, 350, 'D', 'B', &map[15]);
+	level16_platform[0].Bind(&level16_switch[0]);
+
+	level16_platform[1].Init(185, 380, 430, 'R', 'Y', &map[15]);
+	level16_platform[1].Bind(&level16_switch[1]);
+
+	/*level31_platform[1].Init(423, 455, 409, 'D', 'P', &map[30]);
+	vector<Button *> temp_button_ptr_vector;
+	for (auto & button : level31_button)
+		temp_button_ptr_vector.push_back(&button);
+	level31_platform[1].Bind(temp_button_ptr_vector);*/
+
+	//door
+	level16_door.fill(Door());
+	level16_door[0].Init(570, 348, 'R');
+	level16_door[1].Init(570, 402, 'B');
+
+	// water
+	/*level16_water.fill(Water());
+	level16_water[0].Init(175, 358, 236, 365, 'R');
+	level16_water[1].Init(175, 438, 177, 445, 'B');*/
+
+
+}
+
+void CGameStateRun::Level16OnMove()
+{
+	boy[15].OnMove();
+	girl[15].OnMove();
+
+	CRect boy_body = boy[15].GetBody();
+	CRect girl_body = girl[15].GetBody();
+
+	// diamond
+	for (auto & diamond : level16_red_diamond)
+		diamond.OnMove(boy_body, red_diamond_counter);
+
+	for (auto & diamond : level16_blue_diamond)
+		diamond.OnMove(girl_body, blue_diamond_counter);
+
+	// switch
+	for (auto & s : level31_switch)
+		s.OnMove(boy_body, girl_body);
+
+
+	// platform
+	for (auto & platform : level16_platform)
+		platform.OnMove();
+
+	// water
+	/*for (auto & water : level16_water)
+	{
+		sub_phase = water.OnMove(boy_body, girl_body);
+		if (sub_phase)
+			break;
+	}*/
+
+	// door
+	bool door0_is_triggered = level16_door[0].OnMove(boy_body, girl_body);
+	bool door1_is_triggered = level16_door[1].OnMove(boy_body, girl_body);
+	if (door0_is_triggered && door1_is_triggered)
+	{
+		if (red_diamond_counter == num_diamonds_each_level[15]["red_diamond"] &&
+			blue_diamond_counter == num_diamonds_each_level[15]["blue_diamond"])	// 破關
+			sub_phase = 2;
+		else				// 寶石沒吃完
+			sub_phase = 3;
+	}
+}
+
+void CGameStateRun::Level16OnShow()
+{
+	// background
+	level16_bg.ShowBitmap();
+
+	// timer
+	time_counter = timeGetTime() - time_counter_start;
+	timer_showtext::show_in_the_game(time_counter);
+
+	// diamond
+	for (auto & diamond : level16_red_diamond)
+		diamond.OnShow();
+	for (auto & diamond : level16_blue_diamond)
+		diamond.OnShow();
+
+	// switch
+	for (auto & s : level16_switch)
+		s.OnShow();
+
+
+
+	// platform
+	for (auto & platform : level16_platform)
+		platform.OnShow();
+
+	// door
+	for (auto & door : level16_door)
+		door.OnShow();
+
+	// person
+	boy[15].OnShow();
+	girl[15].OnShow();
+}
+
+void CGameStateRun::ResetL16()
+{
+	boy[15].Reset();
+	girl[15].Reset();
+
+	// diamond
+	for (auto & diamond : level16_red_diamond)
+		diamond.Reset();
+
+	for (auto & diamond : level16_blue_diamond)
+		diamond.Reset();
+
+	// switch
+	for (auto & s : level16_switch)
+		s.Reset();
+
+
+
+	// platform
+	for (auto & platform : level16_platform)
+		platform.Reset();
+}
+
+// Level 18
 void CGameStateRun::LoadLevel18()
 {
 	// person
@@ -980,6 +1548,7 @@ void CGameStateRun::ResetL18()
 		platform.Reset();
 }
 
+// Level 31
 void CGameStateRun::LoadLevel31()
 {
 	// person
@@ -1016,11 +1585,6 @@ void CGameStateRun::LoadLevel31()
 	level31_switch[0].Init(43, 242, 'R', &map[30], 'B');
 	level31_switch[1].Init(491, 370, 'R', &map[30], 'O');
 
-	// button 
-	/*level31_button.fill(Button());
-	level31_button[0].Init(308, 443, 'W');
-	level31_button[1].Init(579, 443, 'W');*/
-
 	// platform
 	level31_platform.fill(Platform());
 	level31_platform[0].Init(265, 280, 222, 'L', 'B', &map[30]);
@@ -1028,12 +1592,6 @@ void CGameStateRun::LoadLevel31()
 
 	level31_platform[1].Init(344, 360, 389, 'R', 'O', &map[30]);
 	level31_platform[1].Bind(&level31_switch[1]);
-
-	/*level31_platform[1].Init(423, 455, 409, 'D', 'P', &map[30]);
-	vector<Button *> temp_button_ptr_vector;
-	for (auto & button : level31_button)
-		temp_button_ptr_vector.push_back(&button);
-	level31_platform[1].Bind(temp_button_ptr_vector);*/
 
 	// door
 	level31_door.fill(Door());
@@ -1052,7 +1610,6 @@ void CGameStateRun::LoadLevel31()
 	level31_water[7].Init(525, 200, 575, 207, 'B');
 	level31_water[8].Init(155, 437, 180, 445, 'G');
 	level31_water[9].Init(235, 437, 260, 447, 'G');
-
 }
 
 void CGameStateRun::Level31OnMove()
@@ -1073,10 +1630,6 @@ void CGameStateRun::Level31OnMove()
 	// switch
 	for (auto & s : level31_switch)
 		s.OnMove(boy_body, girl_body);
-
-	// button
-	/*for (auto & button : level31_button)
-		button.OnMove(boy_body, girl_body);*/
 
 	// platform
 	for (auto & platform : level31_platform)
@@ -1122,10 +1675,6 @@ void CGameStateRun::Level31OnShow()
 	for (auto & s : level31_switch)
 		s.OnShow();
 
-	// button
-	/*for (auto & button : level31_button)
-		button.OnShow();*/
-
 	// platform
 	for (auto & platform : level31_platform)
 		platform.OnShow();
@@ -1155,204 +1704,7 @@ void CGameStateRun::ResetL31()
 	for (auto & s : level31_switch)
 		s.Reset();
 
-	// button
-	/*for (auto & button : level31_button)
-		button.Reset();*/
-
 	// platform
 	for (auto & platform : level31_platform)
-		platform.Reset();
-}
-
-void CGameStateRun::LoadLevel10(){
-
-	boy[9].Init(278, 49, "boy");
-	girl[9].Init(300, 49, "girl");
-	boy[9].SetMap(&map[9]);
-	girl[9].SetMap(&map[9]);
-
-
-	// background
-	level10_bg.LoadBitmapByString({ LEVEL_10_BG });
-	level10_bg.SetTopLeft(0, 0);
-
-
-	//diamond
-	level10_red_diamond.fill(Diamond("red"));
-	level10_red_diamond[0].Init(154, 43);
-	level10_red_diamond[1].Init(396, 90);
-	level10_red_diamond[2].Init(588, 58);
-	level10_red_diamond[3].Init(381, 187);
-	level10_red_diamond[4].Init(217, 251);
-	level10_red_diamond[5].Init(217, 360);
-
-	level10_blue_diamond.fill(Diamond("blue"));
-	level10_blue_diamond[0].Init(233, 93);
-	level10_blue_diamond[1].Init(491, 123);
-	level10_blue_diamond[2].Init(123, 172);
-	level10_blue_diamond[3].Init(557, 220);
-	level10_blue_diamond[4].Init(427, 300);
-	level10_blue_diamond[5].Init(475, 397);
-	
-	// switch
-	level10_switch.fill(Switch());
-	level10_switch[0].Init(564, 87, 'R', &map[9], 'Y');
-	level10_switch[1].Init(161, 184, 'L', &map[9], 'B');
-
-
-	// platform
-	level10_platform.fill(Platform());
-	level10_platform[0].Init(200, 30, 90, 'D', 'Y', &map[9]);
-	level10_platform[0].Bind(&level10_switch[0]);
-
-	level10_platform[1].Init(522, 155, 570, 'R', 'B', &map[9]);
-	level10_platform[1].Bind(&level10_switch[1]);
-
-
-	//door
-	level10_door.fill(Door());
-	level10_door[0].Init(580, 283, 'R');
-	level10_door[1].Init(26, 363, 'B');
-
-	// water
-	level10_water.fill(Water());
-	level10_water[0].Init(104, 70, 179, 78, 'R');
-	level10_water[1].Init(346, 119, 189, 126, 'R');
-	level10_water[2].Init(409, 118, 435, 126, 'R');
-	level10_water[3].Init(139, 121, 242, 128, 'B');
-	level10_water[4].Init(316, 233, 339, 238, 'B');
-	level10_water[5].Init(526, 249, 578, 255, 'B');
-	level10_water[6].Init(156, 280, 195, 285, 'B');
-	level10_water[7].Init(106, 280, 130, 287, 'B');
-	level10_water[8].Init(235, 280, 180, 289, 'B');
-	level10_water[9].Init(74, 440, 613, 450, 'G');
-
-}
-
-void CGameStateRun::Level10OnMove() {
-
-
-
-	boy[9].OnMove();
-	girl[9].OnMove();
-
-	CRect boy_body = boy[9].GetBody();
-	CRect girl_body = girl[9].GetBody();
-
-
-
-
-
-	// diamond
-	for (auto & diamond : level10_red_diamond)
-		diamond.OnMove(boy_body, red_diamond_counter);
-
-	for (auto & diamond : level10_blue_diamond)
-		diamond.OnMove(girl_body, blue_diamond_counter);
-
-	// switch
-	for (auto & s : level10_switch)
-		s.OnMove(boy_body, girl_body);
-
-
-	// platform
-	for (auto & platform : level10_platform)
-		platform.OnMove();
-
-	// water
-	for (auto & water : level10_water)
-	{
-		sub_phase = water.OnMove(boy_body, girl_body);
-		if (sub_phase)
-			break;
-	}
-
-	// door
-	bool door0_is_triggered = level10_door[0].OnMove(boy_body, girl_body);
-	bool door1_is_triggered = level10_door[1].OnMove(boy_body, girl_body);
-	if (door0_is_triggered && door1_is_triggered)
-	{
-		if (red_diamond_counter == num_diamonds_each_level[9]["red_diamond"] &&
-			blue_diamond_counter == num_diamonds_each_level[9]["blue_diamond"])	// 破關
-			sub_phase = 2;
-		else				// 寶石沒吃完
-			sub_phase = 3;
-	}
-}
-
-void CGameStateRun::Level10OnShow()
-{
-
-
-
-
-
-
-
-
-
-
-	// background
-	level10_bg.ShowBitmap();
-
-	// timer
-	time_counter = timeGetTime() - time_counter_start;
-	timer_showtext::show_in_the_game(time_counter);
-
-	// diamond
-	for (auto & diamond : level10_red_diamond)
-		diamond.OnShow();
-	for (auto & diamond : level10_blue_diamond)
-		diamond.OnShow();
-
-	// switch
-	for (auto & s : level10_switch)
-		s.OnShow();
-
-	// button
-	/*for (auto & button : level31_button)
-		button.OnShow();*/
-
-		// platform
-	for (auto & platform : level10_platform)
-		platform.OnShow();
-
-	// door
-	for (auto & door : level10_door)
-		door.OnShow();
-
-	// person
-	boy[9].OnShow();
-	girl[9].OnShow();
-
-
-
-
-
-
-
-
-
-
-}
-
-void CGameStateRun::ResetL10()
-{
-	boy[9].Reset();
-	girl[9].Reset();
-
-	// diamond
-	for (auto & diamond : level10_red_diamond)
-		diamond.Reset();
-
-	for (auto & diamond : level10_blue_diamond)
-		diamond.Reset();
-
-	// switch
-	for (auto & s : level10_switch)
-		s.Reset();
-
-		// platform
-	for (auto & platform : level10_platform)
 		platform.Reset();
 }
