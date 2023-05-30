@@ -63,8 +63,10 @@
 // BUTTON
 #define PURPLE_BUTTON						"Resources/game_run/button/button_purple.bmp"
 #define WHITE_BUTTON                        "Resources/game_run/button/button_white.bmp"
-#define BLUE_BUTTON                        "Resources/game_run/button/button_blue.bmp"
-#define YELLOW_BUTTON                        "Resources/game_run/button/button_yellow.bmp"
+#define BLUE_BUTTON							"Resources/game_run/button/button_blue.bmp"
+#define YELLOW_BUTTON                       "Resources/game_run/button/button_yellow.bmp"
+#define GREEN_BUTTON						"Resources/game_run/button/button_green.bmp"
+#define ORANGE_BUTTON                       "Resources/game_run/button/button_orange.bmp"
 // platform
 #define PURPLE_PLAT							"Resources/game_run/platform/purple.bmp"
 #define YELLOW_PLAT							"Resources/game_run/platform/yellow.bmp"
@@ -79,11 +81,11 @@
 #define	SWITCH_BLUE_LEFT                    "Resources/game_run/switch/switch_blue_left.bmp"   
 #define SWITCH_RED_RIGHT                    "Resources/game_run/switch/switch_red_right.bmp"
 #define	SWITCH_RED_LEFT						"Resources/game_run/switch/switch_red_left.bmp"
-/*#define SWITCH_WHITE_RIGHT                    "Resources/game_run/switch/switch_red_right.bmp"
-#define	SWITCH_WHITE_LEFT						"Resources/game_run/switch/switch_red_left.bmp"
-#define SWITCH_PURPLE_RIGHT                    "Resources/game_run/switch/switch_red_right.bmp"
-#define	SWITCH_PURPLE_LEFT						"Resources/game_run/switch/switch_red_left.bmp"
-#define SWITCH_GREEN_RIGHT                    "Resources/game_run/switch/switch_red_right.bmp"
-#define	SWITCH_GREEN_LEFT						"Resources/game_run/switch/switch_red_left.bmp"*/
+#define SWITCH_WHITE_RIGHT                  "Resources/game_run/switch/switch_white_right.bmp"
+#define	SWITCH_WHITE_LEFT					"Resources/game_run/switch/switch_white_left.bmp"
+#define SWITCH_PURPLE_RIGHT                 "Resources/game_run/switch/switch_purple_right.bmp"
+#define	SWITCH_PURPLE_LEFT					"Resources/game_run/switch/switch_purple_left.bmp"
+#define SWITCH_GREEN_RIGHT                  "Resources/game_run/switch/switch_green_right.bmp"
+#define	SWITCH_GREEN_LEFT					"Resources/game_run/switch/switch_green_left.bmp"
 // rock
 #define ROCK								"Resources/game_run/rock/rock.bmp"
