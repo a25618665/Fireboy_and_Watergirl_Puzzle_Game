@@ -15,7 +15,7 @@ Platform::Platform()
 {
 }
 
-void Platform::Init(int x, int y, int end, char defult_direction, char color, array<array<int, 480>, 640> *map)
+void Platform::Init(int x, int y, int end, char defult_direction, char color, array<array<int, 480>, 640> *map, char plat_dir)
 {
 	this->original_x = x;
 	this->original_y = y;
@@ -23,45 +23,82 @@ void Platform::Init(int x, int y, int end, char defult_direction, char color, ar
 	this->y = y;
 	this->end = end;
 	this->defult_direction = defult_direction;
+	this->plat_dir = plat_dir;
 	ptr_map = map;
 	ptr_switch = nullptr;
 
-	body.SetRect(x + 2, y + 2, x + 60, y + 13);
-	// 把地圖上platform的位置標成障礙物
-	for (int i = 0; i < body.Width(); i++)
+	if (plat_dir == 'H')
 	{
-		for (int j = 0; j < body.Height(); j++)
+		body.SetRect(x + 2, y + 2, x + 60, y + 13);
+
+		switch (color)
 		{
-			(*ptr_map)[body.left + i][body.top + j] = 1;
+		case 'Y':
+			img.LoadBitmap(YELLOW_PLAT, RGB(0, 0, 0));
+			break;
+		case 'P':
+			img.LoadBitmap(PURPLE_PLAT, RGB(0, 0, 0));
+			break;
+		case 'B':
+			img.LoadBitmap(BLUE_PLAT, RGB(0, 0, 0));
+			break;
+		case 'G':
+			img.LoadBitmap(GREEN_PLAT, RGB(0, 0, 0));
+			break;
+		case 'O':
+			img.LoadBitmap(ORANGE_PLAT, RGB(0, 0, 0));
+			break;
+		case 'W':
+			img.LoadBitmap(WHITE_PLAT, RGB(0, 0, 0));
+			break;
+		}
+	} 
+	else if (plat_dir == 'V')
+	{
+		body.SetRect(x + 2, y + 2, x + 13, y + 60);
+
+		switch (color)
+		{
+		case 'Y':
+			img.LoadBitmap(YELLOW_PLAT_V, RGB(0, 0, 0));
+			break;
+		case 'P':
+			img.LoadBitmap(PURPLE_PLAT_V, RGB(0, 0, 0));
+			break;
+		case 'B':
+			img.LoadBitmap(BLUE_PLAT_V, RGB(0, 0, 0));
+			break;
+		case 'G':
+			img.LoadBitmap(GREEN_PLAT_V, RGB(0, 0, 0));
+			break;
+		case 'O':
+			img.LoadBitmap(ORANGE_PLAT_V, RGB(0, 0, 0));
+			break;
+		case 'W':
+			img.LoadBitmap(WHITE_PLAT_V, RGB(0, 0, 0));
+			break;
 		}
 	}
-
-	switch (color)
+	
+	// 把地圖上platform的位置標成障礙物
+	for (int i = 0; i < body.Width() + 1; i++)
 	{
-	case 'Y':
-		img.LoadBitmap(YELLOW_PLAT, RGB(0, 0, 0));
-		break;
-	case 'P':
-		img.LoadBitmap(PURPLE_PLAT, RGB(0, 0, 0));
-		break;
-	case 'B':
-		img.LoadBitmap(BLUE_PLAT, RGB(0, 0, 0));
-		break;
-	case 'G':
-		img.LoadBitmap(GREEN_PLAT, RGB(0, 0, 0));
-		break;
-	case 'O':
-		img.LoadBitmap(ORANGE_PLAT, RGB(0, 0, 0));
-		break;
-	case 'W':
-		img.LoadBitmap(WHITE_PLAT, RGB(0, 0, 0));
-		break;
+		for (int j = 0; j < body.Height() + 1; j++)
+		{
+			if (body.left + i >= 0 && body.top + j >= 0 && (*ptr_map)[body.left + i][body.top + j] == 0)
+				(*ptr_map)[body.left + i][body.top + j] = 2;
+		}
 	}
 }
 
 void Platform::Bind(Switch *ptr_switch)
 {
 	this->ptr_switch = ptr_switch;
+}
+
+void Platform::Bind(Button *ptr_button)
+{
+	this->button_ptr_vector.push_back(ptr_button);
 }
 
 void Platform::Bind(const vector<Button *> & button_ptr_vector)
@@ -74,22 +111,24 @@ void Platform::Reset()
 	if (x != original_x || y != original_y)
 	{
 		// 把現在的區域設成0
-		for (int i = 0; i < body.Width(); i++)
+		for (int i = 0; i < body.Width() + 1; i++)
 		{
-			for (int j = 0; j < body.Height(); j++)
+			for (int j = 0; j < body.Height() + 1; j++)
 			{
-				(*ptr_map)[body.left + i][body.top + j] = 0;
+				if (body.left + i >= 0 && body.top + j >= 0 && (*ptr_map)[body.left + i][body.top + j] == 2)
+					(*ptr_map)[body.left + i][body.top + j] = 0;
 			}
 		}
 
 		x = original_x;
 		y = original_y;
-		body.SetRect(x + 2, y + 2, x + 60, y + 13);
-		for (int i = 0; i < body.Width(); i++)
+		plat_dir == 'H' ? body.SetRect(x + 2, y + 2, x + 60, y + 13) : body.SetRect(x + 2, y + 2, x + 13, y + 60);
+		for (int i = 0; i < body.Width() + 1; i++)
 		{
-			for (int j = 0; j < body.Height(); j++)
+			for (int j = 0; j < body.Height() + 1; j++)
 			{
-				(*ptr_map)[body.left + i][body.top + j] = 1;
+				if (body.left + i >= 0 && body.top + j >= 0 && (*ptr_map)[body.left + i][body.top + j] == 0)
+					(*ptr_map)[body.left + i][body.top + j] = 2;
 			}
 		}
 	}
@@ -185,55 +224,59 @@ void Platform::MovePlatformOnMap(char direction)	// 用此函式要注意要先�
 {
 	if (direction == 'U' || direction == 'D')		// 上下移動
 	{
-		int y_start_fill_1, y_start_fill_0;
+		int y_start_fill_2, y_start_fill_0;
 		switch (direction)
 		{
 		case 'U':
-			y_start_fill_1 = body.top - 2;
+			y_start_fill_2 = body.top - 2;
 			y_start_fill_0 = body.bottom - 1;
 			break;
 		case 'D':
-			y_start_fill_1 = body.bottom + 1;
+			y_start_fill_2 = body.bottom + 1;
 			y_start_fill_0 = body.top;
 			break;
 		}
 
-		for (int i = 0; i < body.Width(); i++)
+		for (int i = 0; i < body.Width() + 1; i++)
 		{
 			for (int j = 0; j < 2; j++)
 			{
-				(*ptr_map)[body.left + i][y_start_fill_1 + j] = 1;
+				if (body.left + i >= 0 && y_start_fill_2 + j >= 0 && (*ptr_map)[body.left + i][y_start_fill_2 + j] == 0)
+					(*ptr_map)[body.left + i][y_start_fill_2 + j] = 2;
 			}
 			for (int j = 0; j < 2; j++)
 			{
-				(*ptr_map)[body.left + i][y_start_fill_0 + j] = 0;
+				if (body.left + i >= 0 && y_start_fill_0 + j >= 0 && (*ptr_map)[body.left + i][y_start_fill_0 + j] == 2)
+					(*ptr_map)[body.left + i][y_start_fill_0 + j] = 0;
 			}
 		}
 	}
 	else										// 左右移動
 	{
-		int x_start_fill_1, x_start_fill_0;
+		int x_start_fill_2, x_start_fill_0;
 		switch (direction)
 		{
 		case 'L':
-			x_start_fill_1 = body.left - 2;
+			x_start_fill_2 = body.left - 2;
 			x_start_fill_0 = body.right - 1;
 			break;
 		case 'R':
-			x_start_fill_1 = body.right + 1;
+			x_start_fill_2 = body.right + 1;
 			x_start_fill_0 = body.left;
 			break;
 		}
 
 		for (int i = 0; i < 2; i++)
 		{
-			for (int j = 0; j < body.Height(); j++)
+			for (int j = 0; j < body.Height() + 1; j++)
 			{
-				(*ptr_map)[x_start_fill_1 + i][body.top + j] = 1;
+				if (x_start_fill_2 + i >= 0 && body.top + j >= 0 && (*ptr_map)[x_start_fill_2 + i][body.top + j] == 0)
+					(*ptr_map)[x_start_fill_2 + i][body.top + j] = 2;
 			}
-			for (int j = 0; j < body.Height(); j++)
+			for (int j = 0; j < body.Height() + 1; j++)
 			{
-				(*ptr_map)[x_start_fill_0 + i][body.top + j] = 0;
+				if (x_start_fill_0 + i >= 0 && body.top + j >= 0 && (*ptr_map)[x_start_fill_0 + i][body.top + j] == 2)
+					(*ptr_map)[x_start_fill_0 + i][body.top + j] = 0;
 			}
 		}
 	}

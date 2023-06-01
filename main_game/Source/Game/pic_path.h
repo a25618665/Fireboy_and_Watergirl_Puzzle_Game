@@ -74,6 +74,12 @@
 #define BLUE_PLAT							"Resources/game_run/platform/blue.bmp"
 #define ORANGE_PLAT							"Resources/game_run/platform/orange.bmp"
 #define WHITE_PLAT							"Resources/game_run/platform/white.bmp"
+#define PURPLE_PLAT_V						"Resources/game_run/platform/purple_v.bmp"
+#define YELLOW_PLAT_V						"Resources/game_run/platform/yellow_v.bmp"
+#define GREEN_PLAT_V						"Resources/game_run/platform/green_v.bmp"
+#define BLUE_PLAT_V							"Resources/game_run/platform/blue_v.bmp"
+#define ORANGE_PLAT_V						"Resources/game_run/platform/orange_v.bmp"
+#define WHITE_PLAT_V						"Resources/game_run/platform/white_v.bmp"
 //switch
 #define SWITCH_YELLOW_RIGHT					"Resources/game_run/switch/switch_yellow_right.bmp" 
 #define SWITCH_YELLOW_LEFT					"Resources/game_run/switch/switch_yellow_left.bmp"

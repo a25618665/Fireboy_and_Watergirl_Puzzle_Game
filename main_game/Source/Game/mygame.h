@@ -250,7 +250,7 @@ namespace game_framework {
 		array<Diamond, 5> level18_blue_diamond;
 		array<Switch, 2>  level18_switch;
 		array<Button, 2> level18_button;
-		array<Platform, 1> level18_platform;
+		array<Platform, 5> level18_platform;
 		array<Door, 2> level18_door;
 		array<Water, 7> level18_water;
 
