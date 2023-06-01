@@ -1417,11 +1417,17 @@ void CGameStateRun::LoadLevel18()
 
 	// platform init 
 	level18_platform.fill(Platform());
-	level18_platform[0].Init(103, 391, 327, 'U', 'B', &map[17]);
+	level18_platform[0].Init(278, 25, 65, 'D', 'W', &map[17]);
+	level18_platform[1].Init(456, 183, 137, 'U', 'G', &map[17], 'V');
+	level18_platform[2].Init(103, 391, 327, 'U', 'B', &map[17]);
+	level18_platform[3].Init(232, 310, 252, 'U', 'W', &map[17], 'V');
+	level18_platform[4].Init(359, 310, 250, 'U', 'W', &map[17], 'V');
 
-	vector<Button *> temp_button_ptr_vector;
-	temp_button_ptr_vector.push_back(&level18_button[1]);
-	level18_platform[0].Bind(temp_button_ptr_vector);
+	level18_platform[0].Bind(&level18_button[0]);
+	level18_platform[1].Bind(&level18_switch[0]);
+	level18_platform[2].Bind(&level18_button[1]);
+	level18_platform[3].Bind(&level18_switch[1]);
+	level18_platform[4].Bind(&level18_switch[1]);
 
 	// door init 
 	level18_door.fill(Door());
