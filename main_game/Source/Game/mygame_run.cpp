@@ -1022,8 +1022,8 @@ void CGameStateRun::ResetL10()
 void CGameStateRun::LoadLevel15()
 {
 	// person
-	boy[14].Init(500, 360, "boy");
-	girl[14].Init(455, 360, "girl");
+	boy[14].Init(500, 349, "boy");
+	girl[14].Init(452, 355, "girl");
 	boy[14].SetMap(&map[14]);
 	girl[14].SetMap(&map[14]);
 
@@ -1062,33 +1062,33 @@ void CGameStateRun::LoadLevel15()
 	// button 
 	level15_button.fill(Button());
 	level15_button[0].Init(466, 61, 'P');
-	level15_button[1].Init(482, 250, 'Y');
+	level15_button[1].Init(482, 250, 'O');
 	level15_button[2].Init(50, 315, 'B');
-	level15_button[3].Init(273, 315, 'Y');
+	level15_button[3].Init(273, 315, 'O');
 
 	// platform
 	level15_platform.fill(Platform());
-	level15_platform[0].Init(330, 73, 265, 'L', 'Y', &map[14],'H');
+	level15_platform[0].Init(330, 73, 265, 'L', 'Y', &map[14], 'H');
 	level15_platform[0].Bind(&level15_switch[0]);
 
-	level15_platform[1].Init(530, 136, 595, 'R', 'P', &map[14],'H');
+	level15_platform[1].Init(530, 136, 461, 'L', 'P', &map[14], 'H');
 	vector<Button *> temp_button_ptr_vector;
 	for (auto & button : level15_button)
 		temp_button_ptr_vector.push_back(&button);
 
 	level15_platform[1].Bind(temp_button_ptr_vector);
-	level15_platform[2].Init(257, 200, 330, 'R', 'O', &map[14],'H');
+	level15_platform[2].Init(257, 200, 191, 'L', 'O', &map[14],'H');
 	level15_platform[2].Bind(temp_button_ptr_vector);
 	level15_platform[3].Init(312, 220, 270, 'U', 'B', &map[14],'V');
 	level15_platform[3].Bind(temp_button_ptr_vector);
 	level15_platform[4].Init(48, 265, 110, 'R', 'O', &map[14],'H');
 	level15_platform[4].Bind(temp_button_ptr_vector);
-	level15_platform[5].Init(312, 282, 273, 'U', 'G', &map[14],'V');
+	level15_platform[5].Init(312, 282, 328, 'D', 'G', &map[14],'V');
 	level15_platform[5].Bind(&level15_switch[2]);
-	level15_platform[6].Init(530, 330, 585, 'R', 'W', &map[14],'H');
+	level15_platform[6].Init(530, 330, 466, 'L', 'W', &map[14],'H');
 	level15_platform[6].Bind(&level15_switch[1]);
-	level15_platform[7].Init(310, 408, 250, 'L', 'P', &map[14],'V');
-	level15_platform[8].Init(370, 408, 310, 'L', 'P', &map[14],'V');
+	level15_platform[7].Init(250, 407, 314, 'R', 'P', &map[14],'V');
+	level15_platform[8].Init(314, 409, 379, 'R', 'P', &map[14],'V');
 	level15_platform[7].Bind(&level15_switch[3]);
 	level15_platform[8].Bind(&level15_switch[3]);
 
@@ -1418,10 +1418,10 @@ void CGameStateRun::LoadLevel18()
 	// platform init 
 	level18_platform.fill(Platform());
 	level18_platform[0].Init(278, 25, 65, 'D', 'W', &map[17]);
-	level18_platform[1].Init(456, 183, 137, 'U', 'G', &map[17], 'V');
+	level18_platform[1].Init(457, 199, 153, 'U', 'G', &map[17], 'V');
 	level18_platform[2].Init(103, 391, 327, 'U', 'B', &map[17]);
-	level18_platform[3].Init(232, 310, 252, 'U', 'W', &map[17], 'V');
-	level18_platform[4].Init(359, 310, 250, 'U', 'W', &map[17], 'V');
+	level18_platform[3].Init(232, 310, 252, 'U', 'W', &map[17], 'V', 'L');
+	level18_platform[4].Init(359, 310, 250, 'U', 'W', &map[17], 'V', 'L');
 
 	level18_platform[0].Bind(&level18_button[0]);
 	level18_platform[1].Bind(&level18_switch[0]);

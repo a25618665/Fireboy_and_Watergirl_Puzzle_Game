@@ -15,7 +15,8 @@ Platform::Platform()
 {
 }
 
-void Platform::Init(int x, int y, int end, char defult_direction, char color, array<array<int, 480>, 640> *map, char plat_dir)
+void Platform::Init(int x, int y, int end, char defult_direction, char color, array<array<int, 480>, 640> *map, 
+					char plat_dir, char len)
 {
 	this->original_x = x;
 	this->original_y = y;
@@ -24,6 +25,7 @@ void Platform::Init(int x, int y, int end, char defult_direction, char color, ar
 	this->end = end;
 	this->defult_direction = defult_direction;
 	this->plat_dir = plat_dir;
+	this->len = len;
 	ptr_map = map;
 	ptr_switch = nullptr;
 
@@ -55,12 +57,18 @@ void Platform::Init(int x, int y, int end, char defult_direction, char color, ar
 	} 
 	else if (plat_dir == 'V')
 	{
-		body.SetRect(x + 2, y + 2, x + 13, y + 60);
+		if (len == 'S')
+			body.SetRect(x + 0, y + 1, x + 13, y + 45);
+		else if (len == 'L')
+			body.SetRect(x + 2, y + 2, x + 13, y + 60);
 
 		switch (color)
 		{
 		case 'Y':
-			img.LoadBitmap(YELLOW_PLAT_V, RGB(0, 0, 0));
+			if (len == 'S')
+				img.LoadBitmap(YELLOW_PLAT_V, RGB(0, 0, 0));
+			else if (len == 'L')
+				img.LoadBitmap(YELLOW_PLAT_V_L, RGB(0, 0, 0));
 			break;
 		case 'P':
 			img.LoadBitmap(PURPLE_PLAT_V, RGB(0, 0, 0));
@@ -75,7 +83,10 @@ void Platform::Init(int x, int y, int end, char defult_direction, char color, ar
 			img.LoadBitmap(ORANGE_PLAT_V, RGB(0, 0, 0));
 			break;
 		case 'W':
-			img.LoadBitmap(WHITE_PLAT_V, RGB(0, 0, 0));
+			if (len == 'S')
+				img.LoadBitmap(WHITE_PLAT_V, RGB(0, 0, 0));
+			else if (len == 'L')
+				img.LoadBitmap(WHITE_PLAT_V_L, RGB(0, 0, 0));
 			break;
 		}
 	}
@@ -122,7 +133,13 @@ void Platform::Reset()
 
 		x = original_x;
 		y = original_y;
-		plat_dir == 'H' ? body.SetRect(x + 2, y + 2, x + 60, y + 13) : body.SetRect(x + 2, y + 2, x + 13, y + 60);
+		if (plat_dir == 'H')
+			body.SetRect(x + 2, y + 2, x + 60, y + 13);
+		else if (len == 'S')
+			body.SetRect(x + 0, y + 1, x + 13, y + 45);
+		else
+			body.SetRect(x + 2, y + 2, x + 13, y + 60);
+		
 		for (int i = 0; i < body.Width() + 1; i++)
 		{
 			for (int j = 0; j < body.Height() + 1; j++)
