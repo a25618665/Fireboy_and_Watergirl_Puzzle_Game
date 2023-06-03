@@ -839,40 +839,40 @@ void CGameStateRun::LoadLevel10()
 
 	//diamond
 	level10_red_diamond.fill(Diamond("red"));
-	level10_red_diamond[0].Init(154, 43);
-	level10_red_diamond[1].Init(396, 90);
-	level10_red_diamond[2].Init(588, 58);
-	level10_red_diamond[3].Init(381, 187);
-	level10_red_diamond[4].Init(217, 251);
-	level10_red_diamond[5].Init(217, 360);
+	level10_red_diamond[0].Init(150, 40);
+	level10_red_diamond[1].Init(391, 85);
+	level10_red_diamond[2].Init(583, 53);
+	level10_red_diamond[3].Init(375, 183);
+	level10_red_diamond[4].Init(212, 246);
+	level10_red_diamond[5].Init(212, 355);
 
 	level10_blue_diamond.fill(Diamond("blue"));
-	level10_blue_diamond[0].Init(233, 93);
-	level10_blue_diamond[1].Init(491, 123);
-	level10_blue_diamond[2].Init(123, 172);
-	level10_blue_diamond[3].Init(557, 220);
-	level10_blue_diamond[4].Init(427, 300);
-	level10_blue_diamond[5].Init(475, 397);
+	level10_blue_diamond[0].Init(227, 87);
+	level10_blue_diamond[1].Init(486, 120);
+	level10_blue_diamond[2].Init(117, 170);
+	level10_blue_diamond[3].Init(552, 218);
+	level10_blue_diamond[4].Init(422, 295);
+	level10_blue_diamond[5].Init(470, 392);
 
 	// switch
 	level10_switch.fill(Switch());
-	level10_switch[0].Init(564, 87, 'R', &map[9], 'Y');
-	level10_switch[1].Init(161, 184, 'L', &map[9], 'B');
+	level10_switch[0].Init(558, 85, 'R', &map[9], 'Y');
+	level10_switch[1].Init(155, 182, 'L', &map[9], 'B');
 
 
 	// platform
 	level10_platform.fill(Platform());
-	level10_platform[0].Init(200, 30, 90, 'D', 'Y', &map[9]);
+	level10_platform[0].Init(200, 30, 90, 'D', 'Y', &map[9],'V');
 	level10_platform[0].Bind(&level10_switch[0]);
 
-	level10_platform[1].Init(522, 155, 570, 'R', 'B', &map[9]);
+	level10_platform[1].Init(522, 155, 568, 'R', 'B', &map[9],'H');
 	level10_platform[1].Bind(&level10_switch[1]);
 
 
 	//door
 	level10_door.fill(Door());
-	level10_door[0].Init(580, 283, 'R');
-	level10_door[1].Init(26, 363, 'B');
+	level10_door[0].Init(575, 275, 'R');
+	level10_door[1].Init(24, 350, 'B');
 
 	// water
 	level10_water.fill(Water());
@@ -1054,10 +1054,10 @@ void CGameStateRun::LoadLevel15()
 
 	// switch
 	level15_switch.fill(Switch());
-	level15_switch[0].Init(197, 182, 'R', &map[14], 'Y');
-	level15_switch[1].Init(96, 378, 'R', &map[14], 'W');
-	level15_switch[2].Init(96, 440, 'R', &map[14], 'G');
-	level15_switch[3].Init(560, 439, 'L', &map[14], 'P');
+	level15_switch[0].Init(189, 180, 'R', &map[14], 'Y');
+	level15_switch[1].Init(61, 373, 'R', &map[14], 'W');
+	level15_switch[2].Init(61, 436, 'R', &map[14], 'G');
+	level15_switch[3].Init(558, 437, 'L', &map[14], 'P');
 
 	// button 
 	level15_button.fill(Button());
@@ -1068,27 +1068,27 @@ void CGameStateRun::LoadLevel15()
 
 	// platform
 	level15_platform.fill(Platform());
-	level15_platform[0].Init(330, 73, 265, 'L', 'Y', &map[14]);
+	level15_platform[0].Init(330, 73, 265, 'L', 'Y', &map[14],'H');
 	level15_platform[0].Bind(&level15_switch[0]);
 
-	level15_platform[1].Init(530, 138, 595, 'R', 'P', &map[14]);
+	level15_platform[1].Init(530, 136, 595, 'R', 'P', &map[14],'H');
 	vector<Button *> temp_button_ptr_vector;
 	for (auto & button : level15_button)
 		temp_button_ptr_vector.push_back(&button);
 
 	level15_platform[1].Bind(temp_button_ptr_vector);
-	level15_platform[2].Init(257, 200, 330, 'R', 'O', &map[14]);
+	level15_platform[2].Init(257, 200, 330, 'R', 'O', &map[14],'H');
 	level15_platform[2].Bind(temp_button_ptr_vector);
-	level15_platform[3].Init(315, 220, 270, 'U', 'B', &map[14]);
+	level15_platform[3].Init(312, 220, 270, 'U', 'B', &map[14],'V');
 	level15_platform[3].Bind(temp_button_ptr_vector);
-	level15_platform[4].Init(48, 265, 110, 'R', 'O', &map[14]);
+	level15_platform[4].Init(48, 265, 110, 'R', 'O', &map[14],'H');
 	level15_platform[4].Bind(temp_button_ptr_vector);
-	level15_platform[5].Init(313, 282, 273, 'U', 'G', &map[14]);
+	level15_platform[5].Init(312, 282, 273, 'U', 'G', &map[14],'V');
 	level15_platform[5].Bind(&level15_switch[2]);
-	level15_platform[6].Init(530, 330, 585, 'R', 'W', &map[14]);
+	level15_platform[6].Init(530, 330, 585, 'R', 'W', &map[14],'H');
 	level15_platform[6].Bind(&level15_switch[1]);
-	level15_platform[7].Init(310, 410, 250, 'L', 'P', &map[14]);
-	level15_platform[8].Init(370, 410, 310, 'L', 'P', &map[14]);
+	level15_platform[7].Init(310, 408, 250, 'L', 'P', &map[14],'V');
+	level15_platform[8].Init(370, 408, 310, 'L', 'P', &map[14],'V');
 	level15_platform[7].Bind(&level15_switch[3]);
 	level15_platform[8].Bind(&level15_switch[3]);
 
@@ -1102,8 +1102,8 @@ void CGameStateRun::LoadLevel15()
 
 	//door
 	level15_door.fill(Door());
-	level15_door[0].Init(40, 25, 'R');
-	level15_door[1].Init(110, 25, 'B');
+	level15_door[0].Init(40, 20, 'R');
+	level15_door[1].Init(105, 20, 'B');
 
 
 
@@ -1243,7 +1243,7 @@ void CGameStateRun::LoadLevel16()
 
 	// switch
 	level16_switch.fill(Switch());
-	level16_switch[0].Init(350, 290, 'L', &map[15], 'B');
+	level16_switch[0].Init(349, 291, 'L', &map[15], 'B');
 	level16_switch[1].Init(252, 276, 'L', &map[15], 'Y');
 
 
@@ -1253,7 +1253,7 @@ void CGameStateRun::LoadLevel16()
 	level16_platform[0].Init(185, 297, 350, 'D', 'B', &map[15]);
 	level16_platform[0].Bind(&level16_switch[0]);
 
-	level16_platform[1].Init(185, 380, 430, 'R', 'Y', &map[15]);
+	level16_platform[1].Init(180, 375, 430, 'R', 'Y', &map[15]);
 	level16_platform[1].Bind(&level16_switch[1]);
 
 	/*level31_platform[1].Init(423, 455, 409, 'D', 'P', &map[30]);
@@ -1264,8 +1264,8 @@ void CGameStateRun::LoadLevel16()
 
 	//door
 	level16_door.fill(Door());
-	level16_door[0].Init(570, 348, 'R');
-	level16_door[1].Init(570, 402, 'B');
+	level16_door[0].Init(567, 335, 'R');
+	level16_door[1].Init(567, 487, 'B');
 
 	// water
 	/*level16_water.fill(Water());
