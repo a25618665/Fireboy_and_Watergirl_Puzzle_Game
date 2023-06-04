@@ -1073,14 +1073,14 @@ void CGameStateRun::LoadLevel15()
 
 	level15_platform[1].Init(530, 136, 461, 'L', 'P', &map[14], 'H');
 	vector<Button *> temp_button_ptr_vector;
-	for (auto & button : level15_button)
-		temp_button_ptr_vector.push_back(&button);
+		temp_button_ptr_vector.push_back(&level15_button[1]);
+		temp_button_ptr_vector.push_back(&level15_button[3]);
 
-	level15_platform[1].Bind(temp_button_ptr_vector);
+	level15_platform[1].Bind(&level15_button[0]);
 	level15_platform[2].Init(257, 200, 191, 'L', 'O', &map[14],'H');
 	level15_platform[2].Bind(temp_button_ptr_vector);
-	level15_platform[3].Init(312, 220, 270, 'U', 'B', &map[14],'V');
-	level15_platform[3].Bind(temp_button_ptr_vector);
+	level15_platform[3].Init(312, 220, 170, 'U', 'B', &map[14],'V');
+	level15_platform[3].Bind(&level15_button[2]);
 	level15_platform[4].Init(48, 265, 110, 'R', 'O', &map[14],'H');
 	level15_platform[4].Bind(temp_button_ptr_vector);
 	level15_platform[5].Init(312, 282, 328, 'D', 'G', &map[14],'V');
