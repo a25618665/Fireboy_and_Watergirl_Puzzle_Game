@@ -137,6 +137,11 @@ namespace game_framework {
 		void Level10OnMove();
 		void Level10OnShow();
 		void ResetL10();
+		// level 13
+		void LoadLevel13();
+		void Level13OnMove();
+		void Level13OnShow();
+		void ResetL13();
 		// level 15
 		void LoadLevel15();
 		void Level15OnMove();
@@ -165,7 +170,7 @@ namespace game_framework {
 		// whole game varables
 		int level;                                      // 0為遊戲關卡選擇1為第一關依此類推
 		int sub_phase;                                  // 遊戲現在在哪個狀態 0:正在玩，1:死亡，2:破關，3:寶石沒吃完
-		int blue_diamond_counter, red_diamond_counter;
+		int blue_diamond_counter, red_diamond_counter, green_counter;
 		int time_counter, time_counter_start;			//start紀錄進入每個關卡的初始時間 counter 紀錄總共遊玩時間
 		bool time_counter_flag;							//控制儲存進time變數
 		array<Person, 32> boy;
@@ -187,11 +192,13 @@ namespace game_framework {
 		bool is_sub2_con_clicked;
 		CRect sub2_con_body;
 		CMovingBitmap img_sub2_bg;
+		CMovingBitmap img_sub2_g_diamond;
 		CMovingBitmap img_sub2_con_clicked;
 
 		// sub phase 3
 		bool is_sub3_retry_clicked;
 		bool is_sub3_back_clicked;
+		CMovingBitmap img_sub3_g_diamond;
 		CRect sub3_retry_body;
 		CRect sub3_back_body;
 
@@ -227,6 +234,15 @@ namespace game_framework {
 		array<Door, 2> level10_door;
 		array<Water, 10> level10_water;
 
+		// level 13
+		CMovingBitmap level13_bg;
+		array<Diamond, 1> level13_green_diamond;
+		array<Switch, 5>  level13_switch;
+		array<Button, 2> level13_button;
+		array<Platform, 6> level13_platform;
+		array<Door, 2> level13_door;
+		array<Rock, 4> level13_rock;
+
 		//level 15
 		CMovingBitmap level15_bg;
 		array<Diamond, 8> level15_red_diamond;
@@ -238,11 +254,12 @@ namespace game_framework {
 
 		//level 16
 		CMovingBitmap level16_bg;
-		array<Diamond, 8> level16_red_diamond;
-		array<Diamond, 8> level16_blue_diamond;
+		array<Diamond, 6> level16_red_diamond;
+		array<Diamond, 6> level16_blue_diamond;
 		array<Platform, 2> level16_platform;
 		array<Switch, 2>  level16_switch;
 		array<Door, 2> level16_door;
+		array<Water, 2> level16_water;
 		
 		// level 18
 		CMovingBitmap level18_bg;

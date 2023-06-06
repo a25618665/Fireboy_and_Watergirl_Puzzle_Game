@@ -27,6 +27,11 @@ Diamond::Diamond(string color)
 		img.LoadBitmapByString({ DIAMOND_RED_1, DIAMOND_RED_2 }, RGB(0, 0, 0));
 		img.SetAnimation(400, FALSE);
 	}
+	else if (color == "green")
+	{
+		img.LoadBitmapByString({DIAMOND_GREEN_1, DIAMOND_GREEN_2}, RGB(0, 0, 0));
+		img.SetAnimation(400, FALSE);
+	}
 }
 
 void Diamond::Init(int x, int y)
@@ -57,6 +62,22 @@ void Diamond::OnMove(const CRect& person_body, int &diamond_counter)
 		bool is_overlap = temp_rect.IntersectRect(person_body, body);
 
 		if (is_overlap) {
+			is_showing = false;
+			diamond_counter += 1;
+		}
+	}
+}
+
+void Diamond::OnMove(const CRect &boy_body, const CRect &girl_body, int &diamond_counter)
+{
+	if (is_showing)		// 還未被吃掉才判斷是否overlap
+	{
+		CRect temp_rect;
+		bool boy_is_overlap = temp_rect.IntersectRect(boy_body, body);
+		bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body);
+
+		if (boy_is_overlap || girl_is_overlap)
+		{
 			is_showing = false;
 			diamond_counter += 1;
 		}

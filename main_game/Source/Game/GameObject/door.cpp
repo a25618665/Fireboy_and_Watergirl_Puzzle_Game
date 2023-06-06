@@ -25,18 +25,18 @@ void Door::Init(int left_x, int top_y, char color)
 	switch (color)
 	{
 	case 'R':
-		Pic.LoadBitmap({"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/1.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/3.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/4.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/5.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/7.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/11.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/13.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/15.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/17.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/19.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/20.bmp",
-						"Resources/game_run/door/door_red/sprites/DefineSprite_159_FinishBoy/22.bmp"}, RGB(0, 0, 0));
+		Pic.LoadBitmap({"Resources/game_run/door/door_red/1.bmp",
+						"Resources/game_run/door/door_red/3.bmp",
+						"Resources/game_run/door/door_red/4.bmp",
+						"Resources/game_run/door/door_red/5.bmp",
+						"Resources/game_run/door/door_red/7.bmp",
+						"Resources/game_run/door/door_red/11.bmp",
+						"Resources/game_run/door/door_red/13.bmp",
+						"Resources/game_run/door/door_red/15.bmp",
+						"Resources/game_run/door/door_red/17.bmp",
+						"Resources/game_run/door/door_red/19.bmp",
+						"Resources/game_run/door/door_red/20.bmp",
+						"Resources/game_run/door/door_red/22.bmp"}, RGB(0, 0, 0));
 		break;
 	case 'B':
 		Pic.LoadBitmap({"Resources/game_run/door/door_girl/1.bmp",
