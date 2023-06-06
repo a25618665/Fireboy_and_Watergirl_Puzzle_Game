@@ -22,6 +22,8 @@
 #define SUBPHASE_1_BACK                     "Resources/game_run/subphase/1/back_clicked.bmp"
 #define SUBPHASE_2                          "Resources/game_run/subphase/2/phase2.bmp"
 #define SUBPHASE_2_CONTINUE                 "Resources/game_run/subphase/2/continue_clicked.bmp"
+#define GREEN_PASS							"Resources/game_run/subphase/2/green_p.bmp"
+#define GREEN_FAIL							"Resources/game_run/subphase/2/green_f.bmp"
 // fonts
 #define FONTS								"Resources/font/Trajan Pro.ttf"
 // map
@@ -61,10 +63,12 @@
 #define GIRL_LEFT_3							"Resources/game_run/person/girl/left/l5.bmp"
 #define GIRL_LEFT_4							"Resources/game_run/person/girl/left/l7.bmp"
 // DIAMOND
-#define DIAMOND_RED_1						"Resources/game_run/diamond/red/red_1.bmp"
-#define DIAMOND_RED_2						"Resources/game_run/diamond/red/red_2.bmp"
-#define DIAMOND_BLUE_1						"Resources/game_run/diamond/blue/blue1.bmp"
-#define DIAMOND_BLUE_2						"Resources/game_run/diamond/blue/blue2.bmp"
+#define DIAMOND_RED_1						"Resources/game_run/diamond/red_1.bmp"
+#define DIAMOND_RED_2						"Resources/game_run/diamond/red_2.bmp"
+#define DIAMOND_BLUE_1						"Resources/game_run/diamond/blue_1.bmp"
+#define DIAMOND_BLUE_2						"Resources/game_run/diamond/blue_2.bmp"
+#define DIAMOND_GREEN_1						"Resources/game_run/diamond/green_1.bmp"
+#define DIAMOND_GREEN_2						"Resources/game_run/diamond/green_2.bmp"
 // BUTTON
 #define PURPLE_BUTTON						"Resources/game_run/button/button_purple.bmp"
 #define WHITE_BUTTON                        "Resources/game_run/button/button_white.bmp"
