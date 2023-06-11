@@ -314,6 +314,7 @@ namespace game_framework {
 		array<Switch, 1>  level23_switch;
 		array<Platform, 3> level23_platform;
 		array<Button, 2> level23_button;
+		array<Water, 8> level23_water;
 		array<Door, 2> level23_door;
 
 		// level 31
