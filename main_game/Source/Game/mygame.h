@@ -137,6 +137,11 @@ namespace game_framework {
 		void Level10OnMove();
 		void Level10OnShow();
 		void ResetL10();
+		// level11 
+		void LoadLevel11();
+		void Level11OnMove();
+		void Level11OnShow();
+		void ResetL11();
 		// level 13
 		void LoadLevel13();
 		void Level13OnMove();
@@ -152,11 +157,24 @@ namespace game_framework {
 		void Level16OnMove();
 		void Level16OnShow();
 		void ResetL16();
+		// level 17
+		void LoadLevel17();
+		void Level17OnMove();
+		void Level17OnShow();
+		void ResetL17();
 		// level 18
 		void LoadLevel18();
 		void Level18OnMove();
 		void Level18OnShow();
 		void ResetL18();
+		
+		
+		// level 23
+		void LoadLevel23();
+		void Level23OnMove();
+		void Level23OnShow();
+		void ResetL23();
+
 		// level 31
 		void LoadLevel31();
 		void Level31OnMove();
@@ -234,6 +252,17 @@ namespace game_framework {
 		array<Door, 2> level10_door;
 		array<Water, 10> level10_water;
 
+
+
+		//level  11
+		CMovingBitmap level11_bg;
+		array<Diamond, 1> level11_green_diamond;
+		array<Water, 4> level11_water;
+		array<Switch, 2>  level11_switch;
+		array<Button, 1> level11_button;
+		array<Platform, 3> level11_platform;
+		array<Door, 2> level11_door;
+
 		// level 13
 		CMovingBitmap level13_bg;
 		array<Diamond, 1> level13_green_diamond;
@@ -270,6 +299,22 @@ namespace game_framework {
 		array<Platform, 5> level18_platform;
 		array<Door, 2> level18_door;
 		array<Water, 7> level18_water;
+
+		// level 17
+		CMovingBitmap level17_bg;
+		array<Diamond, 1> level17_green_diamond;
+
+		array<Switch, 5>  level17_switch;
+		array<Platform, 11> level17_platform;
+		array<Door, 2> level17_door;
+
+		// level 23
+		CMovingBitmap level23_bg;
+		array<Diamond, 1> level23_green_diamond;
+		array<Switch, 1>  level23_switch;
+		array<Platform, 3> level23_platform;
+		array<Button, 2> level23_button;
+		array<Door, 2> level23_door;
 
 		// level 31
 	    CMovingBitmap level31_bg;
