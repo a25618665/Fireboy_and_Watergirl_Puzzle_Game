@@ -12,13 +12,14 @@ namespace game_framework {
 		void OnButtonUp();
 		void OnShow();
 	private:
-		int level;					// 代表哪一關
-		int time;					// 毫秒
-		int diamond_x, diamond_y;	// 選擇關卡頁面的寶石位置
-		int time_x, time_y;			// 顯示時間的相對位置
+		int level;							// 代表哪一關
+		int time;							// 毫秒
+		int diamond_x, diamond_y;			// 選擇關卡頁面的寶石位置
+		int time_x, time_y;					// 顯示時間的相對位置
 		bool is_init;
-		bool is_pass;				// 是否破關
-		CMovingBitmap img_diamond;	// 選擇關卡頁面的寶石
-		CRect body;					// 判斷寶石是否被按下的區域
+		bool is_pass;						// 是否破關
+		CMovingBitmap img_diamond_unpass;
+		CMovingBitmap img_diamond;			// 選擇關卡頁面的寶石
+		CRect body;							// 判斷寶石是否被按下的區域
 	};
 }

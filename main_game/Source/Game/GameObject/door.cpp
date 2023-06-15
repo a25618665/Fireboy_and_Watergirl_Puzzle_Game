@@ -71,11 +71,18 @@ bool Door::OnMove(const CRect & boy_body, const CRect & girl_body)
 		if (boy_is_overlap)
 		{
 			if (frame_counter == (frame_size - 1))
+			{
+				CAudio::Instance()->Stop(A_DOOR_R);
 				return true;
+			}
+			else if (frame_counter == 0)
+				CAudio::Instance()->Play(A_DOOR_R, true);
+
 			frame_counter += 1;
 		}
 		else
 		{
+			CAudio::Instance()->Stop(A_DOOR_R);
 			frame_counter = 0;
 		}
 		break;
@@ -83,11 +90,18 @@ bool Door::OnMove(const CRect & boy_body, const CRect & girl_body)
 		if (girl_is_overlap)
 		{
 			if (frame_counter == (frame_size - 1))
+			{
+				CAudio::Instance()->Stop(A_DOOR_B);
 				return true;
+			}
+			else if (frame_counter == 0)
+				CAudio::Instance()->Play(A_DOOR_B, true);
+
 			frame_counter += 1;
 		}
 		else
 		{
+			CAudio::Instance()->Stop(A_DOOR_B);
 			frame_counter = 0;
 		}
 		break;

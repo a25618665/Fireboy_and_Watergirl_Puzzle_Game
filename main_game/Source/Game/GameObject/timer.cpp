@@ -8,6 +8,7 @@
 #include "timer.h"
 #include "../pic_path.h"
 
+
 namespace game_framework {
 	void timer_showtext::show(int time_counter ,  int blue_counter, int red_counter) {
 		int  second = time_counter/1000 ;
@@ -42,6 +43,7 @@ namespace game_framework {
 		CDDraw::ReleaseBackCDC();
 		
 	}
+
 	void timer_showtext::show_as_text(string  text, int x, int y)
 	{
 

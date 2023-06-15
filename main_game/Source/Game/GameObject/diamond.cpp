@@ -64,6 +64,7 @@ void Diamond::OnMove(const CRect& person_body, int &diamond_counter)
 		if (is_overlap) {
 			is_showing = false;
 			diamond_counter += 1;
+			CAudio::Instance()->Play(A_DIAMOND);
 		}
 	}
 }
@@ -80,6 +81,7 @@ void Diamond::OnMove(const CRect &boy_body, const CRect &girl_body, int &diamond
 		{
 			is_showing = false;
 			diamond_counter += 1;
+			CAudio::Instance()->Play(A_DIAMOND);
 		}
 	}
 }

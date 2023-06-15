@@ -22,6 +22,7 @@ namespace game_framework {
 		void MovePlatformOnMap(char direction);
 
 		int original_x, original_y, x, y, end;
+		bool is_moving;							// 用在sound
 		char defult_direction;
 		char plat_dir;
 		char len;

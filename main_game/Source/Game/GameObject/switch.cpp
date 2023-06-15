@@ -135,7 +135,10 @@ void Switch::OnMove(const CRect & boy_body, const CRect & girl_body)
 		bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body_right);
 
 		if (boy_is_overlap || girl_is_overlap)
+		{
+			CAudio::Instance()->Play(A_SWITCH);
 			Right2Left();
+		}
 	}
 	else
 	{
@@ -144,7 +147,10 @@ void Switch::OnMove(const CRect & boy_body, const CRect & girl_body)
 		bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body_left);
 
 		if (boy_is_overlap || girl_is_overlap)
+		{
+			CAudio::Instance()->Play(A_SWITCH);
 			Left2Right();
+		}
 	}
 }
 

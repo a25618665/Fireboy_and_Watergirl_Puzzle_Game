@@ -10,6 +10,13 @@
 #define BUTTON_OK_CLICKED			   		"Resources/game_menu/button/ok_clicked.bmp"
 // select page
 #define SELECT_PAGE_BG						"Resources/game_run/select_page/level_bg.bmp"
+#define MENU_BUTTON							"Resources/game_run/select_page/main_menu.bmp"
+#define UNPASS_BLUE_DIAMOND					"Resources/game_run/select_page/gray_blue_diamond.bmp"
+#define UNPASS_BLUE_DIAMOND_CLICKED			"Resources/game_run/select_page/gray_blue_diamond_clicked.bmp"
+#define UNPASS_ORANGE_DIAMOND				"Resources/game_run/select_page/gray_orange_diamond.bmp"
+#define UNPASS_ORANGE_DIAMOND_CLICKED		"Resources/game_run/select_page/gray_orange_diamond_clicked.bmp"
+#define UNPASS_GREEN_DIAMOND				"Resources/game_run/select_page/gray_green_diamond.bmp"
+#define UNPASS_GREEN_DIAMOND_CLICKED		"Resources/game_run/select_page/gray_green_diamond_clicked.bmp"
 #define SELECT_PAGE_DIAMOND_BLUE			"Resources/game_run/select_page/blue_diamond.bmp"
 #define SELECT_PAGE_DIAMOND_BLUE_CLICKED	"Resources/game_run/select_page/blue_diamond_clicked.bmp"
 #define SELECT_PAGE_DIAMOND_ORANGE			"Resources/game_run/select_page/orange_diamond.bmp"
@@ -42,8 +49,8 @@
 #define LEVEL_31_BG							"Resources/game_run/map/map_background/L31_bg.bmp"
 #define LEVEL_32_BG							"Resources/game_run/map/map_background/L32_bg.bmp"
 // person
-#define TEST_B								"Resources/game_run/person/test_b.txt"
-#define TEST_G								"Resources/game_run/person/test_g.txt"
+#define CHECK_POINT_B						"Resources/game_run/person/check_point_b.txt"
+#define CHECK_POINT_G						"Resources/game_run/person/check_point_g.txt"
 #define BOY_STOP							"Resources/game_run/person/boy/boy_stop.bmp"
 #define BOY_RIGHT_1							"Resources/game_run/person/boy/right/r1.bmp"
 #define BOY_RIGHT_2							"Resources/game_run/person/boy/right/r3.bmp"
@@ -106,3 +113,17 @@
 #define	SWITCH_GREEN_LEFT					"Resources/game_run/switch/switch_green_left.bmp"
 // rock
 #define ROCK								"Resources/game_run/rock/rock.bmp"
+// sounds id
+#define	A_PUSHER							0
+#define	A_DIAMOND							1
+#define	A_JUMP_B							2
+#define	A_JUMP_G							3
+#define	A_PLAT								4
+#define	A_DIE								5
+#define	A_SWITCH							6
+#define	A_MENU								7
+#define	A_PLAY								8
+#define	A_FINISH							9
+#define	A_FAIL								10
+#define	A_DOOR_B							11
+#define	A_DOOR_R							12

@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <array>
 #include<string>
+
+
 namespace game_framework {
 	class timer_showtext {
 	public:

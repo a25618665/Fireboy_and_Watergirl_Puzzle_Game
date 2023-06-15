@@ -7,6 +7,7 @@
 #include "../../Library/gamecore.h"
 #include "../pic_path.h"
 #include "rock.h"
+#include <string>
 
 
 using namespace game_framework;
@@ -26,6 +27,8 @@ void Rock::Init(int x, int y, array<array<int, 480>, 640> *m)
 	vertical_acceleration = 1;
 	ptr_map = m;
 	body.SetRect(x + 2, y + 3, x + 28, y + 29);
+	n = body.Width() + 1;
+	b = false;
 	img_rock.LoadBitmapByString({ ROCK }, RGB(0, 0, 0));
 
 	// 把地圖上rock的位置標成障礙物
@@ -33,7 +36,7 @@ void Rock::Init(int x, int y, array<array<int, 480>, 640> *m)
 	{
 		for (int j = 0; j < body.Height() + 1; j++)
 		{
-			(*ptr_map)[body.left + i][body.top + j] = 1;
+			(*ptr_map)[body.left + i][body.top + j] = 3;
 		}
 	}
 }
@@ -59,7 +62,7 @@ void Rock::Reset()
 		{
 			for (int j = 0; j < body.Height() + 1; j++)
 			{
-				(*ptr_map)[body.left + i][body.top + j] = 1;
+				(*ptr_map)[body.left + i][body.top + j] = 3;
 			}
 		}
 	}
@@ -67,6 +70,8 @@ void Rock::Reset()
 
 void Rock::OnMove(const CRect & boy_body, const CRect & girl_body)
 {
+	bool moved = false;
+
 	CRect temp_rect;
 	CRect body_right(body.right + 1, body.top, body.right + 2, body.bottom);
 	CRect body_left(body.left - 2, body.top, body.left - 1, body.bottom);
@@ -76,6 +81,7 @@ void Rock::OnMove(const CRect & boy_body, const CRect & girl_body)
 	// 檢查左右移動
 	if (!is_left && is_right && RightSideIsClear())
 	{
+		moved = true;
 		int up = RightBottomSideIsClear();
 		if (up)
 		{
@@ -91,6 +97,7 @@ void Rock::OnMove(const CRect & boy_body, const CRect & girl_body)
 	}
 	else if (!is_right && is_left && LeftSideIsClear())
 	{
+		moved = true;
 		int up = LeftBottomSideIsClear();
 		if (up)
 		{
@@ -110,6 +117,7 @@ void Rock::OnMove(const CRect & boy_body, const CRect & girl_body)
 	int obstacle_distance = BottomSideIsClear(check_distance);					// 與下方障礙物距離
 	if (obstacle_distance - 1)
 	{
+		moved = true;
 		MoveRockOnMap('D', obstacle_distance - 1);
 		y += obstacle_distance - 1;
 		vertical_velocity += vertical_acceleration;
@@ -117,6 +125,58 @@ void Rock::OnMove(const CRect & boy_body, const CRect & girl_body)
 	}
 	else
 		vertical_velocity = 0;
+	
+	// 判斷下面是否有岩石
+	bool temp_b = (*ptr_map)[body.left][body.bottom + 1] == 3;
+	int i;
+	for (i = 1; i < body.Width() + 1; i++)
+	{
+		if (((*ptr_map)[body.left + i][body.bottom + 1] == 3) ^ temp_b)
+			break;
+	}
+	int temp_n = i;
+
+	// 判斷下面的岩石有沒有移動
+	if (moved)
+	{
+		n = temp_n;
+		b = temp_b;
+	}
+	else if (b != temp_b || n != temp_n)
+	{
+		if (b == temp_b)
+		{
+			if (temp_n < n)
+			{
+				MoveRockOnMap('L', n - temp_n);
+				body -= CPoint(n - temp_n, 0);
+				x -= n - temp_n;
+			}
+			else if (temp_n > n)
+			{
+				MoveRockOnMap('R', temp_n - n);
+				body += CPoint(temp_n - n, 0);
+				x += temp_n - n;
+			}
+		}
+		else
+		{
+			if (b)
+			{
+				int d = body.Width() + 1 - n + temp_n;
+				MoveRockOnMap('R', d);
+				body += CPoint(d, 0);
+				x += d;
+			}
+			else
+			{
+				int d = body.Width() + 1 + n - temp_n;
+				MoveRockOnMap('L', d);
+				body -= CPoint(d, 0);
+				x -= d;
+			}
+		}
+	}
 }
 
 void Rock::OnShow()
@@ -135,7 +195,7 @@ void Rock::MoveRockOnMap(char direction, int distance)
 			for (int j = 0; j < body.Height() + 1; j++)
 			{
 				(*ptr_map)[body.right - i][body.top + j] = 0;
-				(*ptr_map)[body.left - 1 - i][body.top + j] = 1;
+				(*ptr_map)[body.left - 1 - i][body.top + j] = 3;
 			}
 		}
 		break;
@@ -145,7 +205,7 @@ void Rock::MoveRockOnMap(char direction, int distance)
 			for (int j = 0; j < body.Height() + 1; j++)
 			{
 				(*ptr_map)[body.left + i][body.top + j] = 0;
-				(*ptr_map)[body.right + 1 + i][body.top + j] = 1;
+				(*ptr_map)[body.right + 1 + i][body.top + j] = 3;
 			}
 		}
 		break;
@@ -155,7 +215,7 @@ void Rock::MoveRockOnMap(char direction, int distance)
 			for (int j = 0; j < distance; j++)
 			{
 				(*ptr_map)[body.left + i][body.top + j] = 0;
-				(*ptr_map)[body.left + i][body.bottom + 1 + j] = 1;
+				(*ptr_map)[body.left + i][body.bottom + 1 + j] = 3;
 			}
 		}
 		break;
@@ -164,7 +224,7 @@ void Rock::MoveRockOnMap(char direction, int distance)
 		{
 			for (int j = 0; j < distance; j++)
 			{
-				(*ptr_map)[body.left + i][body.top - 1 - j] = 1;
+				(*ptr_map)[body.left + i][body.top - 1 - j] = 3;
 				(*ptr_map)[body.left + i][body.bottom - j] = 0;
 			}
 		}

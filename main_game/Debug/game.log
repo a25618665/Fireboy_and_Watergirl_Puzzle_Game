@@ -1,92 +1,27 @@
 ﻿cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
-  mygame_run.cpp
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(292): error C2086: 'std::array<game_framework::Diamond,5> game_framework::CGameStateRun::level18_red_diamond': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(282): note: 請參閱 'game_framework::CGameStateRun::level18_red_diamond' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(294): error C2086: 'std::array<game_framework::Switch,2> game_framework::CGameStateRun::level18_switch': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(284): note: 請參閱 'game_framework::CGameStateRun::level18_switch' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(295): error C2086: 'std::array<game_framework::Button,2> game_framework::CGameStateRun::level18_button': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(285): note: 請參閱 'game_framework::CGameStateRun::level18_button' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(296): error C2086: 'std::array<game_framework::Platform,5> game_framework::CGameStateRun::level18_platform': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(286): note: 請參閱 'game_framework::CGameStateRun::level18_platform' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(297): error C2086: 'std::array<game_framework::Door,2> game_framework::CGameStateRun::level18_door': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(287): note: 請參閱 'game_framework::CGameStateRun::level18_door' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(298): error C2086: 'std::array<game_framework::Water,7> game_framework::CGameStateRun::level18_water': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(288): note: 請參閱 'game_framework::CGameStateRun::level18_water' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame_run.cpp(1680): error C2084: 函式 'void game_framework::CGameStateRun::LoadLevel13(void)' 的主體已經被宣告了
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame_run.cpp(1182): note: 請參閱 'LoadLevel13' 之前的定義
-  正在產生程式碼...
-  正在編譯...
-  game.cpp
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(292): error C2086: 'std::array<game_framework::Diamond,5> game_framework::CGameStateRun::level18_red_diamond': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(282): note: 請參閱 'game_framework::CGameStateRun::level18_red_diamond' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(294): error C2086: 'std::array<game_framework::Switch,2> game_framework::CGameStateRun::level18_switch': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(284): note: 請參閱 'game_framework::CGameStateRun::level18_switch' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(295): error C2086: 'std::array<game_framework::Button,2> game_framework::CGameStateRun::level18_button': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(285): note: 請參閱 'game_framework::CGameStateRun::level18_button' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(296): error C2086: 'std::array<game_framework::Platform,5> game_framework::CGameStateRun::level18_platform': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(286): note: 請參閱 'game_framework::CGameStateRun::level18_platform' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(297): error C2086: 'std::array<game_framework::Door,2> game_framework::CGameStateRun::level18_door': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(287): note: 請參閱 'game_framework::CGameStateRun::level18_door' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(298): error C2086: 'std::array<game_framework::Water,7> game_framework::CGameStateRun::level18_water': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(288): note: 請參閱 'game_framework::CGameStateRun::level18_water' 的宣告
-  正在產生程式碼...
-  正在編譯...
-  gameView.cpp
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(292): error C2086: 'std::array<game_framework::Diamond,5> game_framework::CGameStateRun::level18_red_diamond': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(282): note: 請參閱 'game_framework::CGameStateRun::level18_red_diamond' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(294): error C2086: 'std::array<game_framework::Switch,2> game_framework::CGameStateRun::level18_switch': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(284): note: 請參閱 'game_framework::CGameStateRun::level18_switch' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(295): error C2086: 'std::array<game_framework::Button,2> game_framework::CGameStateRun::level18_button': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(285): note: 請參閱 'game_framework::CGameStateRun::level18_button' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(296): error C2086: 'std::array<game_framework::Platform,5> game_framework::CGameStateRun::level18_platform': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(286): note: 請參閱 'game_framework::CGameStateRun::level18_platform' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(297): error C2086: 'std::array<game_framework::Door,2> game_framework::CGameStateRun::level18_door': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(287): note: 請參閱 'game_framework::CGameStateRun::level18_door' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(298): error C2086: 'std::array<game_framework::Water,7> game_framework::CGameStateRun::level18_water': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(288): note: 請參閱 'game_framework::CGameStateRun::level18_water' 的宣告
-  正在產生程式碼...
-  正在編譯...
-  mygame_initialize.cpp
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(292): error C2086: 'std::array<game_framework::Diamond,5> game_framework::CGameStateRun::level18_red_diamond': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(282): note: 請參閱 'game_framework::CGameStateRun::level18_red_diamond' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(294): error C2086: 'std::array<game_framework::Switch,2> game_framework::CGameStateRun::level18_switch': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(284): note: 請參閱 'game_framework::CGameStateRun::level18_switch' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(295): error C2086: 'std::array<game_framework::Button,2> game_framework::CGameStateRun::level18_button': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(285): note: 請參閱 'game_framework::CGameStateRun::level18_button' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(296): error C2086: 'std::array<game_framework::Platform,5> game_framework::CGameStateRun::level18_platform': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(286): note: 請參閱 'game_framework::CGameStateRun::level18_platform' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(297): error C2086: 'std::array<game_framework::Door,2> game_framework::CGameStateRun::level18_door': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(287): note: 請參閱 'game_framework::CGameStateRun::level18_door' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(298): error C2086: 'std::array<game_framework::Water,7> game_framework::CGameStateRun::level18_water': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(288): note: 請參閱 'game_framework::CGameStateRun::level18_water' 的宣告
-  正在產生程式碼...
-  正在編譯...
-  mygame_over.cpp
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(292): error C2086: 'std::array<game_framework::Diamond,5> game_framework::CGameStateRun::level18_red_diamond': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(282): note: 請參閱 'game_framework::CGameStateRun::level18_red_diamond' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(294): error C2086: 'std::array<game_framework::Switch,2> game_framework::CGameStateRun::level18_switch': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(284): note: 請參閱 'game_framework::CGameStateRun::level18_switch' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(295): error C2086: 'std::array<game_framework::Button,2> game_framework::CGameStateRun::level18_button': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(285): note: 請參閱 'game_framework::CGameStateRun::level18_button' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(296): error C2086: 'std::array<game_framework::Platform,5> game_framework::CGameStateRun::level18_platform': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(286): note: 請參閱 'game_framework::CGameStateRun::level18_platform' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(297): error C2086: 'std::array<game_framework::Door,2> game_framework::CGameStateRun::level18_door': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(287): note: 請參閱 'game_framework::CGameStateRun::level18_door' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(298): error C2086: 'std::array<game_framework::Water,7> game_framework::CGameStateRun::level18_water': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(288): note: 請參閱 'game_framework::CGameStateRun::level18_water' 的宣告
-  正在產生程式碼...
-  正在編譯...
+  StdAfx.cpp
+cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
   gamecore.cpp
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(292): error C2086: 'std::array<game_framework::Diamond,5> game_framework::CGameStateRun::level18_red_diamond': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(282): note: 請參閱 'game_framework::CGameStateRun::level18_red_diamond' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(294): error C2086: 'std::array<game_framework::Switch,2> game_framework::CGameStateRun::level18_switch': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(284): note: 請參閱 'game_framework::CGameStateRun::level18_switch' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(295): error C2086: 'std::array<game_framework::Button,2> game_framework::CGameStateRun::level18_button': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(285): note: 請參閱 'game_framework::CGameStateRun::level18_button' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(296): error C2086: 'std::array<game_framework::Platform,5> game_framework::CGameStateRun::level18_platform': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(286): note: 請參閱 'game_framework::CGameStateRun::level18_platform' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(297): error C2086: 'std::array<game_framework::Door,2> game_framework::CGameStateRun::level18_door': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(287): note: 請參閱 'game_framework::CGameStateRun::level18_door' 的宣告
-c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(298): error C2086: 'std::array<game_framework::Water,7> game_framework::CGameStateRun::level18_water': 重複定義
-  c:\users\asus\desktop\wokspace\fireboy__watergirl_foresttemple\main_game\source\game\mygame.h(288): note: 請參閱 'game_framework::CGameStateRun::level18_water' 的宣告
+  audio.cpp
+  mygame_run.cpp
+  mygame_over.cpp
+  mygame_initialize.cpp
+  water.cpp
+  timer.cpp
+  switch.cpp
+  selectpagediamond.cpp
+  rock.cpp
+  platform.cpp
+  person.cpp
+  door.cpp
+  diamond.cpp
+  button.cpp
+  MainFrm.cpp
+  gameView.cpp
+  gameDoc.cpp
+  game.cpp
   正在產生程式碼...
+cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
+  gameutil.cpp
+game.obj : warning LNK4075: 忽略 '/EDITANDCONTINUE'，由於 '/SAFESEH' 規格
+  game.vcxproj -> D:\學\大三\下\C++\109820020\FireBoy__WaterGirl_ForestTemple\main_game\.\Debug\game.exe

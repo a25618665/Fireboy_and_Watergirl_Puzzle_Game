@@ -31,14 +31,20 @@ void SelectPageDiamond::Init(int level, int x, int y, char color, int time_x, in
 	switch (color)
 	{
 	case 'B':
+		img_diamond_unpass.LoadBitmapByString({UNPASS_BLUE_DIAMOND, UNPASS_BLUE_DIAMOND_CLICKED}, RGB(255, 204, 0));
+		img_diamond_unpass.SetTopLeft(x, y);
 		img_diamond.LoadBitmapByString({SELECT_PAGE_DIAMOND_BLUE, SELECT_PAGE_DIAMOND_BLUE_CLICKED}, RGB(255, 204, 0));
 		img_diamond.SetTopLeft(x, y);
 		break;
 	case 'O':
+		img_diamond_unpass.LoadBitmapByString({UNPASS_ORANGE_DIAMOND, UNPASS_ORANGE_DIAMOND_CLICKED}, RGB(255, 204, 0));
+		img_diamond_unpass.SetTopLeft(x, y);
 		img_diamond.LoadBitmapByString({SELECT_PAGE_DIAMOND_ORANGE, SELECT_PAGE_DIAMOND_ORANGE_CLICKED}, RGB(255, 204, 0));
 		img_diamond.SetTopLeft(x, y);
 		break;
 	case 'G':
+		img_diamond_unpass.LoadBitmapByString({UNPASS_GREEN_DIAMOND, UNPASS_GREEN_DIAMOND_CLICKED}, RGB(255, 204, 0));
+		img_diamond_unpass.SetTopLeft(x, y);
 		img_diamond.LoadBitmapByString({SELECT_PAGE_DIAMOND_GREEN, SELECT_PAGE_DIAMOND_GREEN_CLICKED}, RGB(255, 204, 0));
 		img_diamond.SetTopLeft(x, y);
 		break;
@@ -63,6 +69,8 @@ int SelectPageDiamond::OnButtonDown(CPoint point)
 		return 0;
 	else if (body.PtInRect(point))					// point是否在body裡
 	{
+		CAudio::Instance()->Play(A_PUSHER);
+		img_diamond_unpass.SetFrameIndexOfBitmap(1);
 		img_diamond.SetFrameIndexOfBitmap(1);	// 顯示按鈕被按下的圖片
 		return level;
 	}
@@ -73,15 +81,26 @@ int SelectPageDiamond::OnButtonDown(CPoint point)
 void SelectPageDiamond::OnButtonUp()
 {
 	if (is_init)
+	{
+		img_diamond_unpass.SetFrameIndexOfBitmap(0);
 		img_diamond.SetFrameIndexOfBitmap(0);
+		CAudio::Instance()->Stop(A_MENU);
+		CAudio::Instance()->Play(A_PLAY, true);
+	}
 }
 
 void SelectPageDiamond::OnShow()
 {
 	if (is_init)
 	{
-		img_diamond.ShowBitmap();
 		if (is_pass)
+		{
+			img_diamond.ShowBitmap();
 			timer_showtext::ShowTime(time, time_x, time_y);
+		}
+		else
+		{
+			img_diamond_unpass.ShowBitmap();
+		}
 	}
 }
