@@ -23,9 +23,6 @@ void CGameStateInit::OnInit()
 {
 	ShowInitProgress(0, "Load Menu");
 	LoadBackground();
-	//CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/5.mp3");
-	//CAudio::Instance()->Load(2, "../ireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.mp3");
-	//CAudio::Instance()->Play(2, TRUE);//撥放背景音樂
 }
 
 void CGameStateInit::OnBeginState()
@@ -50,11 +47,13 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		if (x >= 272 && x <= 372 && y >= 238 && y <= 273)			//判斷是否為play按鈕
 		{
+			CAudio::Instance()->Play(A_PUSHER);
 			button_flag = 1;
 			button_play.SetFrameIndexOfBitmap(1);
 		}
 		else if (x >= 201 && x <= 441 && y >= 322 && y <= 353)		//判斷是否為instructions按鈕
 		{
+			CAudio::Instance()->Play(A_PUSHER);
 			button_flag = 2;
 			button_ins.SetFrameIndexOfBitmap(1);
 		}
@@ -62,7 +61,10 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 	else if (phase == 1)
 	{
 		if (x >= 299 && x <= 348 && y >= 383 && y <= 410)			//判斷是否為ok按鈕
+		{
+			CAudio::Instance()->Play(A_PUSHER);
 			button_flag = 3;
+		}
 	}
 }
 
@@ -89,6 +91,12 @@ void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CGameStateInit::OnShow()
 {
+	if (!sound_flag)
+	{
+		sound_flag = true;
+		CAudio::Instance()->Play(A_MENU, true);
+	}
+	
 	if (phase == 0)
 	{
 		background.ShowBitmap();
@@ -120,9 +128,3 @@ void CGameStateInit::LoadBackground()
 	button_ok_clicked.LoadBitmapByString({ BUTTON_OK_CLICKED });
 	button_ok_clicked.SetTopLeft(299, 383);
 }
-
-//void CGameStateInit::load_sound()
-//{
-	//指定背景音樂
-    // CAudio::Instance()->Load(2, "../fireboy_icesister_resource/game_menu/soundtrack_menu/sounds/902_Menu_Sound.wav");
-//}

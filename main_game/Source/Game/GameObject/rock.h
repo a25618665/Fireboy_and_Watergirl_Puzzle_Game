@@ -21,6 +21,8 @@ namespace game_framework {
 		int horizontal_moving_distance_per_frame;
 		int vertical_velocity;
 		int vertical_acceleration;
+		int n;
+		bool b;
 		array<array<int, 480>, 640> *ptr_map;
 		CRect body;
 		CMovingBitmap img_rock;

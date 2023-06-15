@@ -5,14 +5,11 @@ namespace game_framework {
 	class Person {
 	public:
 		Person();
-		~Person();
 		void Init(int x, int y, string gender);
 		void SetMovingLeft(bool flag);
 		void SetMovingRight(bool flag);
 		void SetMap(array<array<int, 480>, 640> *m);
 		void Reset();
-		int GetX();
-		int GetY();
 		CRect GetBody();
 		void Jump();
 		void OnMove();
@@ -35,8 +32,6 @@ namespace game_framework {
 		CMovingBitmap img_stop;
 		CMovingBitmap img_left;
 		CMovingBitmap img_right;
-
-		//
 		array<array<int, 2>, 5> r_check_point;
 		array<array<int, 2>, 5> l_check_point;
 	};

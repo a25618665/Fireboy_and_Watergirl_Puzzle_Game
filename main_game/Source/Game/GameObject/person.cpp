@@ -16,10 +16,6 @@ Person::Person()
 {
 }
 
-Person::~Person()
-{
-}
-
 void Person::Init(int x, int y, string gender)
 {
 	if (gender == "boy")
@@ -35,8 +31,7 @@ void Person::Init(int x, int y, string gender)
 		body_offset.top = 12;
 		body_offset.right = 17;
 		body_offset.bottom = 39;
-		//*******************************************
-		ifstream ifs(TEST_B);
+		ifstream ifs(CHECK_POINT_B);
 		for (int i = 0; i < 5; i++)
 		{
 			for (int j = 0; j < 2; j++)
@@ -66,8 +61,7 @@ void Person::Init(int x, int y, string gender)
 		body_offset.top = 7;
 		body_offset.right = 16;
 		body_offset.bottom = 34;
-		//
-		ifstream ifs(TEST_G);
+		ifstream ifs(CHECK_POINT_G);
 		for (int i = 0; i < 5; i++)
 		{
 			for (int j = 0; j < 2; j++)
@@ -122,16 +116,6 @@ void Person::Reset()
 	is_on_the_ground = true;
 	is_moving_left = false;
 	is_moving_right = false;
-}
-
-int Person::GetX()
-{
-	return x;
-}
-
-int Person::GetY()
-{
-	return y;
 }
 
 CRect Person::GetBody()
@@ -326,6 +310,7 @@ void Person::OnMove()
 			}
 			else
 			{
+				// 檢查裏下
 				int i;
 				for (i = 0; i < 2; i++)
 				{
@@ -339,6 +324,40 @@ void Person::OnMove()
 						break;
 				}
 				y -= i;
+
+				// 檢查裏左
+				bool flag = false;
+				for (int i = 0; i < 2; i++)
+				{
+					for (int j = 0; j < body_offset.Height() - 1; j++)
+					{
+						if ((*map)[x + body_offset.left + i][y + body_offset.top + j])
+						{
+							flag = true;
+							x += 2;
+							break;
+						}
+					}
+					if (flag)
+						break;
+				}
+
+				// 檢查裏右
+				flag = false;
+				for (int i = 0; i < 2; i++)
+				{
+					for (int j = 0; j < body_offset.Height() - 1; j++)
+					{
+						if ((*map)[x + body_offset.right - i][y + body_offset.top + j])
+						{
+							flag = true;
+							x -= 2;
+							break;
+						}
+					}
+					if (flag)
+						break;
+				}
 			}
 		}
 		else //girl
@@ -377,6 +396,7 @@ void Person::OnMove()
 			}
 			else
 			{
+				// 檢查裏下
 				int i;
 				for (i = 0; i < 2; i++)
 				{
@@ -390,6 +410,40 @@ void Person::OnMove()
 						break;
 				}
 				y -= i;
+
+				// 檢查裏左
+				bool flag = false;
+				for (int i = 0; i < 2; i++)
+				{
+					for (int j = 0; j < body_offset.Height() - 1; j++)
+					{
+						if ((*map)[x + body_offset.left + i][y + body_offset.top + j])
+						{
+							flag = true;
+							x += 2;
+							break;
+						}
+					}
+					if (flag)
+						break;
+				}
+
+				// 檢查裏右
+				flag = false;
+				for (int i = 0; i < 2; i++)
+				{
+					for (int j = 0; j < body_offset.Height() - 1; j++)
+					{
+						if ((*map)[x + body_offset.right - i][y + body_offset.top + j])
+						{
+							flag = true;
+							x -= 2;
+							break;
+						}
+					}
+					if (flag)
+						break;
+				}
 			}
 		}
 	}

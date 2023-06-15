@@ -7,7 +7,7 @@
 #include "../Library/gamecore.h"
 #include "mygame.h"
 
-//.. 32
+
 using namespace game_framework;
 
 /////////////////////////////////////////////////////////////////////////////

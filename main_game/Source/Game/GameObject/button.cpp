@@ -67,7 +67,11 @@ void Button::OnMove(const CRect & boy_body, const CRect & girl_body)
 	bool girl_is_overlap = temp_rect.IntersectRect(girl_body, body);
 
 	if (boy_is_overlap || girl_is_overlap)
+	{
+		if (!is_triggered)
+			CAudio::Instance()->Play(A_PUSHER);
 		is_triggered = true;
+	}
 	else
 		is_triggered = false;
 }

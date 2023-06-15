@@ -30,6 +30,7 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
+	// Load字體
 	AddFontResourceA(FONTS);
 
 	level = 0;
@@ -40,20 +41,24 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	time_counter = 0;
 	time_counter_start = 0;
 	time_counter_flag = false;
+	cheat_flag = false;
 
 	LoadMap();
-	LoadSelectPage();
-	LoadSubPhase();
 	ShowInitProgress(90, "Load Level");
+	LoadSound();
+	LoadSelectPage();
+	LoadSubPhase(); 
 	LoadLevel1();
 	LoadLevel6();
 	LoadLevel10();
+	LoadLevel11();
 	LoadLevel13();
 	LoadLevel15();
 	LoadLevel16();
+	LoadLevel17();
 	LoadLevel18();
+	LoadLevel23();
 	LoadLevel31();
-	ShowInitProgress(100, "Done");
 
 	// 各關鑽石數量
 	for (auto & map : num_diamonds_each_level)
@@ -65,13 +70,16 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	num_diamonds_each_level[5]["blue_diamond"] = level6_blue_diamond.size();
 	num_diamonds_each_level[9]["red_diamond"] = level10_red_diamond.size();
 	num_diamonds_each_level[9]["blue_diamond"] = level10_blue_diamond.size();
+	num_diamonds_each_level[10]["g_diamond"] = 1;
 	num_diamonds_each_level[12]["g_diamond"] = 1;
 	num_diamonds_each_level[14]["red_diamond"] = level15_red_diamond.size();
 	num_diamonds_each_level[14]["blue_diamond"] = level15_blue_diamond.size();
 	num_diamonds_each_level[15]["red_diamond"] = level16_red_diamond.size();
 	num_diamonds_each_level[15]["blue_diamond"] = level16_blue_diamond.size();
+	num_diamonds_each_level[16]["g_diamond"] = 1;
 	num_diamonds_each_level[17]["red_diamond"] = level18_red_diamond.size();
 	num_diamonds_each_level[17]["blue_diamond"] = level18_blue_diamond.size();
+	num_diamonds_each_level[22]["g_diamond"] = 1;
 	num_diamonds_each_level[30]["red_diamond"] = level31_red_diamond.size();
 	num_diamonds_each_level[30]["blue_diamond"] = level31_blue_diamond.size();
 }
@@ -87,7 +95,10 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			boy[level - 1].SetMovingLeft(true);
 
 		if (nChar == VK_UP)				// 向上鍵
+		{
 			boy[level - 1].Jump();
+			CAudio::Instance()->Play(A_JUMP_B);
+		}
 
 		// girl
 		if (nChar == 0x44)				// D鍵
@@ -96,14 +107,27 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			girl[level - 1].SetMovingLeft(true);
 
 		if (nChar == 0x57)				// W鍵
-			girl[level - 1].Jump();
-
-		// debug: 按下p鍵回到select page
-		if (nChar == 0x50)
 		{
+			girl[level - 1].Jump();
+			CAudio::Instance()->Play(A_JUMP_G);
+		}
+
+		// 按下M鍵回到關卡選擇頁面
+		if (nChar == 0x4D)
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_PUSHER);
+			CAudio::Instance()->Play(A_MENU, true);
 			ResetLevel(level);
 			sub_phase = 0;
 			level = 0;
+		}
+
+		// 作弊按鈕: 按下N鍵，碰到水不會死
+		if (nChar == 0x4E)
+		{
+			CAudio::Instance()->Play(A_PUSHER);
+			cheat_flag = !cheat_flag;
 		}
 		// debug: 按下t鍵
 		if (nChar == 0x54)
@@ -144,6 +168,13 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 {
 	if (level == 0)
 	{
+		// main menu button
+		if (menu_button_body.PtInRect(point))
+		{
+			CAudio::Instance()->Play(A_PUSHER);
+			menu_button_down = true;
+		}
+
 		for (auto & diamond : select_page_diamond)
 		{
 			select_page_button_down = diamond.OnButtonDown(point);
@@ -154,40 +185,65 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 	else if (sub_phase == 1)
 	{
 		if (sub1_retry_body.PtInRect(point))
+		{
+			CAudio::Instance()->Play(A_PUSHER);
 			is_sub1_retry_clicked = true;
+		}
 		else if (sub1_back_body.PtInRect(point))
+		{
+			CAudio::Instance()->Play(A_PUSHER);
 			is_sub1_back_clicked = true;
+		}
 	}
 	else if (sub_phase == 2)
 	{
 		if (sub2_con_body.PtInRect(point))
+		{
+			CAudio::Instance()->Play(A_PUSHER);
 			is_sub2_con_clicked = true;
+		}
 	}
 	else if (sub_phase == 3)
 	{
 		if (sub3_retry_body.PtInRect(point))
+		{
+			CAudio::Instance()->Play(A_PUSHER);
 			is_sub3_retry_clicked = true;
+		}
 		else if (sub3_back_body.PtInRect(point))
+		{
+			CAudio::Instance()->Play(A_PUSHER);
 			is_sub3_back_clicked = true;
+		}
 	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	if (level == 0 && select_page_button_down != 0) {
-		select_page_diamond[select_page_button_down - 1].OnButtonUp();
-		level = select_page_button_down;
+	if (level == 0) {
+		if (select_page_button_down != 0)
+		{
+			select_page_diamond[select_page_button_down - 1].OnButtonUp();
+			level = select_page_button_down;
+		}
+		else if (menu_button_down)
+		{
+			menu_button_down = false;
+			GotoGameState(GAME_STATE_INIT);
+		}
 	}
 	else if (sub_phase == 1)
 	{
 		if (is_sub1_retry_clicked)
 		{
+			CAudio::Instance()->Play(A_PLAY, true);
 			is_sub1_retry_clicked = false;
 			ResetLevel(level);
 			sub_phase = 0;
 		}
 		else if (is_sub1_back_clicked)
 		{
+			CAudio::Instance()->Play(A_MENU, true);
 			is_sub1_back_clicked = false;
 			ResetLevel(level);
 			level = 0;
@@ -198,6 +254,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 	{
 		if (is_sub2_con_clicked)
 		{
+			CAudio::Instance()->Play(A_MENU, true);
 			is_sub2_con_clicked = false;
 			select_page_diamond[level - 1].SetTime(time_counter);
 			ResetLevel(level);
@@ -209,12 +266,14 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 	{
 		if (is_sub3_retry_clicked)
 		{
+			CAudio::Instance()->Play(A_PLAY, true);
 			is_sub3_retry_clicked = false;
 			ResetLevel(level);
 			sub_phase = 0;
 		}
 		else if (is_sub3_back_clicked)
 		{
+			CAudio::Instance()->Play(A_MENU, true);
 			is_sub3_back_clicked = false;
 			ResetLevel(level);
 			level = 0;
@@ -257,6 +316,9 @@ void CGameStateRun::OnMove()					// 移動遊戲元素
 		case 10:
 			Level10OnMove();
 			break;
+		case 11:
+			Level11OnMove();
+			break;
 		case 13:
 			Level13OnMove();
 			break;
@@ -266,14 +328,28 @@ void CGameStateRun::OnMove()					// 移動遊戲元素
 		case 16:
 			Level16OnMove();
 			break;
+		case 17:
+			Level17OnMove();
+			break;
 		case 18:
 			Level18OnMove();
+			break;
+		case 23:
+			Level23OnMove();
 			break;
 		case 31:
 			Level31OnMove();
 			break;
 		}
 	}
+}
+
+void CGameStateRun::test()
+{
+	CDC *pDC = CDDraw::GetBackCDC();
+	CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+	CTextDraw::Print(pDC, 475, 304, std::to_string(test_int));
+	CDDraw::ReleaseBackCDC();
 }
 
 void CGameStateRun::OnShow()
@@ -304,6 +380,9 @@ void CGameStateRun::OnShow()
 		{
 		case 0:
 			select_page_bg.ShowBitmap();
+			if (!menu_button_down)
+				menu_button.ShowBitmap();
+
 			for (auto & diamond : select_page_diamond)
 				diamond.OnShow();
 			break;
@@ -316,6 +395,9 @@ void CGameStateRun::OnShow()
 		case 10:
 			Level10OnShow();
 			break;
+		case 11:
+			Level11OnShow();
+			break;
 		case 13:
 			Level13OnShow();
 			break;
@@ -325,13 +407,24 @@ void CGameStateRun::OnShow()
 		case 16:
 			Level16OnShow();
 			break;
+		case 17:
+			Level17OnShow();
+			break;
 		case 18:
 			Level18OnShow();
+			break;
+		case 23:
+			Level23OnShow();
 			break;
 		case 31:
 			Level31OnShow();
 			break;
 		}
+		// cheat text show
+		if (cheat_flag)
+			CheatShowText();
+		//test();
+
 		break;
 	}
 }
@@ -345,6 +438,7 @@ void CGameStateRun::ResetLevel(int level)
 	time_counter = 0;
 	time_counter_start = 0;
 	time_counter_flag = false;
+	cheat_flag = false;
 
 	switch (level)
 	{
@@ -357,6 +451,9 @@ void CGameStateRun::ResetLevel(int level)
 	case 10:
 		ResetL10();
 		break;
+	case 11:
+		ResetL11();
+		break;
 	case 13:
 		ResetL13();
 		break;
@@ -366,8 +463,14 @@ void CGameStateRun::ResetLevel(int level)
 	case 16:
 		ResetL16();
 		break;
+	case 17:
+		ResetL17();
+		break;
 	case 18:
 		ResetL18();
+		break;
+	case 23:
+		ResetL23();
 		break;
 	case 31:
 		ResetL31();
@@ -377,59 +480,69 @@ void CGameStateRun::ResetLevel(int level)
 
 void CGameStateRun::LoadMap()
 {
-	array<int, 8> a;
-	a[0] = 0;
-	a[1] = 5;
-	a[2] = 30;
-	a[3] = 9;
-	a[4] = 14;
-	a[5] = 15;
-	a[6] = 17;
-	a[7] = 12;
-	int t = 0;
-	for (int i: a)
+	array<int, 11> level = {1, 6, 10, 11, 13, 15, 16, 17, 18, 23, 31};
+
+	for (int i = 0; i < signed(level.size()); i++)
 	{
 		string s = "";
-		ShowInitProgress(25 + t * 10, s + "Load Map " + std::to_string(t + 1));
+		ShowInitProgress(2 + i * 8, s + "Load Map " + std::to_string(level[i]));
+
 		string map_path = "";
-		ifstream ifs(map_path + MAP_TEMPLATE + to_string(i + 1) + ".map");
+		ifstream ifs(map_path + MAP_TEMPLATE + to_string(level[i]) + ".map");
 		for (int j = 0; j < 640; j++)
 		{
 			for (int k = 0; k < 480; k++)
 			{
-				ifs >> map[i][j][k];
+				ifs >> map[level[i] - 1][j][k];
 			}
 		}
 		ifs.close();
-		t++;
 	}
+}
 
-	//for (int i = 0; i < int(map.size()); i++)
-	//{
-	//	
-	//}
+void CGameStateRun::LoadSound()
+{
+	CAudio* audio = CAudio::Instance();
+	audio->Load(A_PUSHER, "Resources/sounds/Pusher.mp3");
+	audio->Load(A_DIAMOND, "Resources/sounds/Diamond.mp3");
+	audio->Load(A_JUMP_B, "Resources/sounds/Jump_boy.wav");
+	audio->Load(A_JUMP_G, "Resources/sounds/Jump_girl.wav");
+	audio->Load(A_PLAT, "Resources/sounds/Plat.wav");
+	audio->Load(A_DIE, "Resources/sounds/Die.mp3");
+	audio->Load(A_SWITCH, "Resources/sounds/Switch.mp3");
+	audio->Load(A_MENU, "Resources/sounds/Menu.mp3");
+	audio->Load(A_PLAY, "Resources/sounds/Play.mp3");
+	audio->Load(A_FINISH, "Resources/sounds/Finish.mp3");
+	audio->Load(A_FAIL, "Resources/sounds/Fail.mp3");
+	audio->Load(A_DOOR_B, "Resources/sounds/Door.wav");
+	audio->Load(A_DOOR_R, "Resources/sounds/Door.wav");
 }
 
 void CGameStateRun::LoadSelectPage() 
 {
 	select_page_button_down = 0;
+	menu_button_down = false;
 	
 	select_page_bg.LoadBitmapByString({SELECT_PAGE_BG});
 	select_page_bg.SetTopLeft(0, 0);
+
+	menu_button.LoadBitmapByString({MENU_BUTTON});
+	menu_button.SetTopLeft(0, 420);
+
+	menu_button_body = menu_button.GetLocation();
     
 	select_page_diamond.fill( SelectPageDiamond() );
 	select_page_diamond[0].Init(1, 302, 440, 'B');
-	select_page_diamond[5].Init(6, 145, 274, 'O');
-	select_page_diamond[9].Init(10, 85, 252, 'B');
-	select_page_diamond[10].Init(11, 23, 246, 'G');
-	select_page_diamond[12].Init(13, 26, 153, 'G');
-	select_page_diamond[14].Init(15, 242, 144, 'B');
-	select_page_diamond[15].Init(16, 188, 96, 'O');
-	select_page_diamond[16].Init(17, 101, 71, 'G');
-	select_page_diamond[17].Init(18, 317, 121, 'B');
+	select_page_diamond[5].Init(6, 145, 274, 'O', 2, 34);
+	select_page_diamond[9].Init(10, 85, 252, 'B', -24, 35);
+	select_page_diamond[10].Init(11, 23, 246, 'G', -13, -30);
+	select_page_diamond[12].Init(13, 26, 153, 'G', 47, -7);
+	select_page_diamond[14].Init(15, 242, 144, 'B', -67, 19);
+	select_page_diamond[15].Init(16, 188, 96, 'O', 35, -18);
+	select_page_diamond[16].Init(17, 101, 71, 'G', 47, -18);
+	select_page_diamond[17].Init(18, 317, 121, 'B', 36, -2);
 	select_page_diamond[22].Init(23, 505, 55, 'G');
-	select_page_diamond[30].Init(31, 485, 279, 'B');
-	select_page_diamond[31].Init(32, 554, 312, 'G');
+	select_page_diamond[30].Init(31, 485, 279, 'B', 35, -9);
 }
 
 void CGameStateRun::LoadSubPhase()
@@ -535,13 +648,20 @@ void CGameStateRun::SubPhase3ShowText()
 
 	CTextDraw::Print(pDC, 300, 257, "FAIL");
 
-	// 暫時
 	if (!is_sub3_retry_clicked)
 		CTextDraw::Print(pDC, 254, 300, "RETRY LEVEL");
 
 	if (!is_sub3_back_clicked)
 		CTextDraw::Print(pDC, 237, 334, "BACK TO MENU");
 
+	CDDraw::ReleaseBackCDC();
+}
+
+void CGameStateRun::CheatShowText()
+{
+	CDC *pDC = CDDraw::GetBackCDC();
+	CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+	CTextDraw::Print(pDC, 100, 1, "Cheat Mode");
 	CDDraw::ReleaseBackCDC();
 }
 
@@ -638,11 +758,14 @@ void CGameStateRun::Level1OnMove()
 	level1_rock.OnMove(boy_body, girl_body);
 
 	// water
-	for (auto & water : level1_water)
+	if (!cheat_flag)
 	{
-		sub_phase = water.OnMove(boy_body, girl_body);
-		if (sub_phase)
-			break;
+		for (auto & water : level1_water)
+		{
+			sub_phase = water.OnMove(boy_body, girl_body);
+			if (sub_phase)
+				break;
+		}
 	}
 
 	// door
@@ -652,9 +775,17 @@ void CGameStateRun::Level1OnMove()
 	{
 		if (red_diamond_counter == num_diamonds_each_level[0]["red_diamond"] &&
 			blue_diamond_counter == num_diamonds_each_level[0]["blue_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -749,9 +880,6 @@ void CGameStateRun::LoadLevel6()
 	level6_red_diamond[6].Init(263, 154);
 	level6_red_diamond[7].Init(407, 170);
 
-
-
-
 	level6_blue_diamond.fill(Diamond("blue"));
 	level6_blue_diamond[0].Init(199, 280);
 	level6_blue_diamond[1].Init(296, 280);
@@ -761,13 +889,6 @@ void CGameStateRun::LoadLevel6()
 	level6_blue_diamond[5].Init(550, 360);
 	level6_blue_diamond[6].Init(359, 347);
 	level6_blue_diamond[7].Init(215, 362);
-
-	
-	
-
-	
-
-	
 
 	// door init 
 	level6_door.fill(Door());
@@ -801,13 +922,15 @@ void CGameStateRun::Level6OnMove()
 	for (auto & diamond : level6_blue_diamond)
 		diamond.OnMove(girl_body, blue_diamond_counter);
 
-
 	// water
-	for (auto & water : level6_water)
+	if (!cheat_flag)
 	{
-		sub_phase = water.OnMove(boy_body, girl_body);
-		if (sub_phase)
-			break;
+		for (auto & water : level6_water)
+		{
+			sub_phase = water.OnMove(boy_body, girl_body);
+			if (sub_phase)
+				break;
+		}
 	}
 
 	// door
@@ -817,9 +940,17 @@ void CGameStateRun::Level6OnMove()
 	{
 		if (red_diamond_counter == num_diamonds_each_level[5]["red_diamond"] &&
 			blue_diamond_counter == num_diamonds_each_level[5]["blue_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -838,12 +969,10 @@ void CGameStateRun::Level6OnShow()
 	for (auto & diamond : level6_blue_diamond)
 		diamond.OnShow();
 
-
 	// door
 	for (auto & door : level6_door)
 		door.OnShow();
 
-	
 	// person
 	boy[5].OnShow();
 	girl[5].OnShow();
@@ -947,11 +1076,14 @@ void CGameStateRun::Level10OnMove()
 		platform.OnMove();
 
 	// water
-	for (auto & water : level10_water)
+	if (!cheat_flag)
 	{
-		sub_phase = water.OnMove(boy_body, girl_body);
-		if (sub_phase)
-			break;
+		for (auto & water : level10_water)
+		{
+			sub_phase = water.OnMove(boy_body, girl_body);
+			if (sub_phase)
+				break;
+		}
 	}
 
 	// door
@@ -961,9 +1093,17 @@ void CGameStateRun::Level10OnMove()
 	{
 		if (red_diamond_counter == num_diamonds_each_level[9]["red_diamond"] &&
 			blue_diamond_counter == num_diamonds_each_level[9]["blue_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -986,9 +1126,6 @@ void CGameStateRun::Level10OnShow()
 	for (auto & s : level10_switch)
 		s.OnShow();
 
-
-
-	
 	// platform
 	for (auto & platform : level10_platform)
 		platform.OnShow();
@@ -1022,6 +1159,7 @@ void CGameStateRun::ResetL10()
 	for (auto & platform : level10_platform)
 		platform.Reset();
 }
+
 //level 11
 void CGameStateRun::LoadLevel11()
 {
@@ -1035,51 +1173,39 @@ void CGameStateRun::LoadLevel11()
 	level11_bg.LoadBitmapByString({ LEVEL_11_BG });
 	level11_bg.SetTopLeft(0, 0);
 
-
-	//WATER
-	level1_water.fill(Water());
-	level1_water[0].Init(308, 279, 358, 285, 'B');
-	level1_water[1].Init(175, 358, 230, 367, 'B');
-	level1_water[2].Init(432, 340, 460, 349, 'R');
-	level1_water[3].Init(110, 436, 170, 445, 'R');
-
-
-
 	// diamond 
 	level11_green_diamond.fill(Diamond("green"));
 	level11_green_diamond[0].Init(70, 315);
 
 	// switch init 
 	level11_switch.fill(Switch());
-	level11_switch[0].Init(398, 328, 'R', &map[10], 'B');
+	level11_switch[0].Init(389, 325, 'R', &map[10], 'B');
 	level11_switch[1].Init(40, 435, 'R', &map[10], 'G');
 	
-
 	// button init 
 	level11_button.fill(Button());
-	level11_button[0].Init(250, 270, 'P');
+	level11_button[0].Init(251, 267, 'P');
 	
-
-	// platform init 
-	vector<Button *> temp_button_ptr_vector;
-	for (auto & button : level11_button)
-		temp_button_ptr_vector.push_back(&button);
-
+	// platform init
 	level11_platform.fill(Platform());
-	level11_platform[0].Init(455, 250, 500, 'R', 'P', &map[10]);
-	level11_platform[0].Bind(temp_button_ptr_vector);
-	level11_platform[1].Init(73, 247, 284, 'D', 'G', &map[10]);
+	level11_platform[0].Init(442, 247, 394, 'L', 'P', &map[10]);
+	level11_platform[0].Bind(&level11_button[0]);
+	level11_platform[1].Init(73, 246, 202, 'U', 'G', &map[10], 'V');
 	level11_platform[1].Bind(&level11_switch[1]);
-	level11_platform[2].Init(442, 379, 358, 'U', 'B', &map[10]);
+	level11_platform[2].Init(440, 374, 422, 'D', 'B', &map[10], 'V');
 	level11_platform[2].Bind(&level11_switch[0]);
 	
-	
-
+	// water
+	level11_water.fill(Water());
+	level11_water[0].Init(308, 279, 358, 285, 'B');
+	level11_water[1].Init(175, 358, 230, 367, 'B');
+	level11_water[2].Init(432, 340, 460, 349, 'R');
+	level11_water[3].Init(110, 436, 170, 445, 'R');
 
 	// door init 
 	level11_door.fill(Door());
-	level11_door[0].Init(554, 407, 'B');
-	level11_door[1].Init(79, 338, 'R');
+	level11_door[0].Init(551, 403, 'B');
+	level11_door[1].Init(214, 403, 'R');
 }
 
 void CGameStateRun::Level11OnMove()
@@ -1106,17 +1232,34 @@ void CGameStateRun::Level11OnMove()
 	for (auto & platform : level11_platform)
 		platform.OnMove();
 
-	
+	// water
+	if (!cheat_flag)
+	{
+		for (auto & water : level11_water)
+		{
+			sub_phase = water.OnMove(boy_body, girl_body);
+			if (sub_phase)
+				break;
+		}
+	}
 
 	// door
 	bool door0_is_triggered = level11_door[0].OnMove(boy_body, girl_body);
 	bool door1_is_triggered = level11_door[1].OnMove(boy_body, girl_body);
 	if (door0_is_triggered && door1_is_triggered)
 	{
-		if (green_counter == num_diamonds_each_level[11]["g_diamond"])	// 破關
+		if (green_counter == num_diamonds_each_level[10]["g_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -1149,7 +1292,6 @@ void CGameStateRun::Level11OnShow()
 	for (auto & door : level11_door)
 		door.OnShow();
 
-	
 	// person
 	boy[10].OnShow();
 	girl[10].OnShow();
@@ -1175,9 +1317,8 @@ void CGameStateRun::ResetL11()
 	// platform
 	for (auto & platform : level11_platform)
 		platform.Reset();
-
-
 }
+
 // Level 13
 void CGameStateRun::LoadLevel13()
 {
@@ -1224,7 +1365,7 @@ void CGameStateRun::LoadLevel13()
 	level13_platform[3].Bind(&level13_switch[3]);
 	level13_platform[4].Init(537, 56, 506, 'L', 'P', &map[12]);
 	level13_platform[4].Bind(&level13_switch[4]);
-	level13_platform[5].Init(26, 248, 296, 'D', 'Y', &map[12]);
+	level13_platform[5].Init(439, 327, 264, 'U', 'Y', &map[12], 'V', 'L');
 	level13_platform[5].Bind(temp_button_ptr_vector);
 
 	// rock
@@ -1274,9 +1415,17 @@ void CGameStateRun::Level13OnMove()
 	if (door0_is_triggered && door1_is_triggered)
 	{
 		if (green_counter == num_diamonds_each_level[12]["g_diamond"] )	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -1457,9 +1606,17 @@ void CGameStateRun::Level15OnMove()
 	{
 		if (red_diamond_counter == num_diamonds_each_level[14]["red_diamond"] &&
 			blue_diamond_counter == num_diamonds_each_level[14]["blue_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -1601,11 +1758,14 @@ void CGameStateRun::Level16OnMove()
 		platform.OnMove();
 
 	// water
-	for (auto & water : level16_water)
+	if (!cheat_flag)
 	{
-		sub_phase = water.OnMove(boy_body, girl_body);
-		if (sub_phase)
-			break;
+		for (auto & water : level16_water)
+		{
+			sub_phase = water.OnMove(boy_body, girl_body);
+			if (sub_phase)
+				break;
+		}
 	}
 
 	// door
@@ -1615,9 +1775,17 @@ void CGameStateRun::Level16OnMove()
 	{
 		if (red_diamond_counter == num_diamonds_each_level[15]["red_diamond"] &&
 			blue_diamond_counter == num_diamonds_each_level[15]["blue_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -1674,19 +1842,18 @@ void CGameStateRun::ResetL16()
 		platform.Reset();
 }
 
-//LEVEL 17
-
+// Level 17
 void CGameStateRun::LoadLevel17()
 {
 	// person
-	boy[16].Init(70, 420, "boy");
-	girl[16].Init(515, 38, "girl");
+	boy[16].Init(68, 413, "boy");
+	girl[16].Init(516, 35, "girl");
 	boy[16].SetMap(&map[16]);
 	girl[16].SetMap(&map[16]);
 
 	// background
-	level13_bg.LoadBitmapByString({ LEVEL_17_BG });
-	level13_bg.SetTopLeft(0, 0);
+	level17_bg.LoadBitmapByString({ LEVEL_17_BG });
+	level17_bg.SetTopLeft(0, 0);
 
 	// diamond 
 	level17_green_diamond.fill(Diamond("green"));
@@ -1700,25 +1867,21 @@ void CGameStateRun::LoadLevel17()
 	level17_switch[3].Init(360, 65, 'R', &map[16], 'G');
 	level17_switch[4].Init(285, 87, 'R', &map[16], 'P');
 
-	
-
-	// platform init 
-	
-
+	// platform init
 	level17_platform.fill(Platform());
 	level17_platform[0].Init(422, 201, 359, 'L', 'W', &map[16]);
 	level17_platform[0].Bind(&level17_switch[0]);
 	level17_platform[1].Init(361, 331, 294, 'L', 'W', &map[16]);
 	level17_platform[1].Bind(&level17_switch[0]);
-	level17_platform[2].Init(200,265, 200, 'U', 'W', &map[16]);
+	level17_platform[2].Init(200, 260, 200, 'U', 'W', &map[16]);
 	level17_platform[2].Bind(&level17_switch[0]);
-	level17_platform[3].Init(200, 200, 139, 'U', 'W', &map[16]);
+	level17_platform[3].Init(200, 194, 139, 'U', 'W', &map[16]);
 	level17_platform[3].Bind(&level17_switch[0]);
-	level17_platform[4].Init(74, 136, 202, 'D', 'G', &map[16]);
+	level17_platform[4].Init(74, 136, 195, 'D', 'G', &map[16]);
 	level17_platform[4].Bind(&level17_switch[3]);
 	level17_platform[5].Init(246, 282, 180, 'L', 'G', &map[16],'V');
 	level17_platform[5].Bind(&level17_switch[3]);
-	level17_platform[6].Init(487, 329, 266, 'U', 'G', &map[16]);
+	level17_platform[6].Init(487, 323, 266, 'U', 'G', &map[16]);
 	level17_platform[6].Bind(&level17_switch[3]);
 	level17_platform[7].Init(474, 215, 338, 'L', 'P', &map[16],'V');
 	level17_platform[7].Bind(&level17_switch[4]);
@@ -1729,14 +1892,10 @@ void CGameStateRun::LoadLevel17()
 	level17_platform[10].Init(247, 24, 73, 'D', 'B', &map[16],'V');
 	level17_platform[10].Bind(&level17_switch[1]);
 
-	
-
-	
-
 	// door init 
-	level13_door.fill(Door());
-	level13_door[0].Init(43, 25, 'R');
-	level13_door[1].Init(90, 25, 'B');
+	level17_door.fill(Door());
+	level17_door[0].Init(43, 18, 'R');
+	level17_door[1].Init(90, 18, 'B');
 }
 
 void CGameStateRun::Level17OnMove()
@@ -1755,13 +1914,9 @@ void CGameStateRun::Level17OnMove()
 	for (auto & s : level17_switch)
 		s.OnMove(boy_body, girl_body);
 
-	
-
 	// platform
 	for (auto & platform : level17_platform)
 		platform.OnMove();
-
-	
 
 	// door
 	bool door0_is_triggered = level17_door[0].OnMove(boy_body, girl_body);
@@ -1769,9 +1924,17 @@ void CGameStateRun::Level17OnMove()
 	if (door0_is_triggered && door1_is_triggered)
 	{
 		if (green_counter == num_diamonds_each_level[16]["g_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -1792,8 +1955,6 @@ void CGameStateRun::Level17OnShow()
 	for (auto & s : level17_switch)
 		s.OnShow();
 
-	
-
 	// platform
 	for (auto & platform : level17_platform)
 		platform.OnShow();
@@ -1802,7 +1963,6 @@ void CGameStateRun::Level17OnShow()
 	for (auto & door : level17_door)
 		door.OnShow();
 
-	
 	// person
 	boy[16].OnShow();
 	girl[16].OnShow();
@@ -1821,13 +1981,9 @@ void CGameStateRun::ResetL17()
 	for (auto & s : level17_switch)
 		s.Reset();
 
-	
-
 	// platform
 	for (auto & platform : level17_platform)
 		platform.Reset();
-
-	
 }
 
 // Level 18
@@ -1926,11 +2082,14 @@ void CGameStateRun::Level18OnMove()
 		platform.OnMove();
 
 	// water
-	for (auto & water : level18_water)
+	if (!cheat_flag)
 	{
-		sub_phase = water.OnMove(boy_body, girl_body);
-		if (sub_phase)
-			break;
+		for (auto & water : level18_water)
+		{
+			sub_phase = water.OnMove(boy_body, girl_body);
+			if (sub_phase)
+				break;
+		}
 	}
 
 	// door
@@ -1940,9 +2099,17 @@ void CGameStateRun::Level18OnMove()
 	{
 		if (red_diamond_counter == num_diamonds_each_level[0]["red_diamond"] &&
 			blue_diamond_counter == num_diamonds_each_level[0]["blue_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -2007,16 +2174,14 @@ void CGameStateRun::ResetL18()
 		platform.Reset();
 }
 
-
-//LEVEL 23
-
+// Level 23
 void CGameStateRun::LoadLevel23()
 {
 	// person
-	boy[22].Init(100, 36, "boy");
-	girl[22].Init(133, 36, "girl");
+	boy[22].Init(100, 28, "boy");
+	girl[22].Init(132, 34, "girl");
 	boy[22].SetMap(&map[22]);
-	girl[23].SetMap(&map[22]);
+	girl[22].SetMap(&map[22]);
 
 	// background
 	level23_bg.LoadBitmapByString({ LEVEL_23_BG });
@@ -2032,13 +2197,10 @@ void CGameStateRun::LoadLevel23()
 	
 	// button init 
 	level23_button.fill(Button());
-	level23_button[0].Init(100, 265, 'P');
-	level23_button[1].Init(272, 439, 'G');
+	level23_button[0].Init(100, 268, 'P');
+	level23_button[1].Init(275, 443, 'G');
 
-
-	// platform init 
-
-
+	// platform init
 	level23_platform.fill(Platform());
 	level23_platform[0].Init(550, 346, 395, 'D', 'W', &map[22],'V');
 	level23_platform[0].Bind(&level23_switch[0]);
@@ -2047,32 +2209,30 @@ void CGameStateRun::LoadLevel23()
 	level23_platform[2].Init(263, 409, 203, 'L', 'P', &map[22]);
 	level23_platform[2].Bind(&level23_button[0]);
 	
-
-	//WATER
+	// water
 	level23_water.fill(Water());
-	level23_water[0].Init(496, 83, 543, 95, 'B');
-	level23_water[1].Init(544, 180, 576, 188, 'B');
-	level23_water[2].Init(465, 164, 493, 175, 'B');
+	level23_water[0].Init(492, 88, 546, 94, 'B');
+	level23_water[1].Init(541, 184, 578, 190, 'B');
+	level23_water[2].Init(460, 168, 499, 175, 'B');
 	level23_water[3].Init(78, 215, 112, 225, 'B');
-	level23_water[4].Init(465, 164, 493, 175, 'B');
+	level23_water[4].Init(43, 423, 147, 430, 'B');
 	level23_water[5].Init(258, 150, 378, 160, 'G');
-	level23_water[6].Init(401, 439, 476, 449, 'G');
-	level23_water[7].Init(413, 245, 433, 255, 'R');
-
+	level23_water[6].Init(396, 439, 481, 446, 'G');
+	level23_water[7].Init(413, 247, 433, 255, 'R');
 
 	// door init 
 	level23_door.fill(Door());
-	level23_door[0].Init(517, 219, 'R');
+	level23_door[0].Init(513, 210, 'R');
 	level23_door[1].Init(567, 408, 'B');
 }
 
 void CGameStateRun::Level23OnMove()
 {
-	boy[23].OnMove();
-	girl[23].OnMove();
+	boy[22].OnMove();
+	girl[22].OnMove();
 
-	CRect boy_body = boy[23].GetBody();
-	CRect girl_body = girl[23].GetBody();
+	CRect boy_body = boy[22].GetBody();
+	CRect girl_body = girl[22].GetBody();
 
 	// diamond
 	for (auto & diamond : level23_green_diamond)
@@ -2091,11 +2251,14 @@ void CGameStateRun::Level23OnMove()
 		platform.OnMove();
 
 	// water
-	for (auto & water : level23_water)
+	if (!cheat_flag)
 	{
-		sub_phase = water.OnMove(boy_body, girl_body);
-		if (sub_phase)
-			break;
+		for (auto & water : level23_water)
+		{
+			sub_phase = water.OnMove(boy_body, girl_body);
+			if (sub_phase)
+				break;
+		}
 	}
 
 	// door
@@ -2104,9 +2267,17 @@ void CGameStateRun::Level23OnMove()
 	if (door0_is_triggered && door1_is_triggered)
 	{
 		if (green_counter == num_diamonds_each_level[22]["g_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 
@@ -2139,7 +2310,6 @@ void CGameStateRun::Level23OnShow()
 	for (auto & door : level23_door)
 		door.OnShow();
 
-
 	// person
 	boy[22].OnShow();
 	girl[22].OnShow();
@@ -2165,8 +2335,6 @@ void CGameStateRun::ResetL23()
 	// platform
 	for (auto & platform : level23_platform)
 		platform.Reset();
-
-
 }
 
 // Level 31
@@ -2257,11 +2425,14 @@ void CGameStateRun::Level31OnMove()
 		platform.OnMove();
 
 	// water
-	for (auto & water : level31_water)
+	if (!cheat_flag)
 	{
-		sub_phase = water.OnMove(boy_body, girl_body);
-		if (sub_phase)
-			break;
+		for (auto & water : level31_water)
+		{
+			sub_phase = water.OnMove(boy_body, girl_body);
+			if (sub_phase)
+				break;
+		}
 	}
 
 	// door
@@ -2271,9 +2442,17 @@ void CGameStateRun::Level31OnMove()
 	{
 		if (red_diamond_counter == num_diamonds_each_level[30]["red_diamond"] &&
 			blue_diamond_counter == num_diamonds_each_level[30]["blue_diamond"])	// 破關
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FINISH);
 			sub_phase = 2;
+		}
 		else				// 寶石沒吃完
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_FAIL);
 			sub_phase = 3;
+		}
 	}
 }
 

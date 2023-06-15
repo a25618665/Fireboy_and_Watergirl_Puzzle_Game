@@ -28,6 +28,7 @@ void Platform::Init(int x, int y, int end, char defult_direction, char color, ar
 	this->len = len;
 	ptr_map = map;
 	ptr_switch = nullptr;
+	is_moving = false;
 
 	if (plat_dir == 'H')
 	{
@@ -153,6 +154,29 @@ void Platform::Reset()
 
 void Platform::OnMove()
 {
+	// is_moving
+	bool old_is_moving = is_moving;
+	switch (defult_direction)
+	{
+	case 'L':
+		is_moving = (x > end && x < original_x) ? true : false;
+		break;
+	case 'R':
+		is_moving = (x > original_x && x < end) ? true : false;
+		break;
+	case 'U':
+		is_moving = (y > end && y < original_y) ? true : false;
+		break;
+	case 'D':
+		is_moving = (y > original_y && y < end) ? true : false;
+		break;
+	}
+	// sound
+	if (!old_is_moving && is_moving)
+		CAudio::Instance()->Play(A_PLAT, true);
+	else if (old_is_moving && !is_moving)
+		CAudio::Instance()->Stop(A_PLAT);
+
 	if (ptr_switch)							// 當platform是bind switch時
 	{
 		PlatformOnMove( ptr_switch->IsTriggered() );

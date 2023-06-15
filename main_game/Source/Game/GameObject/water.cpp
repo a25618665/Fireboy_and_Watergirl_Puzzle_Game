@@ -34,15 +34,27 @@ int Water::OnMove(const CRect & boy_body, const CRect & girl_body)
 	{
 	case 'R':
 		if (girl_is_overlap)
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_DIE);
 			return 1;
+		}
 		break;
 	case 'B':
 		if (boy_is_overlap)
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_DIE);
 			return 1;
+		}
 		break;
 	case 'G':
 		if (boy_is_overlap || girl_is_overlap)
+		{
+			CAudio::Instance()->Stop(A_PLAY);
+			CAudio::Instance()->Play(A_DIE);
 			return 1;
+		}
 		break;
 	}
 	return 0;
