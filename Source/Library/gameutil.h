@@ -70,7 +70,7 @@
 #include <list>
 #include <vector>
 #include <map>
-#include<string>
+#include <string>
 using namespace std;
 
 namespace game_framework {
