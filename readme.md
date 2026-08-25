@@ -1,5 +1,11 @@
 # Fireboy & Watergirl: The Forest Temple
 
+
+[![Windows Build](https://github.com/a25618665/C-_game_watergirl_fireboy-_/actions/workflows/windows-build.yml/badge.svg)](https://github.com/a25618665/C-_game_watergirl_fireboy-_/actions/workflows/windows-build.yml)
+
+
+
+
 A two-character cooperative puzzle game developed in C++ and Microsoft Foundation Classes (MFC), featuring custom collision detection, gravity, interactive mechanisms, and data-driven level configuration.
 
 ![Two-character cooperative puzzle gameplay](docs/gameplay_demo_play.png)
