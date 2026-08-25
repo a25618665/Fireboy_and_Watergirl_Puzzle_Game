@@ -1,5 +1,57 @@
-# Fireboy & Watergirl in The Forest Temple
+# Fireboy & Watergirl: The Forest Temple
 
-It is a replica game of Fireboy & Watergirl base on Leistungsstarkes Game Framework.
+A two-character cooperative puzzle game developed in C++ and Microsoft Foundation Classes (MFC), featuring custom collision detection, gravity, interactive mechanisms, and data-driven level configuration.
 
-Author: Fu Lien, Yen-Te Liu 2023
+![Two-character cooperative puzzle gameplay](docs/gameplay_demo_play.png)
+
+*Cooperative gameplay featuring character-specific movement, collectibles, switches, doors, and moving platforms.*
+
+## Project Overview
+
+This university project recreates the cooperative puzzle mechanics of *Fireboy & Watergirl* using the Leistungsstarkes Game Framework. Players coordinate two characters with different controls to collect diamonds, activate mechanisms, avoid hazards, and reach their respective exits.
+
+## Screenshots
+
+| Main menu | Level selection |
+|---|---|
+| ![Game main menu](docs/gameplay_demo_menu.png) | ![Level-selection interface](docs/gameplay_demo_levels.png) |
+
+## Technical Highlights
+
+| Project scale | Implementation |
+|---|---|
+| **11** playable puzzle levels | **13** C++/MFC classes |
+| **277** configured gameplay instances | **26** source files |
+| **3** application states | Initialization, gameplay, and game-over |
+
+- **Architecture:** Organized the game around three application states and reusable gameplay components for characters, hazards, collectibles, switches, doors, rocks, and moving platforms.
+- **Game systems:** Implemented `CRect` intersection-based collision detection, gravity, movable-rock physics, and dynamic switch/button-to-platform interactions.
+- **Data structures:** Used `std::array` for fixed-size level and collision data, `std::vector` for trigger-to-platform bindings, and `std::map` for character-specific collectible counters.
+
+Controls
+
+| Character/action | Control |
+|---|---|
+| Fireboy movement | Left/Right arrow keys |
+| Fireboy jump | Up arrow |
+| Watergirl movement | A/D |
+| Watergirl jump | W |
+| Return to level selection | M |
+| Menu and level selection | Mouse |
+
+## Authors
+
+Fu Lien and Yen-Te Liu, 2023
+
+## My Contributions
+
+- Designed reusable C++ gameplay components and connected level data,
+  trigger bindings, and collectible counters through STL containers.
+- Implemented rectangle-based collision detection, gravity, movable-rock
+  behavior, and dynamic platform interactions.
+- Configured and validated 11 puzzle levels containing 277 gameplay
+  instances and 11 collision maps.
+
+## Attribution
+
+This non-commercial university project was created for educational purposes and is not affiliated with the publisher of the original *Fireboy & Watergirl* game.
