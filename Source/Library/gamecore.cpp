@@ -14,7 +14,6 @@
 #include "../Game/config.h"
 #include "../Game/mygame.h"
 #include <comdef.h>
-//using namespace std::experimental::filesystem::v1;
 
 
 namespace game_framework {
