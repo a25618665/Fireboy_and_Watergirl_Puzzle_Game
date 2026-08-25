@@ -1,0 +1,69 @@
+﻿  game.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\core\game.cpp(29): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  gameDoc.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\core\gamedoc.cpp(22): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  gameView.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\core\gameview.cpp(29): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  MainFrm.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\core\mainfrm.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\core\mainfrm.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\core\mainfrm.cpp(30): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  StdAfx.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\core\stdafx.cpp(5): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  button.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\button.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  diamond.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\diamond.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  door.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\door.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  person.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\person.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\person.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\person.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  platform.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\platform.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\platform.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\platform.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  rock.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\rock.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\rock.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\rock.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  selectpagediamond.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\selectpagediamond.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\selectpagediamond.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\selectpagediamond.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  switch.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\switch.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\switch.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\switch.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  timer.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\timer.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  water.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\gameobject\water.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  mygame_initialize.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\mygame_initialize.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\mygame_initialize.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\mygame_initialize.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  mygame_over.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\mygame_over.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\mygame_over.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\mygame_over.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  mygame_run.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\mygame_run.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\mygame_run.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\game\mygame_run.cpp(1): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  audio.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\library\audio.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\library\audio.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\library\audio.cpp(51): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  gamecore.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\library\gamecore.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\library\gamecore.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\library\gamecore.cpp(2): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  正在產生程式碼...
+  正在編譯...
+  gameutil.cpp
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\library\gameutil.cpp(1): error C2220: 將警告視為錯誤處理 - 沒有產生 'object' 檔案
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\library\gameutil.cpp(1): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\學\大三\下\c++\109820020\fireboy__watergirl_foresttemple\source\library\gameutil.cpp(2): fatal error C1083: 無法開啟先行編譯標頭檔檔案: '.\Release/game.pch': No such file or directory
+  正在產生程式碼...
