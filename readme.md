@@ -20,8 +20,8 @@ This university project recreates the cooperative puzzle mechanics of *Fireboy &
 
 | Project scale | Implementation |
 |---|---|
-| **11** playable puzzle levels | **13** C++/MFC classes |
-| **277** configured gameplay instances | **26** source files |
+| **11** playable puzzle levels | **14** C++/MFC classes |
+| **277** configured gameplay instances | **28** source files |
 | **3** application states | Initialization, gameplay, and game-over |
 
 - **Architecture:** Organized the game around three application states and reusable gameplay components for characters, hazards, collectibles, switches, doors, rocks, and moving platforms.
