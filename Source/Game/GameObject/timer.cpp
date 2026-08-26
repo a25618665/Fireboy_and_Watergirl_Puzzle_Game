@@ -38,7 +38,7 @@ namespace game_framework {
 
 	void timer_showtext::show_as_text(int  text , int x ,int y) {
 		CDC *pDC = CDDraw::GetBackCDC();
-		CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+		CTextDraw::ChangeFontLog(pDC, 20, "Cinzel", RGB(255, 218, 0), 800);
 		CTextDraw::Print(pDC, x, y, std::to_string(text));
 		CDDraw::ReleaseBackCDC();
 		
@@ -48,7 +48,7 @@ namespace game_framework {
 	{
 
 		CDC *pDC = CDDraw::GetBackCDC();
-		CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+		CTextDraw::ChangeFontLog(pDC, 20, "Cinzel", RGB(255, 218, 0), 800);
 		CTextDraw::Print(pDC, x, y, text);
 		CDDraw::ReleaseBackCDC();
 
@@ -65,7 +65,7 @@ namespace game_framework {
 			":" + (second >= 10 ? to_string(second) : ("0" + to_string(second)));
 
 		CDC *pDC = CDDraw::GetBackCDC();
-		CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+		CTextDraw::ChangeFontLog(pDC, 20, "Cinzel", RGB(255, 218, 0), 800);
 		CTextDraw::Print(pDC, x, y, time_str);
 		CDDraw::ReleaseBackCDC();
 	}
