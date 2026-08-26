@@ -61,3 +61,9 @@ Fu Lien and Yen-Te Liu, 2023
 ## Attribution
 
 This non-commercial university project was created for educational purposes and is not affiliated with the publisher of the original *Fireboy & Watergirl* game.
+
+Framework licensing, third-party notices, and the current asset-clearance
+status are documented in [Third-Party Notices and Asset Provenance](THIRD_PARTY_NOTICES.md).
+The bundled Cinzel font is distributed under the SIL Open Font License 1.1.
+Because the repository does not yet establish redistribution rights for every
+remaining image and audio file, no public binary release is currently provided.
