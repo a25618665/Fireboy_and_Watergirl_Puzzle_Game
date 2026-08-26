@@ -1,4 +1,4 @@
-# Fireboy & Watergirl: The Forest Temple
+# Fireboy & Watergirl Replicate : The Forest Temple
 
 
 [![Windows Build](https://github.com/a25618665/C-_game_watergirl_fireboy-_/actions/workflows/windows-build.yml/badge.svg)](https://github.com/a25618665/C-_game_watergirl_fireboy-_/actions/workflows/windows-build.yml)
