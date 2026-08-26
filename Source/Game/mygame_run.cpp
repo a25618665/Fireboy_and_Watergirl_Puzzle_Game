@@ -593,7 +593,7 @@ void CGameStateRun::SubPhase2ShowText()
 				 ":" + (second >= 10 ? to_string(second) : ("0" + to_string(second)));
 
 	CDC *pDC = CDDraw::GetBackCDC();
-	CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+	CTextDraw::ChangeFontLog(pDC, 20, "Cinzel", RGB(255, 218, 0), 800);
 
 	CTextDraw::Print(pDC, 250, 142, "TIME   " + time_str);
 
@@ -626,7 +626,7 @@ void CGameStateRun::SubPhase3ShowText()
 		":" + (second >= 10 ? to_string(second) : ("0" + to_string(second)));
 
 	CDC *pDC = CDDraw::GetBackCDC();
-	CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+	CTextDraw::ChangeFontLog(pDC, 20, "Cinzel", RGB(255, 218, 0), 800);
 
 	CTextDraw::Print(pDC, 250, 142, "TIME   " + time_str);
 
@@ -650,7 +650,7 @@ void CGameStateRun::SubPhase3ShowText()
 void CGameStateRun::CheatShowText()
 {
 	CDC *pDC = CDDraw::GetBackCDC();
-	CTextDraw::ChangeFontLog(pDC, 20, "Trajan Pro", RGB(255, 218, 0), 800);
+	CTextDraw::ChangeFontLog(pDC, 20, "Cinzel", RGB(255, 218, 0), 800);
 	CTextDraw::Print(pDC, 100, 1, "Cheat Mode");
 	CDDraw::ReleaseBackCDC();
 }
