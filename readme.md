@@ -1,10 +1,6 @@
 # Fireboy & Watergirl: The Forest Temple
 
-
-[![Windows Build](https://github.com/a25618665/C-_game_watergirl_fireboy-_/actions/workflows/windows-build.yml/badge.svg)](https://github.com/a25618665/C-_game_watergirl_fireboy-_/actions/workflows/windows-build.yml)
-
-
-
+[![Windows Build](https://github.com/a25618665/Fireboy_and_Watergirl_Puzzle_Game/actions/workflows/windows-build.yml/badge.svg)](https://github.com/a25618665/Fireboy_and_Watergirl_Puzzle_Game/actions/workflows/windows-build.yml)
 
 A two-character cooperative puzzle game developed in C++ and Microsoft Foundation Classes (MFC), featuring custom collision detection, gravity, interactive mechanisms, and data-driven level configuration.
 
@@ -33,8 +29,10 @@ This university project recreates the cooperative puzzle mechanics of *Fireboy &
 - **Architecture:** Organized the game around three application states and reusable gameplay components for characters, hazards, collectibles, switches, doors, rocks, and moving platforms.
 - **Game systems:** Implemented `CRect` intersection-based collision detection, gravity, movable-rock physics, and dynamic switch/button-to-platform interactions.
 - **Data structures:** Used `std::array` for fixed-size level and collision data, `std::vector` for trigger-to-platform bindings, and `std::map` for character-specific collectible counters.
+- **Spatial lookup:** Loaded 11 precomputed collision maps containing 3,379,200 cells for direct spatial lookup, avoiding repeated bitmap-based collision checks during gameplay.
+- **Continuous integration:** Automated Debug and Release Win32 builds with GitHub Actions on Windows.
 
-Controls
+## Controls
 
 | Character/action | Control |
 |---|---|
@@ -44,6 +42,10 @@ Controls
 | Watergirl jump | W |
 | Return to level selection | M |
 | Menu and level selection | Mouse |
+
+## Release
+
+A verified Win32 build is available from [GitHub Releases](https://github.com/a25618665/Fireboy_and_Watergirl_Puzzle_Game/releases/tag/v1.0.0). Download and extract the complete archive, then keep the `Resources` folder beside `game.exe` when running the game.
 
 ## Authors
 
@@ -65,5 +67,3 @@ This non-commercial university project was created for educational purposes and 
 Framework licensing, third-party notices, and the current asset-clearance
 status are documented in [Third-Party Notices and Asset Provenance](THIRD_PARTY_NOTICES.md).
 The bundled Cinzel font is distributed under the SIL Open Font License 1.1.
-Because the repository does not yet establish redistribution rights for every
-remaining image and audio file, no public binary release is currently provided.
