@@ -33,7 +33,7 @@
 #define GREEN_PASS							"Resources/game_run/subphase/2/green_p.bmp"
 #define GREEN_FAIL							"Resources/game_run/subphase/2/green_f.bmp"
 // fonts
-#define FONTS								"Resources/font/Trajan Pro.ttf"
+#define FONTS								"Resources/font/Cinzel[wght].ttf"
 // map
 #define MAP_TEMPLATE						"Resources/game_run/map/.map/map"
 // level bg

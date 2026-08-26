@@ -55,25 +55,27 @@ characters, visual design, or other recognizable material.
 
 ## Asset inventory and evidence status
 
-The repository contains 177 resource files totaling approximately 23.19 MiB:
+The repository contains 178 resource files totaling approximately 23.25 MiB:
 
 | Location | Files | Contents | Provenance status |
 |---|---:|---|---|
 | `Resources/game_run/` | 147 | Gameplay bitmaps, 11 collision maps, and two checkpoint-data files | Unverified: the report describes preprocessing and level construction but does not map each source asset to a creator or license. |
 | `Resources/sounds/` | 12 | Menu, level, completion, failure, death, button, collectible, door, jump, platform, and switch audio | Unverified: the report lists these filenames and records audio production, but supplies no per-file source or license. |
 | `Resources/game_menu/` | 11 | Menu/interface bitmaps and four additional audio files | Unverified: no per-file source or license is recorded. |
-| `Resources/font/` | 1 | `Trajan Pro.ttf` | Unverified: no font license or redistribution permission is included. |
+| `Resources/font/` | 2 | `Cinzel[wght].ttf` and `OFL.txt` | Verified: Copyright 2020 The Cinzel Project Authors; licensed under the SIL Open Font License 1.1 and obtained from the official [Google Fonts repository](https://github.com/google/fonts/tree/main/ofl/cinzel). |
 | `Resources/` root | 6 | MFC/UI icons, cursor, bitmaps, and `GAME.RC2` | Unverified: no per-file source or license is recorded. |
 
 The inventory contains 143 BMP files, 11 MAP files, 11 MP3 files, 5 WAV files,
-2 ICO files, 2 TXT files, 1 CUR file, 1 RC2 file, and 1 TTF file. No asset
+2 ICO files, 3 TXT files, 1 CUR file, 1 RC2 file, and 1 TTF file. Cinzel's
+copyright notice and complete OFL license are included beside the font. No
 license, credits file, source URL, purchase record, or written permission was
-found in the repository. An educational or non-commercial statement is not a
-substitute for provenance or a redistribution license.
+found for the remaining media assets. An educational or non-commercial
+statement is not a substitute for provenance or a redistribution license.
 
 ## Binary-release decision
 
-**Status: hold public binary publication pending asset clearance.**
+**Status: font cleared; hold public binary publication pending clearance of the
+remaining media assets.**
 
 A playable release must ship the external `Resources` directory beside the
 executable, so publishing the binary would also redistribute the 177 files
